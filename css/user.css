@@ -1,0 +1,91 @@
+.warna1 {
+    background-color: #3674B5;
+}
+
+.warna2 {
+    background-color: #578FCA;
+}
+
+.warna3 {
+    background-color: #A1E3F9;
+}
+
+.warna4 {
+    background-color: #D1F8EF;
+}
+
+.banner-home {
+    height: 80vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/banner.jpg');
+}
+
+.highlight {
+    height: 250px;
+}
+
+.kategori-pc {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/pc.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.kategori-monitor {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/monitor.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.kategori-peripheral {
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/peripheral.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.no-decoration {
+    text-decoration: none!important;
+    color: #A1E3F9;
+}
+
+.no-decoration:hover {
+    color: #3674B5;
+}
+
+.text-harga {
+    font-size: 20px;
+    color: #3674B5;
+}
+
+.image-box {
+    height: 250px;
+}
+
+.image-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}   
+
+.banner-tampilan {
+    height: 35vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/product.jpg');
+    background-position: 70% 80%;
+}
+
+.button {
+    background-color: #578FCA;
+    color: white;
+}
+  
+.button:hover {
+    background-color: white; 
+    color: #3674B5; 
+    border: 2px solid #578FCA;
+}
+
+.produk-terkait {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
