@@ -139,7 +139,7 @@ function generateRandomString($length = 10)
 
                     if ($queryCreate) {
                     ?>
-                        <div class="p-3 mb-2 bg-info text-white">Kategori berhasil ditambah</div>
+                        <div class="p-3 mb-2 bg-info text-white">Produk berhasil ditambah</div>
                         <meta http-equiv="refresh" content="1">
                     <?php
                     } else {
