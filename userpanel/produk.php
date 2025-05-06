@@ -1,10 +1,24 @@
 <?php
+session_start();
 require "../koneksi.php";
 
 $queryKategori = mysqli_query($conn, "SELECT * FROM kategori");
 
+// Store search history in session
 if (isset($_GET['keyword'])) {
-    $queryProduk = mysqli_query($conn, "SELECT * FROM produk WHERE nama LIKE '%$_GET[keyword]%'");
+    $keyword = $_GET['keyword'];
+    if (!isset($_SESSION['search_history'])) {
+        $_SESSION['search_history'] = [];
+    }
+    // Add keyword to search history if not already present
+    if (!in_array($keyword, $_SESSION['search_history'])) {
+        array_unshift($_SESSION['search_history'], $keyword);
+        // Limit history to last 10 searches
+        if (count($_SESSION['search_history']) > 10) {
+            array_pop($_SESSION['search_history']);
+        }
+    }
+    $queryProduk = mysqli_query($conn, "SELECT * FROM produk WHERE nama LIKE '%$keyword%'");
 } elseif (isset($_GET['kategori'])) {
     $queryGetKategori = mysqli_query($conn, "SELECT id_kategori FROM kategori WHERE nama='$_GET[kategori]'");
     $kategoriId = mysqli_fetch_array($queryGetKategori);

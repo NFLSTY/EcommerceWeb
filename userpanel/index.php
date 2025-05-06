@@ -1,5 +1,5 @@
 <?php
-require "session.php";
+require "../adminpanel/session.php";
 require "../koneksi.php";
 $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail FROM produk LIMIT 6");
 ?>
