@@ -6,10 +6,10 @@
                     <a class="nav-link text-white" href="../adminpanel/">Home</a>
                 </li>
                 <li class="nav-item me-4">
-                    <a class="nav-link text-white" href="kategori.php">Kategori</a>
+                    <a class="nav-link text-white" href="category.php">Category</a>
                 </li>
                 <li class="nav-item me-4">
-                    <a class="nav-link text-white" href="produk.php">Produk</a>
+                    <a class="nav-link text-white" href="product.php">Product</a>
                 </li>
                 <li class="nav-item me-4">
                     <a class="nav-link text-white" href="logout.php">Logout</a>

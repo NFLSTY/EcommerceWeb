@@ -9,7 +9,7 @@ require "../koneksi.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Admin</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
 </head>
 
@@ -62,12 +62,12 @@ require "../koneksi.php";
                         header('location: index.php');
                     } else {
                         ?>
-                        <div class="p-3 mb-2 bg-danger text-white mt-3">Username atau Password salah!</div>
+                        <div class="p-3 mb-2 bg-danger text-white mt-3">Wrong Username or Password!</div>
                         <?php
                     }
                 } else {
                     ?>
-                    <div class="p-3 mb-2 bg-warning text-dark mt-3">Akun tidak ditemukan!</div>
+                    <div class="p-3 mb-2 bg-warning text-dark mt-3">Account not found!</div>
                     <?php
                 }
             }
