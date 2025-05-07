@@ -27,18 +27,33 @@
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/pc.jpeg');
     background-size: cover;
     background-position: center;
+    transition: transform 0.3s;
+}
+
+.kategori-pc:hover {
+    transform: scale(1.1);
 }
 
 .kategori-monitor {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/monitor.jpeg');
     background-size: cover;
     background-position: center;
+    transition: transform 0.3s;
+}
+
+.kategori-monitor:hover {
+    transform: scale(1.1);
 }
 
 .kategori-peripheral {
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/peripheral.jpg');
     background-size: cover;
     background-position: center;
+    transition: transform 0.3s;
+}
+
+.kategori-peripheral:hover {
+    transform: scale(1.1);
 }
 
 .no-decoration {
