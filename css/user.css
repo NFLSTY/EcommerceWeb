@@ -23,41 +23,72 @@
     height: 250px;
 }
 
-.kategori-pc {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/pc.jpeg');
+.card-template {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
+
+.card-template::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--bg-image);
     background-size: cover;
     background-position: center;
-    transition: transform 0.3s;
+    transition: transform 0.4s;
+    z-index: 1;
 }
 
-.kategori-pc:hover {
-    transform: scale(1.1);
+.card-template::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
 }
 
-.kategori-monitor {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/monitor.jpeg');
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.3s;
+.card-template:hover::before {
+    transform: scale(1.05);
 }
 
-.kategori-monitor:hover {
-    transform: scale(1.1);
+.card-template:hover {
+    transition: all 3s;
+    transform: rotate(0.75deg);
+    box-shadow: 3px 10px 25px -10px rgba(0, 0, 0, 4);
 }
 
-.kategori-peripheral {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/peripheral.jpg');
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.3s;
+.category-text {
+    margin-top: 15px;
+    color: black;
+    text-align: left;
 }
 
-.kategori-peripheral:hover {
-    transform: scale(1.1);
+.category-text .arrow {
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+.product-text {
+    margin-top: 10px;
+    color: black;
+    text-align: left;
+}
+
+.price-text{
+    margin-top: 10px;
+    color: black;
+    font-weight: normal;
+    text-align: left;
 }
 
 .no-decoration {
-    text-decoration: none!important;
+    text-decoration: none !important;
     color: #A1E3F9;
 }
 
@@ -79,22 +110,16 @@
     width: 100%;
     object-fit: cover;
     object-position: center;
-}   
-
-.banner-tampilan {
-    height: 35vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/product.jpg');
-    background-position: 70% 80%;
 }
 
 .button {
     background-color: #578FCA;
     color: white;
 }
-  
+
 .button:hover {
-    background-color: white; 
-    color: #3674B5; 
+    background-color: white;
+    color: #3674B5;
     border: 2px solid #578FCA;
 }
 

@@ -22,7 +22,7 @@ $countData = mysqli_num_rows($queryProduk);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Online | Produk</title>
+    <title>Marketplace | Product</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/user.css">
@@ -32,7 +32,7 @@ $countData = mysqli_num_rows($queryProduk);
     <?php require "navbar.php" ?>
     <div class="container-fluid banner-tampilan d-flex align-items-center">
         <div class="container">
-            <h1 class="text-white text-center">Produk</h1>
+            <h1 class="text-white text-center">Product</h1>
         </div>
     </div>
 
@@ -55,7 +55,7 @@ $countData = mysqli_num_rows($queryProduk);
                     <?php
                         if ($countData < 1) {
                             ?>
-                            <h4 class="text-center my-5">Produk tidak tersedia!</h4>
+                            <h4 class="text-center my-5">Product not available!</h4>
                             <?php
                         }
                     ?>
