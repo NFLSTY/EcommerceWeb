@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Data dummy 🧠
+// Data dummy
 $dummyEmail = 'test@example.com';
 $dummyPassword = '123456';
 
@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($email === $dummyEmail && $password === $dummyPassword) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
-        header('Location: profile.php'); // bisa lo ganti ke halaman test apa aja
+        header('Location: profile.php'); 
         exit;
     } else {
-        $error = 'Email atau password salah bro 😅';
+        $error = 'Email atau password salah';
     }
 }
 ?>
