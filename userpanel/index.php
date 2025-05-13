@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "../koneksi.php";
-// $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail FROM produk LIMIT 6");
+$queryProduct = mysqli_query($conn, "SELECT product_id, name, price, image_url, detail FROM product LIMIT 6");
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +49,7 @@ require "../koneksi.php";
         <div class="container text-center text-white">
             <h1>Toko Online Alat Gaming</h1>
             <div class="col-md-8 offset-md-2">
-                <form action="produk.php" method="get">
+                <form action="product.php" method="get">
                     <div class="input-group input-group-lg my-4">
                         <input type="text" class="form-control" placeholder="Find Items" aria-describedby="basic-addon2"
                             name="keyword">
@@ -67,21 +67,21 @@ require "../koneksi.php";
 
             <div class="row mt-5">
                 <div class="col-md-4 mb-3">
-                    <a class="no-decoration" href="produk.php?kategori=pc">
+                    <a class="no-decoration" href="product.php?kategori=pc">
                         <div class="highlight kategori-pc d-flex justify-content-center align-items-center">
                             <h4>Gaming PC</h3>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <a class="no-decoration" href="produk.php?kategori=pc">
+                    <a class="no-decoration" href="product.php?kategori=pc">
                         <div class="highlight kategori-monitor d-flex justify-content-center align-items-center">
                             <h4>Monitor</h3>
                         </div>
                     </a>
                 </div>
                 <div class="col-md-4 mb-3">
-                    <a class="no-decoration" href="produk.php?kategori=pc">
+                    <a class="no-decoration" href="product.php?kategori=pc">
                         <div class="highlight kategori-peripheral d-flex justify-content-center align-items-center">
                             <h4>Peripheral</h3>
                         </div>
@@ -106,27 +106,27 @@ require "../koneksi.php";
 
     <div class="container-fluid py-5">
         <div class="container text-center">
-            <h3>Produk</h3>
+            <h3>product</h3>
             <div class="row m-5">
-                <?php while ($data = mysqli_fetch_array($queryProduk)) { ?>
+                <?php while ($data = mysqli_fetch_array($queryProduct)) { ?>
                     <div class="col-sm-6 col-md-4 mb-3">
                         <div class="card h-100">
                             <div class="image-box">
-                                <img class="card-img-top" src="../image/<?php echo $data['foto'] ?>" alt="Card image cap">
+                                <img class="card-img-top" src="../image/<?php echo $data['image_url'] ?>" alt="Card image cap">
                             </div>
                             <div class="card-body">
-                                <h4 class="card-title"><?php echo $data['nama'] ?></h4>
+                                <h4 class="card-title"><?php echo $data['name'] ?></h4>
                                 <p class="card-text text-truncate"><?php echo $data['detail'] ?></p>
-                                <p class="card-text text-harga">Rp <?php echo $data['harga'] ?></p>
-                                <a href="produk-detail.php?nama=<?php echo $data['nama'] ?>" class="btn button">Lihat
-                                    Detail</a>
+                                <p class="card-text text-harga">Rp <?php echo $data['price'] ?></p>
+                                <a href="product-detail.php?name=<?php echo $data['name'] ?>" class="btn button">See
+                                    Details</a>
                             </div>
                         </div>
                     </div>
                 <?php } ?>
             </div>
 
-            <a class="btn btn-outline-primary mt-3" href="produk.php">See More</a>
+            <a class="btn btn-outline-primary mt-3" href="product.php">See More</a>
         </div>
     </div>
 

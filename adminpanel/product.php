@@ -2,9 +2,9 @@
 require "session.php";
 require "../koneksi.php";
 
-$queryProduct = mysqli_query($conn, "SELECT a.*, b.nama AS category_name FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori");
+$queryProduct = mysqli_query($conn, "SELECT a.*, b.name AS category_name FROM product a JOIN categories b ON a.category_id=b.category_id");
 $totalProduct = mysqli_num_rows($queryProduct);
-$queryCategory = mysqli_query($conn, "SELECT * FROM kategori");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories");
 
 function generateRandomString($length = 10)
 {
@@ -68,7 +68,7 @@ function generateRandomString($length = 10)
                         <?php
                         while ($data = mysqli_fetch_array($queryCategory)) {
                         ?>
-                            <option value="<?php echo $data['id_kategori'] ?>"><?php echo $data['nama'] ?></option>
+                            <option value="<?php echo $data['category_id'] ?>"><?php echo $data['name'] ?></option>
                         <?php
                         }
                         ?>
@@ -89,8 +89,8 @@ function generateRandomString($length = 10)
                 <div>
                     <label for="stock">Stock</label>
                     <select name="stock" id="stock" class="form-control">
-                        <option value="tersedia">Tersedia</option>
-                        <option value="habis">Habis</option>
+                        <option value="Available">Available</option>
+                        <option value="Empty">Empty</option>
                     </select>
                 </div>
                 <div class="mt-3">
@@ -134,7 +134,7 @@ function generateRandomString($length = 10)
                             }
                         }
                     }
-                    $queryCreate = mysqli_query($conn, "INSERT INTO produk (kategori_id, nama, harga, foto, detail, stok)
+                    $queryCreate = mysqli_query($conn, "INSERT INTO product (category_id, name, price, image_url, detail, stock)
                         VALUES ('$category', '$name', '$price', '$new_image', '$detail', '$stock')");
 
                     if ($queryCreate) {
@@ -177,11 +177,11 @@ function generateRandomString($length = 10)
                         ?>
                             <tr>
                                 <td><?php echo $total ?></td>
-                                <td><?php echo $data['nama'] ?></td>
+                                <td><?php echo $data['name'] ?></td>
                                 <td><?php echo $data['category_name'] ?></td>
-                                <td><?php echo $data['harga'] ?></td>
-                                <td><?php echo $data['stok'] ?></td>
-                                <td><a href="product-detail.php?pro=<?php echo $data['id_produk'] ?>"
+                                <td><?php echo $data['price'] ?></td>
+                                <td><?php echo $data['stock'] ?></td>
+                                <td><a href="product-detail.php?pro=<?php echo $data['product_id'] ?>"
                                         class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
                             </tr>
                     <?php

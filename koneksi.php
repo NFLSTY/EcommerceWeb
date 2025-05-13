@@ -2,7 +2,7 @@
     $servername = "localhost";
     $username = "root";
     $password = "";
-    $database = "toko_online";
+    $database = "marketplace";
 
     // Create connection
     $conn = mysqli_connect($servername, $username, $password, $database);

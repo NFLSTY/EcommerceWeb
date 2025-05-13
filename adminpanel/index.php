@@ -2,10 +2,10 @@
 require "session.php";
 require "../koneksi.php";
 
-$queryCategory = mysqli_query($conn, "SELECT * FROM kategori");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories");
 $totalCategory = mysqli_num_rows($queryCategory); 
 
-$queryProduct = mysqli_query($conn, "SELECT * FROM produk");
+$queryProduct = mysqli_query($conn, "SELECT * FROM product");
 $totalProduct = mysqli_num_rows($queryProduct); 
 ?>
 

@@ -6,7 +6,7 @@
                     <a class="nav-link text-white" href="../userpanel/">Home</a>
                 </li>
                 <li class="nav-item me-4">
-                    <a class="nav-link text-white" href="produk.php">Produk</a>
+                    <a class="nav-link text-white" href="product.php">Product</a>
                 </li>
                 <li class="nav-item me-4">
                     <a class="nav-link text-white" href="about.php">About Us</a>

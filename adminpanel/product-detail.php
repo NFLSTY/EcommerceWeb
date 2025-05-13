@@ -3,10 +3,10 @@ require "session.php";
 require "../koneksi.php";
 
 $id = $_GET['pro'];
-$query = mysqli_query($conn, "SELECT a.*, b.nama AS category_name FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori
-WHERE id_produk ='$id'");
+$query = mysqli_query($conn, "SELECT a.*, b.name AS category_name FROM product a JOIN categories b ON a.category_id=b.category_id
+WHERE product_id ='$id'");
 $data = mysqli_fetch_array($query);
-$queryCategory = mysqli_query($conn, "SELECT * FROM kategori WHERE id_kategori != $data[kategori_id]");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories WHERE category_id != $data[category_id]");
 
 function generateRandomString($length = 10)
 {
@@ -47,7 +47,7 @@ function generateRandomString($length = 10)
             <form action="" method="post" enctype="multipart/form-data">
                 <div>
                     <label for="name">Name</label>
-                    <input type="text" name="name" id="name" value="<?php echo $data['nama'] ?>" class="form-control" autocomplete="off" required>
+                    <input type="text" name="name" id="name" value="<?php echo $data['name'] ?>" class="form-control" autocomplete="off" required>
                 </div>
                 <div>
                     <label for="category">Category</label>
@@ -56,7 +56,7 @@ function generateRandomString($length = 10)
                         <?php
                         while ($dataCategory = mysqli_fetch_array($queryCategory)) {
                         ?>
-                            <option value="<?php echo $dataCategory['id_kategori'] ?>"><?php echo $dataCategory['nama'] ?></option>
+                            <option value="<?php echo $dataCategory['category_id'] ?>"><?php echo $dataCategory['name'] ?></option>
                         <?php
                         }
                         ?>
@@ -64,11 +64,11 @@ function generateRandomString($length = 10)
                 </div>
                 <div>
                     <label for="price">Price</label>
-                    <input type="number" name="price" id="price" value="<?php echo $data['harga'] ?>" class="form-control" required>
+                    <input type="number" name="price" id="price" value="<?php echo $data['price'] ?>" class="form-control" required>
                 </div>
                 <div>
                     <label for="lastPicture"></label>
-                    <img src="../image/<?php echo $data['foto'] ?>" alt="" width="300px">
+                    <img src="../image/<?php echo $data['image_url'] ?>" alt="" width="300px">
                 </div>
                 <div>
                     <label for="picture">Product Picture</label>
@@ -83,9 +83,9 @@ function generateRandomString($length = 10)
                 <div>
                     <label for="stock">Stock</label>
                     <select name="stock" id="stock" class="form-control">
-                        <option value=""><?php echo $data['stok'] ?></option>
+                        <option value=""><?php echo $data['stock'] ?></option>
                         <?php
-                        if ($data['stok'] == 'Tersedia') {
+                        if ($data['stock'] == 'Tersedia') {
                         ?>
                             <option value="habis">Habis</option>
                         <?php
@@ -124,8 +124,8 @@ function generateRandomString($length = 10)
                     <div class="p-3 mb-2 bg-warning text-dark mt-3">Data still unchanged!</div>
                 <?php
                 } else {
-                    $queryUpdate = mysqli_query($conn, "UPDATE produk SET kategori_id='$category', nama='$name',
-                    harga='$price', detail='$detail', stok='$stock' WHERE id_produk=$id");
+                    $queryUpdate = mysqli_query($conn, "UPDATE product SET category_id='$category', name='$name',
+                    price='$price', detail='$detail', stock='$stock' WHERE product_id=$id");
 
                     if ($file_name != '') {
                         if ($image_size > 5000000) {
@@ -140,7 +140,7 @@ function generateRandomString($length = 10)
                             } else {
                                 move_uploaded_file($_FILES["picture"]["tmp_name"], $dir_target . $new_image);
 
-                                $queryUpdateImage = mysqli_query($conn, "UPDATE produk SET foto='$new_image' WHERE id_produk=$id"); // wrong logic
+                                $queryUpdateImage = mysqli_query($conn, "UPDATE product SET image_url='$new_image' WHERE product_id=$id"); // wrong logic
 
                                 if ($queryUpdateImage) {
                                 ?>
@@ -157,7 +157,7 @@ function generateRandomString($length = 10)
             }
 
             if (isset($_POST['delete-product'])) { 
-                $queryDelete  = mysqli_query($conn, "DELETE FROM produk WHERE id_produk='$id'");
+                $queryDelete  = mysqli_query($conn, "DELETE FROM product WHERE product_id='$id'");
 
                 if ($queryDelete) {
                 ?>
