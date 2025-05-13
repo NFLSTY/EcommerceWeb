@@ -3,10 +3,10 @@ require "session.php";
 require "../koneksi.php";
 
 $id = $_GET['pro'];
-$query = mysqli_query($conn, "SELECT a.*, b.nama AS nama_kategori FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori
+$query = mysqli_query($conn, "SELECT a.*, b.nama AS category_name FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori
 WHERE id_produk ='$id'");
 $data = mysqli_fetch_array($query);
-$queryKategori = mysqli_query($conn, "SELECT * FROM kategori WHERE id_kategori != $data[kategori_id]");
+$queryCategory = mysqli_query($conn, "SELECT * FROM kategori WHERE id_kategori != $data[kategori_id]");
 
 function generateRandomString($length = 10)
 {
@@ -28,7 +28,7 @@ function generateRandomString($length = 10)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Produk</title>
+    <title>Product Detail</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
 </head>
@@ -42,37 +42,37 @@ function generateRandomString($length = 10)
 <body>
     <?php require "navbar.php" ?>
     <div class="container mt-5">
-        <h2>Detail Produk</h2>
+        <h2>Product Detail</h2>
         <div>
             <form action="" method="post" enctype="multipart/form-data">
                 <div>
-                    <label for="nama">Nama</label>
-                    <input type="text" name="nama" id="nama" value="<?php echo $data['nama'] ?>" class="form-control" autocomplete="off" required>
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" value="<?php echo $data['nama'] ?>" class="form-control" autocomplete="off" required>
                 </div>
                 <div>
-                    <label for="kategori">Kategori</label>
-                    <select name="kategori" id="kategori" class="form-control">
-                        <option value=""><?php echo $data['nama_kategori'] ?></option>
+                    <label for="category">Category</label>
+                    <select name="category" id="category" class="form-control">
+                        <option value=""><?php echo $data['category_name'] ?></option>
                         <?php
-                        while ($dataKategori = mysqli_fetch_array($queryKategori)) {
+                        while ($dataCategory = mysqli_fetch_array($queryCategory)) {
                         ?>
-                            <option value="<?php echo $dataKategori['id_kategori'] ?>"><?php echo $dataKategori['nama'] ?></option>
+                            <option value="<?php echo $dataCategory['id_kategori'] ?>"><?php echo $dataCategory['nama'] ?></option>
                         <?php
                         }
                         ?>
                     </select>
                 </div>
                 <div>
-                    <label for="harga">Harga</label>
-                    <input type="number" name="harga" id="harga" value="<?php echo $data['harga'] ?>" class="form-control" required>
+                    <label for="price">Price</label>
+                    <input type="number" name="price" id="price" value="<?php echo $data['harga'] ?>" class="form-control" required>
                 </div>
                 <div>
-                    <label for="fotoTerakhir"></label>
+                    <label for="lastPicture"></label>
                     <img src="../image/<?php echo $data['foto'] ?>" alt="" width="300px">
                 </div>
                 <div>
-                    <label for="foto">Foto Produk</label>
-                    <input type="file" name="foto" id="foto" class="form-control">
+                    <label for="picture">Product Picture</label>
+                    <input type="file" name="picture" id="picture" class="form-control">
                 </div>
                 <div>
                     <label for="detail">Detail</label>
@@ -81,8 +81,8 @@ function generateRandomString($length = 10)
                     </textarea>
                 </div>
                 <div>
-                    <label for="stok">Stok</label>
-                    <select name="stok" id="stok" class="form-control">
+                    <label for="stock">Stock</label>
+                    <select name="stock" id="stock" class="form-control">
                         <option value=""><?php echo $data['stok'] ?></option>
                         <?php
                         if ($data['stok'] == 'Tersedia') {
@@ -98,54 +98,54 @@ function generateRandomString($length = 10)
                     </select>
                 </div>
                 <div class="mt-4 d-flex justify-content-between">
-                    <button class="btn btn-primary" type="update" name="ubah_produk">Update</button>
-                    <button class="btn btn-danger" type="delete" name="hapus_produk">Delete</button>
+                    <button class="btn btn-primary" type="update" name="update-product">Update</button>
+                    <button class="btn btn-danger" type="delete" name="delete-product">Delete</button>
                 </div>
             </form>
 
             <?php
-            if (isset($_POST['ubah_produk'])) {
-                $nama = htmlspecialchars($_POST['nama']);
-                $kategori = htmlspecialchars($_POST['kategori']);
-                $harga = htmlspecialchars($_POST['harga']);
+            if (isset($_POST['update-product'])) {
+                $name = htmlspecialchars($_POST['name']);
+                $category = htmlspecialchars($_POST['category']);
+                $price = htmlspecialchars($_POST['price']);
                 $detail = htmlspecialchars($_POST['detail']);
-                $stok = htmlspecialchars($_POST['stok']);
+                $stock = htmlspecialchars($_POST['stock']);
 
-                $target_dir = "../image/";
-                $nama_file = basename($_FILES["foto"]["name"]);
-                $target_file = $target_dir . $nama_file;
-                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-                $image_size = $_FILES["foto"]["size"];
+                $dir_target = "../image/";
+                $file_name = basename($_FILES["picture"]["name"]);
+                $file_target = $dir_target . $file_name;
+                $imageFileType = strtolower(pathinfo($file_target, PATHINFO_EXTENSION));
+                $image_size = $_FILES["picture"]["size"];
                 $random_name = generateRandomString(20);
                 $new_image = $random_name . "." . $imageFileType;
 
-                if ($kategori == '' || $harga == '' || $detail == '') {
+                if ($category == '' || $price == '' || $detail == '') { // requirements still inccorect (new image must be included)
                 ?>
-                    <div class="p-3 mb-2 bg-warning text-dark mt-3">Data belum berubah!</div>
+                    <div class="p-3 mb-2 bg-warning text-dark mt-3">Data still unchanged!</div>
                 <?php
                 } else {
-                    $queryUpdate = mysqli_query($conn, "UPDATE produk SET kategori_id='$kategori', nama='$nama',
-                    harga='$harga', detail='$detail', stok='$stok' WHERE id_produk=$id");
+                    $queryUpdate = mysqli_query($conn, "UPDATE produk SET kategori_id='$category', nama='$name',
+                    harga='$price', detail='$detail', stok='$stock' WHERE id_produk=$id");
 
-                    if ($nama_file != '') {
+                    if ($file_name != '') {
                         if ($image_size > 5000000) {
                         ?>
-                            <div class="p-3 mb-2 bg-warning text-dark mt-3">Gambar tidak boleh lebih dari 50 mb!</div>
+                            <div class="p-3 mb-2 bg-warning text-dark mt-3">Images size should not be more than 50 mb!</div>
                             <?php
                         } else {
                             if ($imageFileType != 'jpg' && $imageFileType != 'jpeg' && $imageFileType != 'png' && $imageFileType != 'gif') {
                             ?>
-                                <div class="p-3 mb-2 bg-warning text-dark mt-3">Format file tidak didukung!</div>
+                                <div class="p-3 mb-2 bg-warning text-dark mt-3">Images must be in jpg, png, or gif format!</div>
                             <?php
                             } else {
-                                move_uploaded_file($_FILES["foto"]["tmp_name"], $target_dir . $new_image);
+                                move_uploaded_file($_FILES["picture"]["tmp_name"], $dir_target . $new_image);
 
-                                $queryUpdateImage = mysqli_query($conn, "UPDATE produk SET foto='$new_image' WHERE id_produk=$id");
+                                $queryUpdateImage = mysqli_query($conn, "UPDATE produk SET foto='$new_image' WHERE id_produk=$id"); // wrong logic
 
                                 if ($queryUpdateImage) {
                                 ?>
-                                    <div class="p-3 mb-2 bg-info text-white">Produk berhasil diubah</div>
-                                    <meta http-equiv="refresh" content="2; url=produk.php">
+                                    <div class="p-3 mb-2 bg-info text-white">Product updated successfully!</div>
+                                    <meta http-equiv="refresh" content="2; url=product.php">
                                 <?php
                                 } else {
                                     echo mysqli_error($conn);
@@ -156,13 +156,13 @@ function generateRandomString($length = 10)
                 }
             }
 
-            if (isset($_POST['hapus_produk'])) { 
+            if (isset($_POST['delete-product'])) { 
                 $queryDelete  = mysqli_query($conn, "DELETE FROM produk WHERE id_produk='$id'");
 
                 if ($queryDelete) {
                 ?>
-                    <div class="p-3 mb-2 bg-info text-white mt-3">Produk berhasil dihapus</div>
-                    <meta http-equiv="refresh" content="2; url=produk.php">
+                    <div class="p-3 mb-2 bg-info text-white mt-3">Product deleted successfully</div>
+                    <meta http-equiv="refresh" content="2; url=product.php">
                 <?php
                 } else {
                     echo mysqli_error($conn);
