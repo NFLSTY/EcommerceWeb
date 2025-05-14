@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "../koneksi.php";
-$queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail FROM produk LIMIT 6");
+$queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail FROM produk LIMIT 6");
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +20,7 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
 </head>
 
 <body>
-    <header>
-        <?php require "navbar.html" ?>
-    </header>
+    <?php require "navbar.html" ?>
 
     <main>
         <article>
@@ -69,11 +67,11 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
 
             <!-- Categories -->
             <section>
-                <div class="container-fluid px-4 py-4">
+                <div class="container-fluid px-5 pt-5">
                     <h2 class="mb-4">Categories</h2>
                     <div class="row row-cols-2 row-cols-md-4 align-items-start justify-content-center">
                         <div class="col">
-                            <a class="text-decoration-none" href="produk.php?kategori=pc">
+                            <a class="text-decoration-none" href="product.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/pc_components.jpg');">
                                 </div>
@@ -83,7 +81,7 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="produk.php?kategori=pc">
+                            <a class="text-decoration-none" href="product.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/peripherals.jpeg');">
                                 </div>
@@ -93,7 +91,7 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="produk.php?kategori=pc">
+                            <a class="text-decoration-none" href="product.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/laptops_and_desktops.jpg');">
                                 </div>
@@ -103,7 +101,7 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="produk.php?kategori=pc">
+                            <a class="text-decoration-none" href="product.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/accessories.jpg');">
                                 </div>
@@ -117,19 +115,23 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
             </section>
 
             <section>
-                <div class="container-fluid container-fluid px-4 py-4">
+                <div class="container-fluid px-5 py-5">
                     <h2 class="mb-4">Products</h2>
-                    <div class="row row-cols-3 row-cols-md-5">
-                        <?php while ($data = mysqli_fetch_array($queryProduk)) { ?>
-                            <div class="col">
-                                <div class="card-template" style="--bg-image: url('../image/<?php echo $data['foto'] ?>')">
-                                </div>
-                                <div class="product-text">
-                                    <h5><?php echo $data['nama'] ?></h5>
-                                    <p class="price-text">Rp<?php echo $data['harga'] ?></p>
-                                    <a href="produk-detail.php?nama=<?php echo $data['nama'] ?>" class="btn button">Lihat
-                                        Detail</a>
-                                </div>
+                    <div class="row row-cols-2 row-cols-md-4">
+                        <?php while ($data = mysqli_fetch_array($queryProduct)) { ?>
+                            <div class="col px-1 py-2">
+                                <a href="#" class="text-decoration-none product-text">
+                                    <div class="card-template"
+                                        style="--bg-image: url('../image/<?php echo $data['foto'] ?>')">
+                                    </div>
+                                    <div>
+                                        <h6 id="product-name"><?php echo $data['nama'] ?></h6>
+                                        <p id="product-price" class="price-text">Rp<?php echo $data['harga'] ?></p>
+                                        <a href="produk-detail.php?nama=<?php echo $data['nama'] ?>"></a>
+                                    </div>
+                                </a>
+                                <button id="product-button" type="button" href="example" class="w-100 button-template">Add
+                                    to cart</button>
                             </div>
                         <?php } ?>
                     </div>
@@ -138,14 +140,12 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
         </article>
     </main>
 
-    <?php require "footer.html"?>
+    <?php require "footer.html" ?>
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../fontawesome/js/all.min.js"></script>
-    <script src="navbar.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
-        crossorigin="anonymous"></script> -->
+    <script src="../js/user.js"></script>
+
 </body>
 
 </html>

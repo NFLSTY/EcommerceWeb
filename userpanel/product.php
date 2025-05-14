@@ -13,7 +13,7 @@ if (isset($_GET['keyword'])) {
     $queryProduk = mysqli_query($conn, "SELECT * FROM produk");
 }
 
-$countData = mysqli_num_rows($queryProduk); 
+$countData = mysqli_num_rows($queryProduk);
 ?>
 
 <!DOCTYPE html>
@@ -30,60 +30,59 @@ $countData = mysqli_num_rows($queryProduk);
 
 <body>
     <?php require "navbar.html" ?>
-    <div class="container-fluid banner-tampilan d-flex align-items-center">
-        <div class="container">
-            <h1 class="text-white text-center">Product</h1>
-        </div>
-    </div>
 
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-lg-3 mb-5">
-                <h3>Category</h3>
-                <ul class="list-group">
-                    <?php while ($kategori = mysqli_fetch_array($queryKategori)) { ?>
-                        <a class="no-decoration" href="product.php?kategori=<?php echo $kategori['nama'] ?>">
-                            <li class="list-group-item"><?php echo $kategori['nama'] ?></li>
-                        </a>
-                    <?php } ?>
-                </ul>
-            </div>
-            
-            <div class="col-lg-9">
-                <h3 class="text-center mb-4">Product</h3>
-                <div class="row">
-                    <?php
+    <main>
+        <div class="container-fluid px-5 py-4">
+            <div class="row">
+                <div class="col-lg-3 mb-5">
+                    <h3 class="mb-3">Category</h3>
+                    <ul class="list-group">
+                        <?php while ($kategori = mysqli_fetch_array($queryKategori)) { ?>
+                            <a class="text-decoration-none" href="product.php?kategori=<?php echo $kategori['nama'] ?>">
+                                <li class="list-group-item"><?php echo $kategori['nama'] ?></li>
+                            </a>
+                        <?php } ?>
+                    </ul>
+                </div>
+
+                <div class="col-lg-9">
+                    <h3 class="text-center mb-2">Product</h3>
+                    <div class="row row-cols-2 row-cols-md-4">
+                        <?php
                         if ($countData < 1) {
                             ?>
                             <h4 class="text-center my-5">Product not available!</h4>
                             <?php
                         }
-                    ?>
-                    <?php while ($produk = mysqli_fetch_array($queryProduk)) { ?>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100">
-                            <div class="image-box">
-                                <img class="card-img-top" src="../image/<?php echo $produk['foto'] ?>" alt="Card image cap">
+                        ?>
+                        <?php while ($data = mysqli_fetch_array($queryProduk)) { ?>
+                            <div class="col px-1 py-2">
+                                <a href="#" class="text-decoration-none product-text">
+                                    <div class="card-template"
+                                        style="--bg-image: url('../image/<?php echo $data['foto'] ?>')">
+                                    </div>
+                                    <div>
+                                        <h6 id="product-name"><?php echo $data['nama'] ?></h6>
+                                        <p id="product-price" class="price-text">Rp<?php echo $data['harga'] ?></p>
+                                        <a href="produk-detail.php?nama=<?php echo $data['nama'] ?>"></a>
+                                    </div>
+                                </a>
+                                <button id="product-button" type="button" href="example" class="w-100 button-template">Add
+                                    to cart</button>
                             </div>
-                            <div class="card-body">
-                                <h4 class="card-title"><?php echo $produk['nama'] ?></h4>
-                                <p class="card-text text-truncate"><?php echo $produk['detail'] ?></p>
-                                <p class="card-text text-harga">Rp <?php echo $produk['harga'] ?></p>
-                                <a href="produk-detail.php?nama=<?php echo $produk['nama'] ?>" class="btn button">Lihat Detail</a>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
-                    <?php } ?>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <?php require "footer.html"?>
+    <?php require "footer.html" ?>
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../fontawesome/js/all.min.js"></script>
-    <script src="navbar.js"></script>
+    <script src="../js/user.js"></script>
+
 </body>
 
 </html>
