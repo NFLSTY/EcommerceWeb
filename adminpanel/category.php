@@ -1,8 +1,8 @@
 <?php
 require "session.php";
-require "../koneksi.php";
+require "../connection.php";
 
-$queryCategory = mysqli_query($conn, "SELECT * FROM kategori");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories");
 $totalCategory = mysqli_num_rows($queryCategory);
 ?>
 
@@ -15,20 +15,15 @@ $totalCategory = mysqli_num_rows($queryCategory);
     <title>Category</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
-
-<style>
-    .no-decoration {
-        text-decoration: none!important;
-    }
-</style>
 
 <body>
     <?php require "navbar.php"?>
     <div class="container mt-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php" class="no-decoration text-muted">
+                <li class="breadcrumb-item"><a href="index.php" class="no-decoration1 text-muted">
                         <i class="fa-solid fa-house"></i> Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Category</li>
@@ -52,7 +47,7 @@ $totalCategory = mysqli_num_rows($queryCategory);
             <?php
             if (isset($_POST['add_category'])) { 
                 $category = htmlspecialchars($_POST['category']);
-                $queryDouble = mysqli_query($conn, "SELECT nama FROM kategori WHERE nama = '$category'");
+                $queryDouble = mysqli_query($conn, "SELECT category_name FROM categories WHERE category_name = '$category'");
                 $totalCategoryDouble = mysqli_num_rows($queryDouble);
 
                 if ($totalCategoryDouble > 0) {
@@ -60,7 +55,7 @@ $totalCategory = mysqli_num_rows($queryCategory);
                     <div class="p-3 mb-2 bg-warning text-dark mt-3">Category already used!</div>
                     <?php
                 } else {
-                    $queryCreate = mysqli_query($conn, "INSERT INTO kategori (nama) VALUES ('$category')");
+                    $queryCreate = mysqli_query($conn, "INSERT INTO categories (category_name) VALUES ('$category')");
 
                     if ($queryCreate) {
                     ?>
@@ -99,8 +94,8 @@ $totalCategory = mysqli_num_rows($queryCategory);
                         ?>
                             <tr>
                                 <td><?php echo $total ?></td>
-                                <td><?php echo $data['nama'] ?></td>
-                                <td><a href="category-detail.php?cat=<?php echo $data['id_kategori'] ?>"
+                                <td><?php echo $data['category_name'] ?></td>
+                                <td><a href="category-detail.php?cat=<?php echo $data['category_id'] ?>"
                                         class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
                             </tr>
                     <?php
