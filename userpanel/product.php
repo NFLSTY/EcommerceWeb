@@ -22,7 +22,7 @@ $countData = mysqli_num_rows($queryProduk);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketplace | Product</title>
+    <title>Online Shop | Product</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/user.css">
@@ -39,10 +39,10 @@ $countData = mysqli_num_rows($queryProduk);
     <div class="container py-5">
         <div class="row">
             <div class="col-lg-3 mb-5">
-                <h3>Kategori</h3>
+                <h3>Category</h3>
                 <ul class="list-group">
                     <?php while ($kategori = mysqli_fetch_array($queryKategori)) { ?>
-                        <a class="no-decoration" href="produk.php?kategori=<?php echo $kategori['nama'] ?>">
+                        <a class="no-decoration" href="product.php?kategori=<?php echo $kategori['nama'] ?>">
                             <li class="list-group-item"><?php echo $kategori['nama'] ?></li>
                         </a>
                     <?php } ?>
@@ -50,7 +50,7 @@ $countData = mysqli_num_rows($queryProduk);
             </div>
             
             <div class="col-lg-9">
-                <h3 class="text-center mb-4">Produk</h3>
+                <h3 class="text-center mb-4">Product</h3>
                 <div class="row">
                     <?php
                         if ($countData < 1) {
@@ -78,6 +78,8 @@ $countData = mysqli_num_rows($queryProduk);
             </div>
         </div>
     </div>
+
+    <?php require "footer.html"?>
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../fontawesome/js/all.min.js"></script>

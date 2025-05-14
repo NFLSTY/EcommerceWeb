@@ -1,129 +1,56 @@
-.warna1 {
-    background-color: #3674B5;
-}
-
-.warna2 {
-    background-color: #578FCA;
-}
-
-.warna3 {
-    background-color: #A1E3F9;
-}
-
-.warna4 {
-    background-color: #D1F8EF;
-}
-
-.banner-home {
-    height: 80vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/banner.jpg');
-}
-
-.highlight {
-    height: 250px;
-}
-
-.no-decoration {
-    text-decoration: none !important;
-    color: #A1E3F9;
-}
-
-.no-decoration:hover {
-    color: #3674B5;
-}
-
-.text-harga {
-    font-size: 20px;
-    color: #3674B5;
-}
-
-.image-box {
-    height: 250px;
-}
-
-.image-box img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-.button {
-    background-color: #578FCA;
-    color: white;
-}
-
-.button:hover {
-    background-color: white;
-    color: #3674B5;
-    border: 2px solid #578FCA;
-}
-
-.produk-terkait {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-
-
-
-
-
-.polar-night1{
+.polar-night1 {
     color: #2e3440;
 }
 
-.polar-night2{
-    color: #2e3440;
+.polar-night2 {
+    color: #3b4252;
 }
 
-.polar-night3{
-    color: #2e3440;
+.polar-night3 {
+    color: #434c5e;
 }
 
-.polar-night4{
-    color: #2e3440;
+.polar-night4 {
+    color: #4c566a;
 }
 
-.bg-polar-night1{
+.bg-polar-night1 {
     background-color: #2e3440;
 }
 
-.bg-polar-night2{
-    background-color: #2e3440;
+.bg-polar-night2 {
+    background-color: #3b4252;
 }
 
-.bg-polar-night3{
-    background-color: #2e3440;
+.bg-polar-night3 {
+    background-color: #434c5e;
 }
 
-.bg-polar-night4{
-    background-color: #2e3440;
+.bg-polar-night4 {
+    background-color: #4c566a;
 }
 
-.snow-storm1{
+.snow-storm1 {
     color: #d8dee9;
 }
 
-.snow-storm2{
+.snow-storm2 {
     color: #e5e9f0;
 }
 
-.snow-storm3{
-    background-color: #eceff4;
+.snow-storm3 {
+    color: #eceff4;
 }
 
-.bg-snow-storm1{
+.bg-snow-storm1 {
     background-color: #d8dee9;
 }
 
-.bg-snow-storm2{
+.bg-snow-storm2 {
     background-color: #e5e9f0;
 }
 
-.bg-snow-storm3{
+.bg-snow-storm3 {
     background-color: #eceff4;
 }
 
@@ -144,7 +71,6 @@
     background-size: cover;
     background-position: center;
     transition: transform 0.4s;
-    z-index: 1;
 }
 
 .card-template::after {
@@ -154,7 +80,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 2;
 }
 
 .card-template:hover::before {
@@ -190,7 +115,7 @@ a:hover .arrow {
     text-align: left;
 }
 
-.price-text{
+.price-text {
     margin-top: 10px;
     color: black;
     font-weight: normal;
