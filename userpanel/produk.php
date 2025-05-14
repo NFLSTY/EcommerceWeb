@@ -70,6 +70,7 @@ $countData = mysqli_num_rows($queryProduk);
                                 <p class="card-text text-truncate"><?php echo $produk['detail'] ?></p>
                                 <p class="card-text text-harga">Rp <?php echo $produk['harga'] ?></p>
                                 <a href="produk-detail.php?nama=<?php echo $produk['nama'] ?>" class="btn button">Lihat Detail</a>
+                                <a href="add-to-cart.php?id=<?php echo $produk['id'] ?>" class="btn btn-success mt-2">Add to Cart</a>
                             </div>
                         </div>
                     </div>
