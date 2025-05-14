@@ -29,7 +29,7 @@ $countData = mysqli_num_rows($queryProduk);
 </head>
 
 <body>
-    <?php require "navbar.php" ?>
+    <?php require "navbar.html" ?>
     <div class="container-fluid banner-tampilan d-flex align-items-center">
         <div class="container">
             <h1 class="text-white text-center">Product</h1>
@@ -81,6 +81,7 @@ $countData = mysqli_num_rows($queryProduk);
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../fontawesome/js/all.min.js"></script>
+    <script src="navbar.js"></script>
 </body>
 
 </html>

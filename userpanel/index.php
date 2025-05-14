@@ -12,14 +12,15 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Shop | Home</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/user.css">
 
 </head>
 
 <body>
-    <script src="..\bootstrap\js\bootstrap.bundle.js"></script>
-    <?php require "navbar.php" ?>
+    <?php require "navbar.html"?>
 
     <!-- Carousel -->
     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -63,7 +64,7 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
     <!-- Categories -->
     <div class="container-fluid py-5">
         <div class="container">
-            <h2>Categories</h2>
+            <h2 style="margin-top: -10px; margin-bottom: -20px">Categories</h2>
 
             <div class="row mt-5">
                 <div class="col-md-3">
@@ -134,6 +135,10 @@ $queryProduk = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail 
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../fontawesome/js/all.min.js"></script>
+    <script src="navbar.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
+        crossorigin="anonymous"></script> -->
 </body>
 
 </html>

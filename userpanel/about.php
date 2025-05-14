@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <?php require "navbar.php"?>
+    <?php require "navbar.html"?>
     <div class="container-fluid banner-tampilan d-flex align-items-center">
         <div class="container">
             <h1 class="text-white text-center">Tentang Kami</h1>
@@ -28,6 +28,7 @@
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../fontawesome/js/all.min.js"></script>
+    <script src="navbar.js"></script>
 </body>
 
 </html>

@@ -23,6 +23,110 @@
     height: 250px;
 }
 
+.no-decoration {
+    text-decoration: none !important;
+    color: #A1E3F9;
+}
+
+.no-decoration:hover {
+    color: #3674B5;
+}
+
+.text-harga {
+    font-size: 20px;
+    color: #3674B5;
+}
+
+.image-box {
+    height: 250px;
+}
+
+.image-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.button {
+    background-color: #578FCA;
+    color: white;
+}
+
+.button:hover {
+    background-color: white;
+    color: #3674B5;
+    border: 2px solid #578FCA;
+}
+
+.produk-terkait {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+
+
+
+
+
+.polar-night1{
+    color: #2e3440;
+}
+
+.polar-night2{
+    color: #2e3440;
+}
+
+.polar-night3{
+    color: #2e3440;
+}
+
+.polar-night4{
+    color: #2e3440;
+}
+
+.bg-polar-night1{
+    background-color: #2e3440;
+}
+
+.bg-polar-night2{
+    background-color: #2e3440;
+}
+
+.bg-polar-night3{
+    background-color: #2e3440;
+}
+
+.bg-polar-night4{
+    background-color: #2e3440;
+}
+
+.snow-storm1{
+    color: #d8dee9;
+}
+
+.snow-storm2{
+    color: #e5e9f0;
+}
+
+.snow-storm3{
+    background-color: #eceff4;
+}
+
+.bg-snow-storm1{
+    background-color: #d8dee9;
+}
+
+.bg-snow-storm2{
+    background-color: #e5e9f0;
+}
+
+.bg-snow-storm3{
+    background-color: #eceff4;
+}
+
 .card-template {
     position: relative;
     overflow: hidden;
@@ -70,8 +174,14 @@
 }
 
 .category-text .arrow {
-    margin-left: 5px;
-    font-weight: normal;
+    display: inline-block;
+    transition: all 0.2s;
+    margin-left: 0;
+}
+
+a:hover .arrow {
+    margin-left: 2px;
+    transform: scale(1.2);
 }
 
 .product-text {
@@ -85,47 +195,4 @@
     color: black;
     font-weight: normal;
     text-align: left;
-}
-
-.no-decoration {
-    text-decoration: none !important;
-    color: #A1E3F9;
-}
-
-.no-decoration:hover {
-    color: #3674B5;
-}
-
-.text-harga {
-    font-size: 20px;
-    color: #3674B5;
-}
-
-.image-box {
-    height: 250px;
-}
-
-.image-box img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-.button {
-    background-color: #578FCA;
-    color: white;
-}
-
-.button:hover {
-    background-color: white;
-    color: #3674B5;
-    border: 2px solid #578FCA;
-}
-
-.produk-terkait {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
 }
