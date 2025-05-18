@@ -1,5 +1,8 @@
 -- Database Creation
 CREATE DATABASE e_commerce;
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
 USE e_commerce;
 
 -- Table structure for categories
@@ -35,8 +38,3 @@ CREATE TABLE users (
 -- Insert default admin user
 INSERT INTO users (user_name, user_password) VALUES 
     ('admin', '$2y$10$rgbpBjy8fYAGQrdOAEdOoeoPFRFh0R1mywPZ0/eiAc.d7UlNM.wQK');
-
--- Set auto increment starting values
-ALTER TABLE categories AUTO_INCREMENT = 6;
-ALTER TABLE products AUTO_INCREMENT = 7;
-ALTER TABLE users AUTO_INCREMENT = 2;
