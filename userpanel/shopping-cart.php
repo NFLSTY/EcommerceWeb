@@ -76,7 +76,8 @@ $_SESSION['cart'] = $cart;
         </tbody>
       </table>
       <div class="text-end mt-3">
-        <a href="checkout.php" class="btn btn-primary">Checkout</a>
+        <a href="checkout.php" class="btn btn-primary me-2">Checkout</a>
+        <a href="purchase-history.php" class="btn btn-secondary">View Purchase History</a>
       </div>
     <?php else: ?>
       <p>Your cart is empty</p>
