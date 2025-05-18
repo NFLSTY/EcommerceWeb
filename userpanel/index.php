@@ -1,7 +1,8 @@
 <?php
 session_start();
-require "../koneksi.php";
-$queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail FROM produk LIMIT 6");
+require "../connection.php";
+$queryProduct = mysqli_query($conn, "SELECT product_id, product_name, price, product_image, detail FROM products LIMIT 10");
+$countData = mysqli_num_rows($queryProduct);
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Shop | Home</title>
+    <title>Home</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/user.css">
@@ -70,7 +71,7 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
                     <h2 class="mb-4">Categories</h2>
                     <div class="row row-cols-2 row-cols-md-4 align-items-start justify-content-center">
                         <div class="col">
-                            <a class="text-decoration-none" href="product.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/pc_components.jpg');">
                                 </div>
@@ -80,7 +81,7 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="product.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/peripherals.jpeg');">
                                 </div>
@@ -90,7 +91,7 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="product.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/laptops_and_desktops.jpg');">
                                 </div>
@@ -100,7 +101,7 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="product.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?kategori=pc">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/accessories.jpg');">
                                 </div>
@@ -117,21 +118,27 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
             <section>
                 <div class="container-fluid px-5 py-5">
                     <h2 class="mb-4">Products</h2>
+                    <?php
+                    if ($countData < 1) {
+                        ?>
+                        <h4 class="text-center my-5">Product not available!</h4>
+                        <?php
+                    }
+                    ?>
                     <div class="row row-cols-3 row-cols-md-5">
                         <?php while ($data = mysqli_fetch_array($queryProduct)) { ?>
-                            <div class="col px-1 py-2">
-                                <a href="#" class="text-decoration-none product-text">
-                                    <div class="card-template"
-                                        style="--bg-image: url('../image/<?php echo $data['foto'] ?>')">
+                            <div class="col px-1 py-2 d-flex">
+                                <div class="d-flex flex-column w-100 p-0">
+                                    <a href="#" class="text-decoration-none product-text">
+                                        <div class="card-template mb-2"
+                                            style="--bg-image: url('../image/<?php echo $data['product_image'] ?>')"></div>
+                                        <h6 class="mb-1"><?php echo $data['product_name'] ?></h6>
+                                        <p class="price-text mb-2">Rp<?php echo $data['price'] ?></p>
+                                    </a>
+                                    <div class="mt-auto">
+                                        <button id="product-button" type="button" class="w-100 button-template">Add to cart</button>
                                     </div>
-                                    <div>
-                                        <h6 id="product-name"><?php echo $data['nama'] ?></h6>
-                                        <p id="product-price" class="price-text">Rp<?php echo $data['harga'] ?></p>
-                                        <a href="produk-detail.php?nama=<?php echo $data['nama'] ?>"></a>
-                                    </div>
-                                </a>
-                                <button id="product-button" type="button" href="example" class="w-100 button-template">Add
-                                    to cart</button>
+                                </div>
                             </div>
                         <?php } ?>
                     </div>

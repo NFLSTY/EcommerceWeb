@@ -1,18 +1,18 @@
 <?php
 session_start();
-require "../koneksi.php";
+require "../connection.php";
 
-$id = $_GET['id'];
+$product_id = $_GET['product_id'];
 
-$query = mysqli_query($conn, "SELECT * FROM produk WHERE id='$id'");
-$produk = mysqli_fetch_assoc($query);
+$query = mysqli_query($conn, "SELECT * FROM products WHERE product_id='$product_id'");
+$products = mysqli_fetch_assoc($query);
 
 $item = [
-    'id' => $produk['id'],
-    'nama' => $produk['nama'],
-    'harga' => $produk['harga'],
+    'product_id' => $products['product_id'],
+    'product_name' => $products['product_name'],
+    'price' => $products['price'],
     'qty' => 1,
-    'foto' => $produk['foto']
+    'product_image' => $products['product_image']
 ];
 
 // Cek kalo cart belum ada
@@ -20,10 +20,10 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Cek produk udah ada di cart atau belum
+// Cek products udah ada di cart atau belum
 $found = false;
 foreach ($_SESSION['cart'] as $key => $cartItem) {
-    if ($cartItem['id'] == $id) {
+    if ($cartItem['product_id'] == $product_id) {
         $_SESSION['cart'][$key]['qty'] += 1;
         $found = true;
         break;
