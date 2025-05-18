@@ -40,7 +40,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'home.php' ? 'active' : ''; ?>"
-              href="home.php">Home</a>
+              href="index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'product.php' ? 'active' : ''; ?>"
@@ -53,7 +53,8 @@
         </ul>
 
         <!-- Search bar (centered) -->
-        <form class="d-flex flex-grow-1 my-auto" role="search" style="max-width: 40%; height: 38px; margin-right: 20px;">
+        <form class="d-flex flex-grow-1 my-auto" role="search"
+          style="max-width: 40%; height: 38px; margin-right: 20px;">
           <input class="form-control me-2 w-100" type="search" placeholder="Search..." aria-label="Search" />
           <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
         </form>
@@ -66,18 +67,29 @@
           <i class="fas fa-shopping-cart"></i>
         </a>
 
-        <!-- User Dropdown -->
-        <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="fa-solid fa-user"></i>
-            <!-- <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25" alt="Avatar" /> -->
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="profile.php">My profile</a></li>
-            <li><a class="dropdown-item" href="login.php">Logout</a></li>
-          </ul>
-        </div>
+
+        <?php if (isset($_SESSION['login']) && $_SESSION['login'] === true): ?>
+          <!-- Show user dropdown -->
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="profile.php">My profile</a></li>
+              <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+            </ul>
+          </div>
+        <?php else: ?>
+          <!-- Show login button -->
+           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <i class="fa-solid fa-user"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="login.php">Login</a></li>
+            </ul>
+        <?php endif; ?>
       </div>
     </div>
   </nav>

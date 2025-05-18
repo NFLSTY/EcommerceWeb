@@ -16,7 +16,7 @@ $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
 </head>
 
 <body>
-    <?php require "navbar.html" ?>
+    <?php require "navbar.php" ?>
     <div class="container-fluid banner-tampilan d-flex align-items-center">
         <div class="container">
             <h1 class="text-white text-center">Checkout</h1>

@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($email === $dummyEmail && $password === $dummyPassword) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
-        header('Location: home.php');
+        header('Location: index.php');
         exit;
     } else {
         $error = 'Email atau password salah';
@@ -105,8 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <?php require "navbar.html" ?>
-
     <div class="container">
         <div class="logo">
             <h1>Login Page</h1>

@@ -29,7 +29,7 @@ $countData = mysqli_num_rows($queryProduct);
 </head>
 
 <body>
-    <?php require "navbar.html" ?>
+    <?php require "navbar.php" ?>
 
     <main>
         <div class="container-fluid px-5 py-4">

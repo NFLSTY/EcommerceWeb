@@ -427,7 +427,7 @@ $user = [
 </head>
 
 <body>
-    <?php require "navbar.html" ?>
+    <?php require "navbar.php" ?>
 
     <div class="container">
         <div class="profile-header">

@@ -18,7 +18,7 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
 </head>
 
 <body>
-    <?php require "navbar.html" ?>
+    <?php require "navbar.php" ?>
 
     <main>
         <article>
