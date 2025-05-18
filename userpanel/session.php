@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if ($_SESSION['index']==false) {
-        header('location: index.php');
+    if ($_SESSION['home']==false) {
+        header('location: home.php');
     }
 ?>

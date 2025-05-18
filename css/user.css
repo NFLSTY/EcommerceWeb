@@ -1,106 +1,144 @@
-.warna1 {
-    background-color: #3674B5;
+.polar-night1 {
+    color: #2e3440;
 }
 
-.warna2 {
-    background-color: #578FCA;
+.polar-night2 {
+    color: #3b4252;
 }
 
-.warna3 {
-    background-color: #A1E3F9;
+.polar-night3 {
+    color: #434c5e;
 }
 
-.warna4 {
-    background-color: #D1F8EF;
+.polar-night4 {
+    color: #4c566a;
 }
 
-.banner-home {
-    height: 80vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/banner.jpg');
+.bg-polar-night1 {
+    background-color: #2e3440;
 }
 
-.highlight {
-    height: 250px;
+.bg-polar-night2 {
+    background-color: #3b4252;
 }
 
-.kategori-pc {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/pc.jpeg');
+.bg-polar-night3 {
+    background-color: #434c5e;
+}
+
+.bg-polar-night4 {
+    background-color: #4c566a;
+}
+
+.snow-storm1 {
+    color: #d8dee9;
+}
+
+.snow-storm2 {
+    color: #e5e9f0;
+}
+
+.snow-storm3 {
+    color: #eceff4;
+}
+
+.bg-snow-storm1 {
+    background-color: #d8dee9;
+}
+
+.bg-snow-storm2 {
+    background-color: #e5e9f0;
+}
+
+.bg-snow-storm3 {
+    background-color: #eceff4;
+}
+
+.card-template {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+}
+
+.card-template::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--bg-image);
     background-size: cover;
     background-position: center;
-    transition: transform 0.3s;
+    transition: transform 0.4s;
 }
 
-.kategori-pc:hover {
-    transform: scale(1.1);
+.card-template::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.kategori-monitor {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/monitor.jpeg');
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.3s;
+.card-template:hover::before {
+    transform: scale(1.05);
 }
 
-.kategori-monitor:hover {
-    transform: scale(1.1);
+.card-template:hover {
+    transition: all 3s;
+    transform: rotate(0.75deg);
+    box-shadow: 3px 10px 25px -10px rgba(0, 0, 0, 4);
 }
 
-.kategori-peripheral {
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/peripheral.jpg');
-    background-size: cover;
-    background-position: center;
-    transition: transform 0.3s;
+.category-text {
+    margin-top: 15px;
+    color: black;
+    text-align: left;
 }
 
-.kategori-peripheral:hover {
-    transform: scale(1.1);
+.category-text .arrow {
+    display: inline-block;
+    transition: all 0.2s;
+    margin-left: 0;
 }
 
-.no-decoration {
-    text-decoration: none!important;
-    color: #A1E3F9;
+a:hover .arrow {
+    margin-left: 2px;
+    transform: scale(1.2);
 }
 
-.no-decoration:hover {
-    color: #3674B5;
+.product-text {
+    color: black;
+    text-align: left;
 }
 
-.text-harga {
-    font-size: 20px;
-    color: #3674B5;
+.product-text #product-name{
+    margin-top: 15px;
 }
 
-.image-box {
-    height: 250px;
+.product-text #product-price {
+    font-weight: 400;
 }
 
-.image-box img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-}   
-
-.banner-tampilan {
-    height: 35vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../image/product.jpg');
-    background-position: 70% 80%;
+a:hover #product-name {
+    text-decoration: underline;
 }
 
-.button {
-    background-color: #578FCA;
-    color: white;
-}
-  
-.button:hover {
-    background-color: white; 
-    color: #3674B5; 
-    border: 2px solid #578FCA;
+#product-button:hover {
+    box-shadow: 2px 5px 25px -15px rgba(0, 0, 0, 4);
 }
 
-.produk-terkait {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
+.button-template {
+    display: inline-block;
+    padding: 8px;
+    border: 1.5px solid black;
+    background-color: white;
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
