@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($email === $dummyEmail && $password === $dummyPassword) {
         $_SESSION['login'] = true;
         $_SESSION['email'] = $email;
-        header('Location: profile.php'); 
+        header('Location: home.php');
         exit;
     } else {
         $error = 'Email atau password salah';
@@ -26,10 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Dummy</title>
+    <title>Login</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <style>
         body {
@@ -102,7 +103,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 </head>
+
 <body>
+    <?php require "navbar.html" ?>
+
     <div class="container">
         <div class="logo">
             <h1>Login Page</h1>
@@ -118,11 +122,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form method="POST" action="">
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                    value="test@example.com" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                    value="123456" required>
             </div>
             <div class="mb-3 text-end">
                 <a href="#">Forgot password?</a>
@@ -137,4 +143,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

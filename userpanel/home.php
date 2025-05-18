@@ -12,8 +12,6 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Shop | Home</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="../css/user.css">
 
@@ -24,6 +22,7 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
 
     <main>
         <article>
+            <!-- Banner Carousel -->
             <section>
                 <div id="carouselBanner" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
@@ -114,10 +113,11 @@ $queryProduct = mysqli_query($conn, "SELECT id_produk, nama, harga, foto, detail
                 </div>
             </section>
 
+            <!-- Products -->
             <section>
                 <div class="container-fluid px-5 py-5">
                     <h2 class="mb-4">Products</h2>
-                    <div class="row row-cols-2 row-cols-md-4">
+                    <div class="row row-cols-3 row-cols-md-5">
                         <?php while ($data = mysqli_fetch_array($queryProduct)) { ?>
                             <div class="col px-1 py-2">
                                 <a href="#" class="text-decoration-none product-text">

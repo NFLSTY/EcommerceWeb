@@ -3,18 +3,18 @@ session_start();
 
 // Dummy cart buat testing frontend doang
 $cart = [
-    [
-        'foto' => 'monitor.jpeg',
-        'nama' => 'Monitor ASUS 24 Inch',
-        'harga' => 1500000,
-        'qty' => 2
-    ],
-    [
-        'foto' => 'pc.jpeg',
-        'nama' => 'PC Gaming Ryzen 5',
-        'harga' => 5500000,
-        'qty' => 1
-    ]
+  [
+    'foto' => 'monitor.jpeg',
+    'nama' => 'Monitor ASUS 24 Inch',
+    'harga' => 1500000,
+    'qty' => 2
+  ],
+  [
+    'foto' => 'pc.jpeg',
+    'nama' => 'PC Gaming Ryzen 5',
+    'harga' => 5500000,
+    'qty' => 1
+  ]
 ];
 
 // Buat nyimpen dummy ke session (opsional aja buat persist pas refresh)
@@ -23,6 +23,7 @@ $_SESSION['cart'] = $cart;
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,8 +32,9 @@ $_SESSION['cart'] = $cart;
   <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
   <link rel="stylesheet" href="../css/user.css">
 </head>
+
 <body>
-  <?php require "navbar.php" ?>
+  <?php require "navbar.html" ?>
   <div class="container-fluid banner-tampilan d-flex align-items-center">
     <div class="container">
       <h1 class="text-white text-center">Shopping Cart</h1>
@@ -56,16 +58,16 @@ $_SESSION['cart'] = $cart;
           <?php
           $grandTotal = 0;
           foreach ($cart as $item):
-              $total = $item['harga'] * $item['qty'];
-              $grandTotal += $total;
-          ?>
-          <tr>
-            <td><img src="../image/<?php echo $item['foto'] ?>" width="80"></td>
-            <td><?php echo $item['nama'] ?></td>
-            <td>Rp <?php echo number_format($item['harga'], 0, ',', '.') ?></td>
-            <td><?php echo $item['qty'] ?></td>
-            <td>Rp <?php echo number_format($total, 0, ',', '.') ?></td>
-          </tr>
+            $total = $item['harga'] * $item['qty'];
+            $grandTotal += $total;
+            ?>
+            <tr>
+              <td><img src="../image/<?php echo $item['foto'] ?>" width="80"></td>
+              <td><?php echo $item['nama'] ?></td>
+              <td>Rp <?php echo number_format($item['harga'], 0, ',', '.') ?></td>
+              <td><?php echo $item['qty'] ?></td>
+              <td>Rp <?php echo number_format($total, 0, ',', '.') ?></td>
+            </tr>
           <?php endforeach; ?>
           <tr>
             <td colspan="4"><strong>Total Semua</strong></td>
@@ -80,5 +82,13 @@ $_SESSION['cart'] = $cart;
       <p>Your cart is empty</p>
     <?php endif; ?>
   </div>
+
+  <?php require "footer.html" ?>
+
+  <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../fontawesome/js/all.min.js"></script>
+  <script src="../js/user.js"></script>
+  
 </body>
+
 </html>
