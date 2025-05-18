@@ -4,6 +4,7 @@ require "../connection.php";
 
 $id = $_GET['cat'];
 $query = mysqli_query($conn, "SELECT * FROM categories WHERE category_id ='$id'");
+$query = mysqli_query($conn, "SELECT * FROM categories WHERE category_id ='$id'");
 $data = mysqli_fetch_array($query);
 ?>
 
@@ -77,6 +78,7 @@ $data = mysqli_fetch_array($query);
                 die();
                 }
 
+                $queryDelete = mysqli_query($conn, "DELETE FROM categories WHERE category_id='$id'");
                 $queryDelete = mysqli_query($conn, "DELETE FROM categories WHERE category_id='$id'");
 
                 if ($queryDelete) {

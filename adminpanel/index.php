@@ -3,6 +3,7 @@ require "session.php";
 require "../connection.php";
 
 $queryCategory = mysqli_query($conn, "SELECT * FROM categories");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories");
 $totalCategory = mysqli_num_rows($queryCategory); 
 
 $queryProduct = mysqli_query($conn, "SELECT * FROM products");

@@ -5,6 +5,7 @@ require "../connection.php";
 $queryProduct = mysqli_query($conn, "SELECT a.*, b.category_name FROM products a JOIN categories b ON a.category_id=b.category_id");
 $totalProduct = mysqli_num_rows($queryProduct);
 $queryCategory = mysqli_query($conn, "SELECT * FROM categories");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories");
 
 function generateRandomString($length = 10)
 {
@@ -170,6 +171,9 @@ function generateRandomString($length = 10)
                                 <td><?php echo $total ?></td>
                                 <td><?php echo $data['product_name'] ?></td>
                                 <td><?php echo $data['category_name'] ?></td>
+                                <td><?php echo $data['price'] ?></td>
+                                <td><?php echo $data['stock'] ?></td>
+                                <td><a href="product-detail.php?pro=<?php echo $data['product_id'] ?>"
                                 <td><?php echo $data['price'] ?></td>
                                 <td><?php echo $data['stock'] ?></td>
                                 <td><a href="product-detail.php?pro=<?php echo $data['product_id'] ?>"

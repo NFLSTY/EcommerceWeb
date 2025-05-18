@@ -35,6 +35,20 @@ $totalCategory = mysqli_num_rows($queryCategory);
 
             <form action="" method="post">
                 <div>
+                    <label for="main_category">Main Category</label>
+                    <select name="main_category" id="main_category" class="form-control">
+                        <option value="">Choose Main Category</option>
+                        <?php
+                        while ($data = mysqli_fetch_array($queryMainCategory)) {
+                        ?>
+                            <option value="<?php echo $data['main_category_id'] ?>"><?php echo $data['name'] ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <br>
+                </div>
+                <div>
                     <label for="category">Category</label>
                     <input type="text" name="category" id="category" placeholder="Input category name"
                         class="form-control" autocomplete="off" required>
@@ -46,6 +60,7 @@ $totalCategory = mysqli_num_rows($queryCategory);
 
             <?php
             if (isset($_POST['add_category'])) { 
+                $mainCategory = htmlspecialchars($_POST['main_category']);
                 $category = htmlspecialchars($_POST['category']);
                 $queryDouble = mysqli_query($conn, "SELECT category_name FROM categories WHERE category_name = '$category'");
                 $totalCategoryDouble = mysqli_num_rows($queryDouble);

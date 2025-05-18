@@ -7,6 +7,7 @@ $query = mysqli_query($conn, "SELECT a.*, b.category_name FROM products a JOIN c
 WHERE product_id ='$id'");
 $data = mysqli_fetch_array($query);
 $queryCategory = mysqli_query($conn, "SELECT * FROM categories WHERE category_id != $data[category_id]");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories WHERE category_id != $data[category_id]");
 
 function generateRandomString($length = 10)
 {
@@ -60,6 +61,7 @@ function generateRandomString($length = 10)
                 <div>
                     <label for="price">Price</label>
                     <input type="number" name="price" id="price" value="<?php echo $data['price'] ?>" class="form-control" required>
+                    <input type="number" name="price" id="price" value="<?php echo $data['price'] ?>" class="form-control" required>
                 </div>
                 <div>
                     <label for="lastImage"></label>
@@ -78,6 +80,7 @@ function generateRandomString($length = 10)
                 <div>
                     <label for="stock">Stock</label>
                     <select name="stock" id="stock" class="form-control">
+                        <option value=""><?php echo $data['stock'] ?></option>
                         <option value=""><?php echo $data['stock'] ?></option>
                         <?php
                         if ($data['stock'] == 'Available') {
@@ -135,7 +138,7 @@ function generateRandomString($length = 10)
                             } else {
                                 move_uploaded_file($_FILES["image"]["tmp_name"], $dir_target . $new_image);
 
-                                $queryUpdateImage = mysqli_query($conn, "UPDATE produk SET foto='$new_image' WHERE id_produk=$id"); // wrong logic
+                                $queryUpdateImage = mysqli_query($conn, "UPDATE product SET image_url='$new_image' WHERE product_id=$id"); // wrong logic
 
                                 if ($queryUpdateImage) {
                                 ?>
