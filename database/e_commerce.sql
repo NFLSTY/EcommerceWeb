@@ -35,6 +35,19 @@ CREATE TABLE users (
     PRIMARY KEY (user_id)
 );
 
+CREATE TABLE product_reviews (
+  review_id INT NOT NULL AUTO_INCREMENT,
+  product_id INT NOT NULL,
+  user_name VARCHAR(50) NOT NULL,
+  rating TINYINT NOT NULL,
+  comment TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (review_id),
+  FOREIGN KEY (product_id) REFERENCES products(product_id)
+    ON DELETE CASCADE 
+    ON UPDATE CASCADE
+);
+
 -- Insert default admin user (password: admin)
 INSERT INTO users (user_name, user_password) VALUES 
     ('admin', '$2y$10$rgbpBjy8fYAGQrdOAEdOoeoPFRFh0R1mywPZ0/eiAc.d7UlNM.wQK');
@@ -77,3 +90,8 @@ INSERT INTO products (category_id, product_name, price, product_image, detail, s
 (4, 'Lenovo Legion 5 Pro', 23990000, '../image/products/lenovo_legion5pro.jpg', 'Ryzen 7 6800H, 16GB RAM, RTX 3070, 1TB SSD, 165Hz display', 'Available'),
 (4, 'HP Pavilion Desktop TG01-2003w', 11750000, '../image/products/hp_pavilion_tg01.jpg', 'Intel Core i5, 12GB RAM, 512GB SSD, GTX 1660 Super', 'Available'),
 (4, 'MSI Stealth 16 Studio', 32999000, '../image/products/msi_stealth_16.jpg', 'Intel i9, 32GB RAM, RTX 4080, 1TB SSD, 240Hz QHD+ display', 'Available');
+
+-- Sample reviews
+INSERT INTO product_reviews (product_id, user_name, rating, comment, created_at) VALUES
+(1, 'Alex', 5, 'This is great!', '2025-05-18 13:51:31'),
+(2, 'Gisselle', 4, 'wow, i have never seen this before!', '2025-05-18 13:55:47');
