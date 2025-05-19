@@ -1,11 +1,11 @@
 <?php
 require "session.php";
-require "../koneksi.php";
+require "../connection.php";
 
-$queryCategory = mysqli_query($conn, "SELECT * FROM kategori");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories");
 $totalCategory = mysqli_num_rows($queryCategory); 
 
-$queryProduct = mysqli_query($conn, "SELECT * FROM produk");
+$queryProduct = mysqli_query($conn, "SELECT * FROM products");
 $totalProduct = mysqli_num_rows($queryProduct); 
 ?>
 
@@ -18,36 +18,8 @@ $totalProduct = mysqli_num_rows($queryProduct);
     <title>Home</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
-
-<style>
-    .kotak {
-        border: solid;
-    }
-
-    .summary-category {
-        border-radius: 15px;
-        background-color: #0b8712;
-    }
-
-    .summary-product {
-        border-radius: 15px;
-        background-color: #0B5587;
-    }
-
-    .no-decoration {
-        text-decoration: none!important;
-        color: #F0BB78;
-    }
-
-    .no-decoration:hover {
-        color: #500073;
-    }
-
-    .ui-breadcrumb{
-        background-color: none!important;
-    }
-</style>
 
 <body>
     <?php require "navbar.php" ?>

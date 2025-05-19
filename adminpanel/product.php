@@ -1,10 +1,10 @@
 <?php
 require "session.php";
-require "../koneksi.php";
+require "../connection.php";
 
-$queryProduct = mysqli_query($conn, "SELECT a.*, b.nama AS category_name FROM produk a JOIN kategori b ON a.kategori_id=b.id_kategori");
+$queryProduct = mysqli_query($conn, "SELECT a.*, b.category_name FROM products a JOIN categories b ON a.category_id=b.category_id");
 $totalProduct = mysqli_num_rows($queryProduct);
-$queryCategory = mysqli_query($conn, "SELECT * FROM kategori");
+$queryCategory = mysqli_query($conn, "SELECT * FROM categories");
 
 function generateRandomString($length = 10)
 {
@@ -29,24 +29,15 @@ function generateRandomString($length = 10)
     <title>Product</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
-
-<style>
-    .no-decoration {
-        text-decoration: none!important;
-    }
-
-    form div {
-        margin-bottom: 10px;
-    }
-</style>
 
 <body>
     <?php require "navbar.php" ?>
     <div class="container mt-5">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php" class="no-decoration text-muted">
+                <li class="breadcrumb-item"><a href="index.php" class="no-decoration1 text-muted">
                         <i class="fa-solid fa-house"></i> Home</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Category</li>
@@ -68,7 +59,7 @@ function generateRandomString($length = 10)
                         <?php
                         while ($data = mysqli_fetch_array($queryCategory)) {
                         ?>
-                            <option value="<?php echo $data['id_kategori'] ?>"><?php echo $data['nama'] ?></option>
+                            <option value="<?php echo $data['category_id'] ?>"><?php echo $data['category_name'] ?></option>
                         <?php
                         }
                         ?>
@@ -79,8 +70,8 @@ function generateRandomString($length = 10)
                     <input type="number" name="price" id="price" class="form-control" required>
                 </div>
                 <div>
-                    <label for="picture">Product Picture</label>
-                    <input type="file" name="picture" id="picture" class="form-control">
+                    <label for="image">Product Image</label>
+                    <input type="file" name="image" id="image" class="form-control">
                 </div>
                 <div>
                     <label for="detail">Detail</label>
@@ -89,8 +80,8 @@ function generateRandomString($length = 10)
                 <div>
                     <label for="stock">Stock</label>
                     <select name="stock" id="stock" class="form-control">
-                        <option value="tersedia">Tersedia</option>
-                        <option value="habis">Habis</option>
+                        <option value="available">Available</option>
+                        <option value="empty">Empty</option>
                     </select>
                 </div>
                 <div class="mt-3">
@@ -107,10 +98,10 @@ function generateRandomString($length = 10)
                 $stock = htmlspecialchars($_POST['stock']);
 
                 $dir_target = "../image/";
-                $file_name = basename($_FILES["picture"]["name"]);
+                $file_name = basename($_FILES["image"]["name"]);
                 $file_target = $dir_target . $file_name;
                 $imageFileType = strtolower(pathinfo($file_target, PATHINFO_EXTENSION));
-                $image_size = $_FILES["picture"]["size"];
+                $image_size = $_FILES["image"]["size"];
                 $random_name = generateRandomString(20);
                 $new_image = $random_name . "." . $imageFileType;
 
@@ -130,11 +121,11 @@ function generateRandomString($length = 10)
                                 <div class="p-3 mb-2 bg-warning text-dark mt-3">Images must be in jpg, png, or gif format!</div>
                             <?php
                             } else {
-                                move_uploaded_file($_FILES["picture"]["tmp_name"], $dir_target . $new_image);
+                                move_uploaded_file($_FILES["image"]["tmp_name"], $dir_target . $new_image);
                             }
                         }
                     }
-                    $queryCreate = mysqli_query($conn, "INSERT INTO produk (kategori_id, nama, harga, foto, detail, stok)
+                    $queryCreate = mysqli_query($conn, "INSERT INTO products (category_id, product_name, price, product_image, detail, stock)
                         VALUES ('$category', '$name', '$price', '$new_image', '$detail', '$stock')");
 
                     if ($queryCreate) {
@@ -177,11 +168,11 @@ function generateRandomString($length = 10)
                         ?>
                             <tr>
                                 <td><?php echo $total ?></td>
-                                <td><?php echo $data['nama'] ?></td>
+                                <td><?php echo $data['product_name'] ?></td>
                                 <td><?php echo $data['category_name'] ?></td>
-                                <td><?php echo $data['harga'] ?></td>
-                                <td><?php echo $data['stok'] ?></td>
-                                <td><a href="product-detail.php?pro=<?php echo $data['id_produk'] ?>"
+                                <td><?php echo $data['price'] ?></td>
+                                <td><?php echo $data['stock'] ?></td>
+                                <td><a href="product-detail.php?pro=<?php echo $data['product_id'] ?>"
                                         class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
                             </tr>
                     <?php

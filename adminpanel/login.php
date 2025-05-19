@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../koneksi.php";
+require "../connection.php";
 ?>
 
 <!DOCTYPE html>
@@ -11,23 +11,11 @@ require "../koneksi.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin</title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 
-<style>
-    .main {
-        height: 100vh;
-    }
-
-    .login-box {
-        width: 500px;
-        height: 300px;
-        box-sizing: border-box;
-        border-radius: 10px;
-    }
-</style>
-
 <body>
-    <div class="main d-flex flex-column justify-content-center align-items-center">
+    <div class="login d-flex flex-column justify-content-center align-items-center">
         <h1 class="text-black text-center p-3">Shop Dashboard</h1>
         <div class="login-box shadow p-5">
             <form action="" method="post">
@@ -51,15 +39,15 @@ require "../koneksi.php";
                 $username = htmlspecialchars($_POST['username']);
                 $password = htmlspecialchars($_POST['password']);
 
-                $query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username'");
+                $query = mysqli_query($conn, "SELECT * FROM users WHERE user_name='$username'");
                 $countdata = mysqli_num_rows($query);
                 $data = mysqli_fetch_array($query);
 
                 if ($countdata > 0) {
-                    if (password_verify($password, $data['password'])) { // password: admin
+                    if (password_verify($password, $data['user_password'])) { // password: admin
                         $_SESSION['username'] = $data['username'];
                         $_SESSION['login'] = true;
-                        header('location: index.php');
+                        header('location: index.php'); 
                     } else {
                         ?>
                         <div class="p-3 mb-2 bg-danger text-white mt-3">Wrong Username or Password!</div>
