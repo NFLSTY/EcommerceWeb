@@ -61,14 +61,16 @@ $countData = mysqli_num_rows($queryProduct);
                         <?php while ($data = mysqli_fetch_array($queryProduct)) { ?>
                             <div class="col px-1 py-2 d-flex">
                                 <div class="d-flex flex-column w-100 p-0">
-<a href="product-detail.php?product_id=<?php echo $data['product_id']; ?>" class="text-decoration-none product-text">
-    <div class="card-template mb-2"
-        style="--bg-image: url('../image/<?php echo $data['product_image'] ?>')"></div>
-    <h6 class="mb-1"><?php echo $data['product_name'] ?></h6>
-    <p class="price-text mb-2">Rp<?php echo $data['price'] ?></p>
-</a>
+                                    <a href="product-detail.php?product_id=<?php echo $data['product_id']; ?>"
+                                        class="text-decoration-none product-text">
+                                        <div class="card-template mb-2"
+                                            style="--bg-image: url('../image/<?php echo $data['product_image'] ?>')"></div>
+                                        <h6 class="mb-1"><?php echo $data['product_name'] ?></h6>
+                                        <p class="price-text mb-2">Rp<?php echo $data['price'] ?></p>
+                                    </a>
                                     <div class="mt-auto">
-                                        <button id="product-button" type="button" class="w-100 button-template">Add to cart</button>
+                                        <button id="product-button" type="button" class="w-100 button-template">Add to
+                                            cart</button>
                                     </div>
                                 </div>
                             </div>
