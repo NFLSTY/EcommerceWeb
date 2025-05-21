@@ -66,7 +66,7 @@ $countData = mysqli_num_rows($queryProduct);
                                         <div class="card-template mb-2"
                                             style="--bg-image: url('../image/<?php echo $data['product_image'] ?>')"></div>
                                         <h6 class="mb-1"><?php echo $data['product_name'] ?></h6>
-                                        <p class="price-text mb-2">Rp<?php echo $data['price'] ?></p>
+                                        <p class="price-text mb-2">Rp<?php echo number_format($data['price'], 0, ',', '.'); ?></p>
                                     </a>
                                     <div class="mt-auto">
                                         <button id="product-button" type="button" class="w-100 button-template">Add to
@@ -74,22 +74,6 @@ $countData = mysqli_num_rows($queryProduct);
                                     </div>
                                 </div>
                             </div>
-
-
-                            <!-- <div class="col px-1 py-2">
-                                <a href="#" class="text-decoration-none product-text">
-                                    <div class="card-template"
-                                        style="--bg-image: url('../image/<?php echo $data['product_image'] ?>')">
-                                    </div>
-                                    <div>
-                                        <h6 id="product-name"><?php echo $data['product_name'] ?></h6>
-                                        <p id="product-price" class="price-text">Rp<?php echo $data['price'] ?></p>
-                                        <a href="products-detail.php?nama=<?php echo $data['product_name'] ?>"></a>
-                                    </div>
-                                </a>
-                                <button id="product-button" type="button" href="example" class="w-100 button-template">Add
-                                    to cart</button>
-                            </div> -->
                         <?php } ?>
                     </div>
                 </div>

@@ -71,7 +71,7 @@ $countData = mysqli_num_rows($queryProduct);
                     <h2 class="mb-4">Categories</h2>
                     <div class="row row-cols-2 row-cols-md-4 align-items-start justify-content-center">
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?categories=PC Components">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/pc_components.jpg');">
                                 </div>
@@ -81,7 +81,7 @@ $countData = mysqli_num_rows($queryProduct);
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?categories=Peripherals">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/peripherals.jpeg');">
                                 </div>
@@ -91,7 +91,7 @@ $countData = mysqli_num_rows($queryProduct);
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?categories=Laptops and Desktops">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/laptops_and_desktops.jpg');">
                                 </div>
@@ -101,7 +101,7 @@ $countData = mysqli_num_rows($queryProduct);
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?kategori=pc">
+                            <a class="text-decoration-none" href="products.php?categories=Accesories">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('../image/categories/accessories.jpg');">
                                 </div>
@@ -134,7 +134,7 @@ $countData = mysqli_num_rows($queryProduct);
                                         <div class="card-template mb-2"
                                             style="--bg-image: url('../image/<?php echo $data['product_image'] ?>')"></div>
                                         <h6 class="mb-1"><?php echo $data['product_name'] ?></h6>
-                                        <p class="price-text mb-2">Rp<?php echo $data['price'] ?></p>
+                                        <p class="price-text mb-2">Rp<?php echo number_format($data['price'], 0, ',', '.'); ?></p>
                                     </a>
                                     <div class="mt-auto">
                                         <button id="product-button" type="button" class="w-100 button-template">Add to

@@ -12,3 +12,23 @@ Resources used:
 DISCLAIMER!!!
 - Project not using any framework (PHP native)
 - Group members still learning
+
+## How to Run:
+### 1. Clone or Download
+```bash
+git clone https://github.com/NFLSTY/EcommerceWeb.git
+```
+Move the folder to:
+```
+C:\laragon\www\
+```
+
+### 2. Start Server and Import the provided Database
+- Open Laragon → click **Start All**
+- Click **Database** or visit `http://localhost/phpmyadmin`
+- Import the provided `.sql` file (located in `EcommerceWeb\database\e_commerce.sql` )
+
+Access the project via:
+```
+http://localhost/EcommerceWeb/
+```
