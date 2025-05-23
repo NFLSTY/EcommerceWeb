@@ -53,7 +53,8 @@ $reviewsQuery = mysqli_query($conn, "SELECT * FROM product_reviews WHERE product
     <main class="container my-4">
         <div class="row">
             <div class="col-md-6">
-                <img src="../image/<?php echo htmlspecialchars($product['product_image']); ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="img-fluid" />
+                <img src="../image/<?php echo htmlspecialchars($product['product_image']);
+                ?>" alt="<?php echo htmlspecialchars($product['product_name']); ?>" class="img-fluid" />
             </div>
             <div class="col-md-6">
                 <h2><?php echo htmlspecialchars($product['product_name']); ?></h2>
