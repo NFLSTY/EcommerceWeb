@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('user.layouts.layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
+@section('title', 'Home')
 
-<body>
-    @include('user.layout.navbar')
+@section('content')
     <main>
         <article>
             <!-- Banner Carousel -->
@@ -59,7 +53,7 @@
                     <h2 class="mb-4">Categories</h2>
                     <div class="row row-cols-2 row-cols-md-4 align-items-start justify-content-center">
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?categories=PC Components">
+                            <a class="text-decoration-none" href="{{ url('products?category=PC Components') }}">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('{{ asset('images/categories/pc_components.jpg') }}')">
                                 </div>
@@ -69,7 +63,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?categories=Peripherals">
+                            <a class="text-decoration-none" href="{{ url('products?category=Peripherals') }}">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('{{ asset('images/categories/peripherals.jpeg') }}')">
                                 </div>
@@ -79,7 +73,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?categories=Laptops and Desktops">
+                            <a class="text-decoration-none" href="{{ url('products?category=Laptops and Desktops') }}">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('{{ asset('images/categories/laptops_and_desktops.jpg') }}')">
                                 </div>
@@ -89,7 +83,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="products.php?categories=Accesories">
+                            <a class="text-decoration-none" href="{{ url('products?category=Accesories') }}Accesories">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('{{ asset('images/categories/accessories.jpg') }}')">
                                 </div>
@@ -113,7 +107,7 @@
                             @foreach ($products as $product)
                                 <div class="col px-1 py-2 d-flex">
                                     <div class="d-flex flex-column w-100 p-0">
-                                        <a href="{{ route('products', $product->product_id) }}"
+                                        <a href="{{ route('product-details', $product->product_id) }}"
                                             class="text-decoration-none product-text">
                                             <div class="card-template mb-2"
                                                 style="--bg-image: url('{{ asset($product->image_url) }}')">
@@ -134,10 +128,4 @@
             </section>
         </article>
     </main>
-
-    @include('user.layout.footer')
-
-    @vite(['resources/js/app.js', 'resources/sass/app.scss', 'resources/css/user.css', 'resources/js/user.js'])
-</body>
-
-</html>
+@endsection

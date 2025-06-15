@@ -71,7 +71,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="{{ route('profile') }}">My profile</a></li>
-              <li><a class="dropdown-item" href="{{ route('logout') }}">Logout</a></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
             </ul>
           </div>
         @else
