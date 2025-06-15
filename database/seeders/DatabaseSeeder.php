@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Admin;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -29,5 +30,20 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         Admin::factory(5)->create();
+
+        // Default categories
+        $categories = [
+            'PC Components',
+            'Peripherals',
+            'Accessories',
+            'Laptops and Desktops',
+        ];
+
+        foreach ($categories as $category) {
+            DB::table('categories')->insert(['name' => $category]);
+        }
+
+        // Products dummy data (realistic)
+        $this->call(ProductSeeder::class);
     }
 }
