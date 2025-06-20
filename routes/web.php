@@ -35,3 +35,8 @@ Route::get('/checkout', function () {
 Route::get('/purchase-history', function () {
     return view('user.purchase-history');
 })->name('purchase-history');
+
+Route::prefix('admin')->middleware('auth')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\adminController\DashboardController::class, 'index'])->name('admin.dashboard');
+    // Add more admin routes here
+});
