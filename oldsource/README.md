@@ -7,11 +7,8 @@ Resources used:
 - JavaScript
 - Bootstrap
 - phpMyAdmin
-- Laragon
-
-DISCLAIMER!!!
-- Project not using any framework (PHP native)
-- Group members still learning
+- Laragon/XAMPP
+- Laravel
 
 ## How to Run:
 ### 1. Clone or Download
@@ -26,7 +23,7 @@ C:\laragon\www\
 ### 2. Start Server and Import the provided Database
 - Open Laragon → click **Start All**
 - Click **Database** or visit `http://localhost/phpmyadmin`
-- Import the provided `.sql` file (located in `EcommerceWeb\database\e_commerce.sql` )
+- Import the provided `.sql` file (located in `EcommerceWeb\oldsource\database\e_commerce.sql` )
 
 Access the project via:
 ```
