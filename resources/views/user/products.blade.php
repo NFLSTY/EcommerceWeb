@@ -33,7 +33,7 @@
                                     <a href="{{ route('product-details', $product->product_id) }}"
                                         class="text-decoration-none product-text">
                                         <div class="card-template mb-2"
-                                            style="--bg-image: url('{{ asset($product->image_url) }}')">
+                                            style="--bg-image: url('{{ asset('storage/' . $product->image_url) }}')">
                                         </div>
                                         <h6 class="mb-1">{{ $product->name }}</h6>
                                         <p class="price-text mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
