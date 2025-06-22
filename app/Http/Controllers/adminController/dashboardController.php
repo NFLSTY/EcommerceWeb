@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\adminController;
+namespace App\Http\Controllers\AdminController;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controller;
 
-class dashboardController extends Controller
+class DashboardController extends Controller
 {
     public function index()
     {

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.layout')
 
 @section('content')
 <div class="container mt-5">
@@ -22,7 +22,7 @@
                         <div class="col-6 text-light">
                             <h3 class="fs-2">Category</h3>
                             <p class="fs-4">{{ $totalCategory }} Category</p>
-                            <p><a href="#" class="no-decoration">Category Detail</a></p>
+                            <p><a href="{{ route('category-detail') }}" class="no-decoration">Category Detail</a></p>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         <div class="col-6 text-light">
                             <h3 class="fs-2">Product</h3>
                             <p class="fs-4">{{ $totalProduct }} Product</p>
-                            <p><a href="#" class="no-decoration">Product Detail</a></p>
+                            <p><a href="{{ route('product-detail') }}" class="no-decoration">Product Detail</a></p>
                         </div>
                     </div>
                 </div>
