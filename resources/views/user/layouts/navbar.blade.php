@@ -13,8 +13,6 @@
     #navbar.hide {
         transform: translateY(-100%);
     }
-
-    
 </style>
 
 <header>
@@ -26,7 +24,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapsibleContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                     </li>
@@ -39,9 +37,9 @@
             </div>
 
             <!-- Search bar (centered) -->
-            <form class="d-flex flex-grow-1 my-auto" role="search"
+            <form class="d-flex flex-grow-1 my-auto" role="search" action="{{ route('products') }}" method="GET"
                 style="max-width: 40%; height: 38px; margin-right: 20px;">
-                <input class="form-control me-2 w-100" type="search" placeholder="Search..." aria-label="Search" />
+                <input class="form-control me-2 w-100" type="search" name="keyword" placeholder="Search..." aria-label="Search" />
                 <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
             </form>
 

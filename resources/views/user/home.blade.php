@@ -83,7 +83,7 @@
                             </a>
                         </div>
                         <div class="col">
-                            <a class="text-decoration-none" href="{{ url('products?category=Accesories') }}Accesories">
+                            <a class="text-decoration-none" href="{{ url('products?category=Accessories') }}">
                                 <div class="highlight card-template d-flex justify-content-center align-items-center"
                                     style="--bg-image: url('{{ asset('storage/images/categories/accessories.jpg') }}')">
                                 </div>
@@ -106,17 +106,22 @@
                         <div class="row row-cols-3 row-cols-md-5">
                             @foreach ($products as $product)
                                 <div class="col px-1 py-2 d-flex">
-                                    <div class="d-flex flex-column w-100 p-0">
+                                    <div class="d-flex flex-column w-100 p-0 product-text">
                                         <a href="{{ route('product-details', $product->product_id) }}"
                                             class="text-decoration-none product-text">
                                             <div class="card-template mb-2"
                                                 style="--bg-image: url('{{ asset('storage/' . $product->image_url) }}')">
                                             </div>
-                                            <h6 class="mb-1">{{ $product->product_name }}</h6>
-                                            <p class="price-text mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                                            <h6 id="product-name" class="mb-1">{{ $product->name }}</h6>
+                                            <p id="product-price" class="mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                                         </a>
                                         <div class="mt-auto">
-                                            <button type="button" class="w-100 button-template">Add to cart</button>
+                                            <form action="#" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <button type="submit" class="w-100 button-template">Add to cart</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
