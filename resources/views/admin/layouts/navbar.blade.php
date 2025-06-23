@@ -10,7 +10,7 @@
                         <a class="nav-link text-white {{ request()->is('category') ? 'active' : '' }}" href="{{ route('category') }}">Category</a>
                     </li>
                     <li class="nav-item me-4">
-                        <a class="nav-link text-white {{ request()->is('product') ? 'active' : '' }}" href="{{ route('product') }}">Product</a>
+                        <a class="nav-link text-white {{ request()->is('product-index') ? 'active' : '' }}" href="{{ route('products/product-index') }}">Product</a>
                     </li>
                     <li class="nav-item me-4">
                         <a class="nav-link text-white {{ request()->is('login') ? 'active' : '' }}" href="{{ route('login') }}">Logout</a>
