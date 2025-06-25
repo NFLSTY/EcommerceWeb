@@ -26,10 +26,10 @@
 
     <!-- Success Message -->
     @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
     @endif
 
     <!-- Products Table -->
@@ -47,38 +47,38 @@
             </thead>
             <tbody>
                 @forelse($products as $index => $product)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $product->product_name }}</td>
-                        <td>{{ $product->category->category_name }}</td>
-                        <td>${{ number_format($product->price, 2) }}</td>
-                        <td>{{ $product->stock }}</td>
-                        <td>
-                            <a href="{{ route('admin.products.show', $product->product_id) }}" 
-                               class="btn btn-info btn-sm">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                            <a href="{{ route('admin.products.edit', $product->product_id) }}" 
-                               class="btn btn-warning btn-sm">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                            <form action="{{ route('admin.products.destroy', $product->product_id) }}" 
-                                  method="POST" class="d-inline" id="deleteForm{{ $product->product_id }}">
-                                @csrf
-                                @method('DELETE')
-                                <button type="button" class="btn btn-danger btn-sm" 
-                                        data-delete-confirm="true"
-                                        data-delete-item="{{ $product->product_name }}"
-                                        data-delete-form="deleteForm{{ $product->product_id }}">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $product->product_name }}</td>
+                    <td>{{ $product->category->category_name }}</td>
+                    <td>${{ number_format($product->price, 2) }}</td>
+                    <td>{{ $product->stock }}</td>
+                    <td>
+                        <a href="{{ route('admin.products.show', $product->product_id) }}"
+                            class="btn btn-info btn-sm">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <a href="{{ route('admin.products.product-edit', $product->product_id) }}"
+                            class="btn btn-warning btn-sm">
+                            <i class="fa-solid fa-edit"></i>
+                        </a>
+                        <form action="{{ route('admin.products.destroy', $product->product_id) }}"
+                            method="POST" class="d-inline" id="deleteForm{{ $product->product_id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-danger btn-sm"
+                                data-delete-confirm="true"
+                                data-delete-item="{{ $product->product_name }}"
+                                data-delete-form="deleteForm{{ $product->product_id }}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td colspan="6" class="text-center">No products available</td>
-                    </tr>
+                <tr>
+                    <td colspan="6" class="text-center">No products available</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -86,9 +86,9 @@
 
     <!-- Pagination if needed -->
     @if(method_exists($products, 'links'))
-        <div class="d-flex justify-content-center">
-            {{ $products->links() }}
-        </div>
+    <div class="d-flex justify-content-center">
+        {{ $products->links() }}
+    </div>
     @endif
 </div>
 @endsection

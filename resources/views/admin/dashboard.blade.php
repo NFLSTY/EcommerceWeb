@@ -21,8 +21,12 @@
                         </div>
                         <div class="col-6 text-light">
                             <h3 class="fs-2">Category</h3>
-                            <p class="fs-4">{{ $totalCategory }} Category</p>
-                            <p><a href="{{ route('category-detail') }}" class="no-decoration">Category Detail</a></p>
+                            <p class="fs-4">{{ $totalCategory }} Categories</p>
+                            @if(isset($category) && $category && isset($category->id))
+                                <p><a href="{{ route('admin.categories.show', ['category' => $category->id]) }}" class="no-decoration">Category Detail</a></p>
+                            @else
+                                <p class="text-warning">No categories available</p>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -36,8 +40,12 @@
                         </div>
                         <div class="col-6 text-light">
                             <h3 class="fs-2">Product</h3>
-                            <p class="fs-4">{{ $totalProduct }} Product</p>
-                            <p><a href="{{ route('product-detail') }}" class="no-decoration">Product Detail</a></p>
+                            <p class="fs-4">{{ $totalProduct }} Products</p>
+                            @if(isset($product) && $product && isset($product->id))
+                                <p><a href="{{ route('admin.products.show', ['product' => $product->id]) }}" class="no-decoration">Product Detail</a></p>
+                            @else
+                                <p class="text-warning">No products available</p>
+                            @endif
                         </div>
                     </div>
                 </div>
