@@ -13,7 +13,7 @@ class ProductController
     public function index()
     {
         $product = Product::all();
-        return view('admin.product', compact('products'));
+        return view('admin.products', compact('product'));
     }
 
     /**
@@ -21,7 +21,7 @@ class ProductController
      */
     public function create()
     {
-        //
+        return view('admin.products.product-create');
     }
 
     /**
@@ -29,7 +29,15 @@ class ProductController
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'product_name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            // Add other fields and validation rules as needed
+        ]);
+        $product = Product::create($validated);
+        return redirect()->route('admin.products.show', $product->product_id)
+            ->with('success', 'Product created successfully.');
     }
 
     /**
@@ -38,7 +46,7 @@ class ProductController
     public function show(string $id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.product-detail', compact('product'));
+        return view('admin.products.product-show', compact('product'));
     }
 
     /**
@@ -46,7 +54,8 @@ class ProductController
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('admin.products.product-edit', compact('product'));
     }
 
     /**
@@ -54,7 +63,16 @@ class ProductController
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'product_name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            // Add other fields and validation rules as needed
+        ]);
+        $product = Product::findOrFail($id);
+        $product->update($validated);
+        return redirect()->route('admin.products.show', $product->product_id)
+            ->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -62,6 +80,9 @@ class ProductController
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->route('admin.products.index')
+            ->with('success', 'Product deleted successfully.');
     }
 }

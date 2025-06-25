@@ -15,6 +15,8 @@ class DashboardController extends Controller
         $totalCategory = Category::count();
         $totalProduct = Product::count();
         $username = Auth::user() ? Auth::user()->name : 'Admin';
-        return view('admin.dashboard', compact('totalCategory', 'totalProduct', 'username'));
+        $category = Category::first(); // Get the first category (or null if none)
+        $product = Product::first();   // Get the first product (or null if none)
+        return view('admin.dashboard', compact('totalCategory', 'totalProduct', 'username', 'category', 'product'));
     }
 }
