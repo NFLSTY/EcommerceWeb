@@ -95,7 +95,7 @@
                                     <td>${{ number_format($product->price, 2) }}</td>
                                     <td>{{ $product->stock }}</td>
                                     <td>
-                                        <a href="{{ route('admin.products.show', $product->id) }}" 
+                                        <a href="{{ route('admin.products.product-show', $product->id) }}" 
                                            class="btn btn-sm btn-info">
                                             <i class="fa-solid fa-eye"></i>
                                         </a>

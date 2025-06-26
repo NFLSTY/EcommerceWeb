@@ -27,7 +27,7 @@
                     <h4 class="card-title mb-0">Add New Category</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.categories.store') }}" method="post">
+                    <form action="{{ route('admin.categories.create') }}" method="post">
                         @csrf
                         
                         <div class="mb-3">

@@ -83,7 +83,7 @@
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.categories.index', $category->id) }}" class="btn btn-secondary">
                                 <i class="fa-solid fa-arrow-left"></i> Back
                             </a>
                             <button type="submit" class="btn btn-primary">

@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('admin.products.product-index') }}" class="no-decoration1 text-muted">Products</a>
+                <a href="{{ route('admin.products.index') }}" class="no-decoration1 text-muted">Products</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">{{ $product->product_name }}</li>
         </ol>
@@ -25,7 +25,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title mb-0">Product Details</h3>
                     <div>
-                        <a href="{{ route('admin.products.product-edit', $product->product_id) }}" class="btn btn-warning">
+                        <a href="{{ route('admin.products.edit', $product->product_id) }}" class="btn btn-warning">
                             <i class="fa-solid fa-edit"></i> Edit Product
                         </a>
                         <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">

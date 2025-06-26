@@ -12,8 +12,8 @@ class CategoryController
      */
     public function index()
     {
-        $category = Category::all();
-        return view('admin.categories', compact('category'));
+        $categories = Category::all();
+        return view('admin.categories.category-index', compact('categories'));
     }
 
     /**

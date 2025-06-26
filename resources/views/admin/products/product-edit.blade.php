@@ -46,7 +46,7 @@
                     @endif
 
                     <!-- Edit Product Form -->
-                    <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.products.edit', $product->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -140,10 +140,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa-solid fa-save"></i> Update Product
                                 </button>
-                                <a href="{{ route('admin.products.show', $product->id) }}" class="btn btn-secondary">
+                                <a href="{{ route('admin.products.product-show', $product->id) }}" class="btn btn-secondary">
                                     <i class="fa-solid fa-eye"></i> View Details
                                 </a>
-                                <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">
+                                <a href="{{ route('admin.products.product-index') }}" class="btn btn-outline-secondary">
                                     <i class="fa-solid fa-arrow-left"></i> Back to Products
                                 </a>
                             </div>
@@ -156,7 +156,7 @@
                                         data-delete-modal="true"
                                         data-delete-item="{{ $product->product_name }}"
                                         data-delete-message="Are you sure you want to delete this product?"
-                                        data-delete-details="<strong>Product:</strong> {{ $product->product_name }}<br><strong>Category:</strong> {{ $product->category->category_name }}<br><strong>Price:</strong> ${{ number_format($product->price, 2) }}"
+                                        data-delete-details="<strong>Product:</strong> {{ $product->product_name }}<br><strong>Category:</strong> {{ $product->category->category_name }}<br><strong>Price:</strong> Rp {{ number_format($product->price, 2) }}"
                                         data-delete-form="deleteForm">
                                         <i class="fa-solid fa-trash"></i> Delete Product
                                     </button>

@@ -51,16 +51,16 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $product->product_name }}</td>
                     <td>{{ $product->category->category_name }}</td>
-                    <td>${{ number_format($product->price, 2) }}</td>
+                    <td>Rp {{ number_format($product->price, 2) }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>
                         <a href="{{ route('admin.products.show', $product->product_id) }}"
                             class="btn btn-info btn-sm">
-                            <i class="fa-solid fa-pen-to-square"></i>
+                            <i class="fa-solid fa-eye"></i>
                         </a>
-                        <a href="{{ route('admin.products.product-edit', $product->product_id) }}"
+                        <a href="{{ route('admin.products.edit', $product->product_id) }}"
                             class="btn btn-warning btn-sm">
-                            <i class="fa-solid fa-edit"></i>
+                            <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <form action="{{ route('admin.products.destroy', $product->product_id) }}"
                             method="POST" class="d-inline" id="deleteForm{{ $product->product_id }}">

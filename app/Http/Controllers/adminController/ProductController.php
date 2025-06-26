@@ -12,8 +12,8 @@ class ProductController
      */
     public function index()
     {
-        $product = Product::all();
-        return view('admin.products', compact('product'));
+        $products = Product::all();
+        return view('admin.products.product-index', compact('products'));
     }
 
     /**
@@ -43,9 +43,9 @@ class ProductController
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $product_id)
     {
-        $product = Product::findOrFail($id);
+        $product = Product::findOrFail($product_id);
         return view('admin.products.product-show', compact('product'));
     }
 
