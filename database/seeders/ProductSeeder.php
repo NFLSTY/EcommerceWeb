@@ -182,6 +182,11 @@ class ProductSeeder extends Seeder
             ],
         ];
 
+        $now = now();
+        foreach ($products as &$product) {
+            $product['created_at'] = $now;
+            $product['updated_at'] = $now;
+        }
         DB::table('products')->insert($products);
     }
 }
