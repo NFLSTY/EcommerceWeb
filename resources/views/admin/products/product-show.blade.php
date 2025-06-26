@@ -13,9 +13,9 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('admin.products.product-index') }}" class="no-decoration1 text-muted">Products</a>
+                <a href="{{ route('admin.products.index') }}" class="no-decoration1 text-muted">Products</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $product->product_name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $product->name }}</li>
         </ol>
     </nav>
 
@@ -25,7 +25,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3 class="card-title mb-0">Product Details</h3>
                     <div>
-                        <a href="{{ route('admin.products.product-edit', $product->product_id) }}" class="btn btn-warning">
+                        <a href="{{ route('admin.products.edit', $product->id) }}" class="btn btn-warning">
                             <i class="fa-solid fa-edit"></i> Edit Product
                         </a>
                         <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">
@@ -36,9 +36,9 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            @if($product->product_image)
-                            <img src="{{ asset('image/products/' . $product->product_image) }}"
-                                alt="{{ $product->product_name }}"
+                            @if($product->image_url)
+                            <img src="{{ asset('image/products/' . $product->image_url) }}"
+                                alt="{{ $product->name }}"
                                 class="img-fluid rounded shadow">
                             @else
                             <div class="bg-light d-flex align-items-center justify-content-center rounded"
@@ -51,16 +51,16 @@
                             <table class="table table-borderless">
                                 <tr>
                                     <th width="150">Product ID:</th>
-                                    <td>{{ $product->product_id }}</td>
+                                    <td>{{ $product->id }}</td>
                                 </tr>
                                 <tr>
                                     <th>Name:</th>
-                                    <td>{{ $product->product_name }}</td>
+                                    <td>{{ $product->name }}</td>
                                 </tr>
                                 <tr>
                                     <th>Category:</th>
                                     <td>
-                                        <span class="badge bg-primary">{{ $product->category->category_name }}</span>
+                                        <span class="badge bg-primary">{{ $product->category->name }}</span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -89,11 +89,11 @@
                         </div>
                     </div>
 
-                    @if($product->detail)
+                    @if($product->description)
                     <div class="mt-4">
                         <h5>Product Description</h5>
                         <div class="bg-light p-3 rounded">
-                            {!! nl2br(e($product->detail)) !!}
+                            {!! nl2br(e($product->description)) !!}
                         </div>
                     </div>
                     @endif

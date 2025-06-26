@@ -63,9 +63,9 @@
                             <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
                                 <option value="">Choose Category</option>
                                 @foreach($categories as $category)
-                                <option value="{{ $category->category_id }}"
-                                    {{ old('category') == $category->category_id ? 'selected' : '' }}>
-                                    {{ $category->category_name }}
+                                <option value="{{ $category->id }}"
+                                    {{ old('category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
                                 </option>
                                 @endforeach
                             </select>

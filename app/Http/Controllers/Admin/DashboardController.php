@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\AdminController;
+namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Routing\Controller;
 
 class DashboardController extends Controller
 {

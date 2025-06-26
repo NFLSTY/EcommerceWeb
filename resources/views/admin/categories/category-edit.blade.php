@@ -18,7 +18,7 @@
             </li>
             <li class="breadcrumb-item">
                 <a href="{{ route('admin.categories.show', $category->id) }}" class="no-decoration1 text-muted">
-                    {{ $category->category_name }}
+                    {{ $category->name }}
                 </a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Edit</li>
@@ -35,8 +35,8 @@
                         @method('DELETE')
                         <button type="button" class="btn btn-sm btn-danger" 
                             data-delete-confirm
-                            data-delete-item="{{ $category->category_name }}"
-                            data-delete-message="Are you sure you want to delete category '{{ $category->category_name }}'? This action cannot be undone.">
+                            data-delete-item="{{ $category->name }}"
+                            data-delete-message="Are you sure you want to delete category '{{ $category->name }}'? This action cannot be undone.">
                             <i class="fa-solid fa-trash"></i> Delete
                         </button>
                     </form>
@@ -73,7 +73,7 @@
                                    name="category_name" 
                                    id="category_name" 
                                    class="form-control @error('category_name') is-invalid @enderror"
-                                   value="{{ old('category_name', $category->category_name) }}"
+                                   value="{{ old('category_name', $category->name) }}"
                                    placeholder="Enter category name"
                                    autocomplete="off" 
                                    required>

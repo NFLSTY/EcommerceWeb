@@ -16,7 +16,7 @@
                     Categories
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">{{ $category->category_name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ $category->name }}</li>
         </ol>
     </nav>
 
@@ -53,7 +53,7 @@
                         </tr>
                         <tr>
                             <td><strong>Category Name:</strong></td>
-                            <td>{{ $category->category_name }}</td>
+                            <td>{{ $category->name }}</td>
                         </tr>
                         <tr>
                             <td><strong>Created:</strong></td>

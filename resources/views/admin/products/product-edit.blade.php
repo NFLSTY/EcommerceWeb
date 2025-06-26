@@ -15,7 +15,7 @@
             <li class="breadcrumb-item">
                 <a href="{{ route('admin.products.index') }}" class="no-decoration1 text-muted">Products</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Edit: {{ $product->product_name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit: {{ $product->name }}</li>
         </ol>
     </nav>
 
@@ -54,7 +54,7 @@
                             <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" name="name" id="name"
                                 class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name', $product->product_name) }}"
+                                value="{{ old('name', $product->name) }}"
                                 autocomplete="off" required>
                             @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -64,12 +64,12 @@
                         <div class="mb-3">
                             <label for="category" class="form-label">Category <span class="text-danger">*</span></label>
                             <select name="category" id="category" class="form-control @error('category') is-invalid @enderror" required>
-                                <option value="{{ $product->category_id }}">{{ $product->category->category_name }} (Current)</option>
+                                <option value="{{ $product->category_id }}">{{ $product->category->name }} (Current)</option>
                                 @foreach($categories as $category)
-                                @if($category->category_id != $product->category_id)
-                                <option value="{{ $category->category_id }}"
-                                    {{ old('category') == $category->category_id ? 'selected' : '' }}>
-                                    {{ $category->category_name }}
+                                @if($category->id != $product->category_id)
+                                <option value="{{ $category->id }}"
+                                    {{ old('category') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
                                 </option>
                                 @endif
                                 @endforeach
@@ -96,7 +96,7 @@
                             <label class="form-label">Current Image</label>
                             <div class="border rounded p-2 bg-light">
                                 <img src="{{ asset('image/products/' . $product->product_image) }}"
-                                    alt="{{ $product->product_name }}"
+                                    alt="{{ $product->name }}"
                                     class="img-thumbnail"
                                     style="max-width: 300px; max-height: 200px;">
                             </div>
@@ -154,9 +154,9 @@
                                     @method('DELETE')
                                     <button type="button" class="btn btn-danger"
                                         data-delete-modal="true"
-                                        data-delete-item="{{ $product->product_name }}"
+                                        data-delete-item="{{ $product->name }}"
                                         data-delete-message="Are you sure you want to delete this product?"
-                                        data-delete-details="<strong>Product:</strong> {{ $product->product_name }}<br><strong>Category:</strong> {{ $product->category->category_name }}<br><strong>Price:</strong> ${{ number_format($product->price, 2) }}"
+                                        data-delete-details="<strong>Product:</strong> {{ $product->name }}<br><strong>Category:</strong> {{ $product->category->name }}<br><strong>Price:</strong> ${{ number_format($product->price, 2) }}"
                                         data-delete-form="deleteForm">
                                         <i class="fa-solid fa-trash"></i> Delete Product
                                     </button>
@@ -178,7 +178,7 @@
                     <table class="table table-sm table-borderless">
                         <tr>
                             <td><strong>ID:</strong></td>
-                            <td>{{ $product->product_id }}</td>
+                            <td>{{ $product->id }}</td>
                         </tr>
                         <tr>
                             <td><strong>Current Stock:</strong></td>
