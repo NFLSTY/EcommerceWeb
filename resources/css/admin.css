@@ -1,0 +1,45 @@
+.no-decoration1 {
+    text-decoration: none!important;
+}
+
+.login {
+    height: 100vh;
+}
+
+.login-box {
+    width: 500px;
+    height: 300px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.square {
+    border: solid;
+}
+
+.summary-category {
+    border-radius: 15px;
+    background-color: #0b8712;
+}
+
+.summary-product {
+    border-radius: 15px;
+    background-color: #0B5587;
+}
+
+.no-decoration {
+    text-decoration: none!important;
+    color:rgb(255, 255, 255);
+}
+
+.no-decoration:hover {
+    color:rgb(235, 215, 35);
+}
+
+.ui-breadcrumb{
+    background-color: none!important;
+}
+
+form div {
+    margin-bottom: 10px;
+}
