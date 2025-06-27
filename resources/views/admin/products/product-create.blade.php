@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('admin.products.product-index') }}" class="no-decoration1 text-muted">Products</a>
+                <a href="{{ route('admin.products.index') }}" class="no-decoration1 text-muted">Products</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Add Product</li>
         </ol>
@@ -46,7 +46,7 @@
                     @endif
 
                     <!-- Add Product Form -->
-                    <form action="{{ route('admin.products.product-add') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.products.create') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
@@ -116,7 +116,7 @@
                             <button type="submit" class="btn btn-primary">
                                 <i class="fa-solid fa-save"></i> Add Product
                             </button>
-                            <a href="{{ route('admin.products.product-index') }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">
                                 <i class="fa-solid fa-arrow-left"></i> Back to Products
                             </a>
                         </div>

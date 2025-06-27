@@ -140,10 +140,10 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fa-solid fa-save"></i> Update Product
                                 </button>
-                                <a href="{{ route('admin.products.product-show', $product->id) }}" class="btn btn-secondary">
+                                <a href="{{ route('admin.products.show', $product->id) }}" class="btn btn-secondary">
                                     <i class="fa-solid fa-eye"></i> View Details
                                 </a>
-                                <a href="{{ route('admin.products.product-index') }}" class="btn btn-outline-secondary">
+                                <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">
                                     <i class="fa-solid fa-arrow-left"></i> Back to Products
                                 </a>
                             </div>
