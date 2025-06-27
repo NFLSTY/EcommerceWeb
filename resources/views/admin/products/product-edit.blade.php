@@ -95,7 +95,7 @@
                         <div class="mb-3">
                             <label class="form-label">Current Image</label>
                             <div class="border rounded p-2 bg-light">
-                                <img src="{{ asset('image/products/' . $product->product_image) }}"
+                                <img src="{{ asset('storage/' . $product->image_url) }}"
                                     alt="{{ $product->name }}"
                                     class="img-thumbnail"
                                     style="max-width: 300px; max-height: 200px;">
@@ -156,7 +156,7 @@
                                         data-delete-modal="true"
                                         data-delete-item="{{ $product->name }}"
                                         data-delete-message="Are you sure you want to delete this product?"
-                                        data-delete-details="<strong>Product:</strong> {{ $product->name }}<br><strong>Category:</strong> {{ $product->category->name }}<br><strong>Price:</strong> ${{ number_format($product->price, 2) }}"
+                                        data-delete-details="<strong>Product:</strong> {{ $product->name }}<br><strong>Category:</strong> {{ $product->category->name }}<br><strong>Price:</strong> Rp {{ number_format($product->price, 2) }}"
                                         data-delete-form="deleteForm">
                                         <i class="fa-solid fa-trash"></i> Delete Product
                                     </button>

@@ -37,7 +37,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             @if($product->image_url)
-                            <img src="{{ asset('image/products/' . $product->image_url) }}"
+                            <img src="{{ asset('storage/' . $product->image_url) }}"
                                 alt="{{ $product->name }}"
                                 class="img-fluid rounded shadow">
                             @else
@@ -66,7 +66,7 @@
                                 <tr>
                                     <th>Price:</th>
                                     <td>
-                                        <span class="h5 text-success">${{ number_format($product->price, 2) }}</span>
+                                        <span class="h5 text-success">Rp {{ number_format($product->price, 2) }}</span>
                                     </td>
                                 </tr>
                                 <tr>
