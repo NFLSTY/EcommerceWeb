@@ -43,6 +43,9 @@ class DatabaseSeeder extends Seeder
             DB::table('categories')->insert(['name' => $category]);
         }
 
+
+        // Copy sample asset to storage
+        $this->call(SampleAssetSeeder::class);
         // Products dummy data (realistic)
         $this->call(ProductSeeder::class);
     }

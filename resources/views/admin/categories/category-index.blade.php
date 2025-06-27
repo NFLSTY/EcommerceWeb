@@ -49,7 +49,7 @@
                 @forelse($categories as $index => $category)
                     <tr>
                         <td>{{ $index + 1 }}</td>
-                        <td>{{ $category->category_name }}</td>
+                        <td>{{ $category->name }}</td>
                         <td>
                             <a href="{{ route('admin.categories.show', $category->id) }}" 
                                class="btn btn-sm btn-info me-1">
@@ -64,8 +64,8 @@
                                 @method('DELETE')
                                 <button type="button" class="btn btn-sm btn-danger" 
                                     data-delete-confirm
-                                    data-delete-item="{{ $category->category_name }}"
-                                    data-delete-message="Are you sure you want to delete category '{{ $category->category_name }}'?">
+                                    data-delete-item="{{ $category->name }}"
+                                    data-delete-message="Are you sure you want to delete category '{{ $category->name }}'?">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>

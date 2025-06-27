@@ -49,20 +49,18 @@ a:hover .arrow {
     text-align: left;
 }
 
-.product-text #product-name {
+#product-name {
     margin-top: 15px;
+    font-weight: 600;
 }
 
-.product-text #product-price {
+#product-price {
+    font-size: medium;
     font-weight: 400;
 }
 
 a:hover #product-name {
     text-decoration: underline;
-}
-
-#product-button:hover {
-    box-shadow: 2px 5px 25px -15px rgba(0, 0, 0, 4);
 }
 
 .button-template {
@@ -75,7 +73,12 @@ a:hover #product-name {
     font-size: 16px;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.button-template:hover {
+    transform: scale(1.01);
+    box-shadow: 2px 5px 25px -15px rgba(0, 0, 0, 4);
 }
 
 

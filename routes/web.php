@@ -1,31 +1,60 @@
 <?php
 
-use App\Http\Controllers\AdminController\DashboardController;
-use App\Http\Controllers\AdminController\CategoryController;
-use App\Http\Controllers\AdminController\ProductController;
-use App\Http\Controllers\UserController\HomeController;
-use App\Http\Controllers\UserController\ProductsController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\ProductsController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::get('/products', [ProductsController::class, 'index'])->name('products');
+
+Route::get('/product-details', function () {
+    return view('user.product-details');
+})->name('product-details');
+
+Route::get('/cart', function () {
+    return view('user.cart');
+})->name('cart');
+
+Route::get('/profile', function () {
+    return view('user.profile');
+})->name('profile');
+
+Route::get('/login', function () {
+    return view('user.login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('user.register');
+})->name('register');
+
+Route::get('/checkout', function () {
+    return view('user.checkout');
+})->name('checkout');
+
+Route::get('/purchase-history', function () {
+    return view('user.purchase-history');
+})->name('purchase-history');
+
+// Route::prefix('admin')->middleware('auth')->group(function () {
+//     Route::get('/dashboard', [App\Http\Controllers\adminController\DashboardController::class, 'index'])->name('admin.dashboard');
+//     // Add more admin routes here
+// });
+
+
+
 // Admin Dashboard
-Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
 // Category CRUD (admin)
-// Route::resource('categories', CategoryController::class, [
-//     'as' => 'admin' // route names like admin.categories.index, etc.
-// ]);
-Route::get('/categories/category-index', [CategoryController::class, 'index'])->name('admin.categories.index');
-Route::get('/categories/category-create', [CategoryController::class, 'create'])->name('admin.categories.create');
-Route::get('/categories/category-edit', [CategoryController::class, 'edit'])->name('admin.categories.edit');
-Route::get('/categories/category-show', [CategoryController::class, 'show'])->name('admin.categories.show');
-Route::get('/categories/category-destroy', [ProductController::class, 'destroy'])->name('admin.categories.destroy');
+Route::resource('admin/categories', CategoryController::class, [
+    'as' => 'admin' // route names like admin.categories.index, etc.
+]);
 
 // Product CRUD (admin)
-// Route::resource('products', ProductController::class, [
-//     'as' => 'admin' // route names like admin.products.index, etc.
-// ]);
-Route::get('/products/product-index', [ProductController::class, 'index'])->name('admin.products.index');
-Route::get('/products/product-create', [ProductController::class, 'create'])->name('admin.products.create');
-Route::get('/products/product-edit', [ProductController::class, 'edit'])->name('admin.products.edit');
-Route::get('/products/product-show', [ProductController::class, 'show'])->name('admin.products.show');
-Route::get('/products/product-destroy', [ProductController::class, 'destroy'])->name('admin.products.destroy');
+Route::resource('admin/products', ProductController::class, [
+    'as' => 'admin' // route names like admin.products.index, etc.
+]);

@@ -29,18 +29,23 @@
                     <div class="row row-cols-2 row-cols-md-4">
                         @foreach ($products as $product)
                             <div class="col px-1 py-2 d-flex">
-                                <div class="d-flex flex-column w-100 p-0">
+                                <div class="d-flex flex-column w-100 p-0 product-text">
                                     <a href="{{ route('product-details', $product->product_id) }}"
                                         class="text-decoration-none product-text">
                                         <div class="card-template mb-2"
-                                            style="--bg-image: url('{{ asset($product->image_url) }}')">
+                                            style="--bg-image: url('{{ asset('storage/' . $product->image_url) }}')">
                                         </div>
-                                        <h6 class="mb-1">{{ $product->name }}</h6>
-                                        <p class="price-text mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                                        <h6 id="product-name" class="mb-1">{{ $product->name }}</h6>
+                                        <p id="product-price" class="mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}
+                                        </p>
                                     </a>
                                     <div class="mt-auto">
-                                        <button id="product-button" type="button" class="w-100 button-template">Add to
-                                            cart</button>
+                                        <form action="#" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="w-100 button-template">Add to cart</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

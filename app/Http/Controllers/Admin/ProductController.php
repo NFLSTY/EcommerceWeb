@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\AdminController;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
-class ProductController
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,7 +38,7 @@ class ProductController
             // Add other fields and validation rules as needed
         ]);
         $product = Product::create($validated);
-        return redirect()->route('admin.products.show', $product->product_id)
+        return redirect()->route('admin.products.show', $product->id)
             ->with('success', 'Product created successfully.');
     }
 
@@ -55,7 +57,8 @@ class ProductController
     public function edit(string $id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.products.product-edit', compact('product'));
+        $categories = Category::all();
+        return view('admin.products.product-edit', compact('product', 'categories'));
     }
 
     /**
@@ -71,7 +74,7 @@ class ProductController
         ]);
         $product = Product::findOrFail($id);
         $product->update($validated);
-        return redirect()->route('admin.products.show', $product->product_id)
+        return redirect()->route('admin.products.show', $product->id)
             ->with('success', 'Product updated successfully.');
     }
 
