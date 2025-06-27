@@ -31,7 +31,7 @@
                         @csrf
                         
                         <div class="mb-3">
-                            <label for="category_name" class="form-label">Category Name <span class="text-danger">*</span></label>
+                            <label for="category_name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" 
                                    name="category_name" 
                                    id="category_name" 
@@ -45,13 +45,13 @@
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
-                                <i class="fa-solid fa-arrow-left"></i> Back
-                            </a>
+                        <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa-solid fa-save"></i> Save Category
+                                <i class="fa-solid fa-save"></i> Add Category
                             </button>
+                            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
+                                <i class="fa-solid fa-arrow-left"></i> Back to Categories
+                            </a>
                         </div>
                     </form>
                 </div>
