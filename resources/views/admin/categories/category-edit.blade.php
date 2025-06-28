@@ -21,7 +21,7 @@
                     {{ $category->name }}
                 </a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit: {{ $category->name }}</li>
         </ol>
     </nav>
 
@@ -29,17 +29,7 @@
         <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title mb-0">Edit Category</h4>
-                    <form method="post" action="{{ route('admin.categories.destroy', $category->id) }}" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-sm btn-danger" 
-                            data-delete-confirm
-                            data-delete-item="{{ $category->name }}"
-                            data-delete-message="Are you sure you want to delete category '{{ $category->name }}'? This action cannot be undone.">
-                            <i class="fa-solid fa-trash"></i> Delete
-                        </button>
-                    </form>
+                    <h3 class="card-title mb-0">Edit Category</h3>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -68,7 +58,7 @@
                         @method('PUT')
                         
                         <div class="mb-3">
-                            <label for="category_name" class="form-label">Category Name <span class="text-danger">*</span></label>
+                            <label for="category_name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" 
                                    name="category_name" 
                                    id="category_name" 
@@ -82,13 +72,31 @@
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.categories.index', $category->id) }}" class="btn btn-secondary">
-                                <i class="fa-solid fa-arrow-left"></i> Back
-                            </a>
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fa-solid fa-save"></i> Update Category
-                            </button>
+                        <div class="d-flex gap-2 justify-content-between">
+                            <div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa-solid fa-save"></i> Update Category
+                                </button>
+                                <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-secondary">
+                                    <i class="fa-solid fa-eye"></i> View Details
+                                </a>
+                                <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">
+                                    <i class="fa-solid fa-arrow-left"></i> Back to Categories
+                                </a>
+                            </div>
+                            <div>
+                                {{-- Delete button --}}
+                                <form method="post" action="{{ route('admin.categories.destroy', $category->id) }}" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn btn-sm btn-danger" 
+                                        data-delete-confirm
+                                        data-delete-item="{{ $category->name }}"
+                                        data-delete-message="Are you sure you want to delete category '{{ $category->name }}'? This action cannot be undone.">
+                                        <i class="fa-solid fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </form>
                 </div>

@@ -1,5 +1,11 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: white;
+}
+
 .no-decoration1 {
-    text-decoration: none!important;
+    text-decoration: transparent!important;
 }
 
 .login {
@@ -28,7 +34,7 @@
 }
 
 .no-decoration {
-    text-decoration: none!important;
+    text-decoration: transparent!important;
     color:rgb(255, 255, 255);
 }
 
@@ -37,7 +43,7 @@
 }
 
 .ui-breadcrumb{
-    background-color: none!important;
+    background-color: transparent!important;
 }
 
 form div {

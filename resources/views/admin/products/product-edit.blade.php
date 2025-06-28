@@ -13,7 +13,9 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('admin.products.index') }}" class="no-decoration1 text-muted">Products</a>
+                <a href="{{ route('admin.products.index') }}" class="no-decoration1 text-muted">
+                    Products
+                </a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Edit: {{ $product->name }}</li>
         </ol>
@@ -156,7 +158,7 @@
                                         data-delete-modal="true"
                                         data-delete-item="{{ $product->name }}"
                                         data-delete-message="Are you sure you want to delete this product?"
-                                        data-delete-details="<strong>Product:</strong> {{ $product->name }}<br><strong>Category:</strong> {{ $product->category->name }}<br><strong>Price:</strong> Rp {{ number_format($product->price, 2) }}"
+                                        data-delete-details="<strong>Product:</strong> {{ $product->name }}<br><strong>Category:</strong> {{ $product->category->name }}<br><strong>Price:</strong> Rp{{ number_format($product->price, 2) }}"
                                         data-delete-form="deleteForm">
                                         <i class="fa-solid fa-trash"></i> Delete Product
                                     </button>
@@ -203,7 +205,3 @@
     </div>
 </div>
 @endsection
-
-@push('scripts')
-<script src="{{ asset('js/delete-confirmation.js') }}"></script>
-@endpush

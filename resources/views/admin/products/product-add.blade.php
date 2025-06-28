@@ -46,7 +46,7 @@
                     @endif
 
                     <!-- Add Product Form -->
-                    <form action="{{ route('admin.products.create') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">

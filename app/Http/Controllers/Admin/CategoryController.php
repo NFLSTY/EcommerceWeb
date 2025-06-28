@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.category-create');
+        return view('admin.categories.category-add');
     }
 
     /**
@@ -75,9 +75,16 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
-        return redirect()->route('admin.categories.index')
-            ->with('success', 'category deleted successfully.');
+        try {
+            $category = Category::findOrFail($id);
+            $categoryName = $category->name;
+            $category->delete();
+            
+            return redirect()->route('admin.categories.index')
+                ->with('success', "Category '{$categoryName}' deleted successfully.");
+        } catch (\Exception $e) {
+            return redirect()->route('admin.categories.index')
+                ->with('error', 'Failed to delete category.');
+        }
     }
 }

@@ -16,7 +16,7 @@
     </nav>
 
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3>Categories</h3>
+        <h3>Category List</h3>
         <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
             <i class="fa-solid fa-plus"></i> Add Category
         </a>
@@ -59,13 +59,12 @@
                                class="btn btn-sm btn-warning me-1">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
-                            <form class="d-inline" method="post" action="{{ route('admin.categories.destroy', $category->id) }}">
+                            <form class="d-inline" method="post" action="{{ route('admin.categories.destroy', $category->id) }}" id="deleteForm{{ $category->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="button" class="btn btn-sm btn-danger" 
-                                    data-delete-confirm
-                                    data-delete-item="{{ $category->name }}"
-                                    data-delete-message="Are you sure you want to delete category '{{ $category->name }}'?">
+                                <button type="button" class="btn btn-sm btn-danger delete-btn" 
+                                    data-category-name="{{ $category->name }}"
+                                    data-form-id="deleteForm{{ $category->id }}">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </form>

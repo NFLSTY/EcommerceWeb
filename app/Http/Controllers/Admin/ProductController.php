@@ -23,7 +23,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.products.product-create');
+        $categories = Category::all();
+        return view('admin.products.product-add', compact('categories'));
     }
 
     /**
@@ -83,9 +84,16 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
-        return redirect()->route('admin.products.index')
-            ->with('success', 'Product deleted successfully.');
+        try {
+            $product = Product::findOrFail($id);
+            $productName = $product->name;
+            $product->delete();
+            
+            return redirect()->route('admin.products.index')
+                ->with('success', "Product '{$productName}' deleted successfully.");
+        } catch (\Exception $e) {
+            return redirect()->route('admin.products.index')
+                ->with('error', 'Failed to delete product.');
+        }
     }
 }

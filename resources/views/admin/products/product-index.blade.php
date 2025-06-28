@@ -32,6 +32,14 @@
     </div>
     @endif
 
+    <!-- Error Message -->
+    @if(session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ session('error') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    @endif
+
     <!-- Products Table -->
     <div class="table-responsive">
         <table class="table">
@@ -51,7 +59,7 @@
                     <td>{{ $index + 1 }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
-                    <td>Rp {{ number_format($product->price, 2) }}</td>
+                    <td>Rp{{ number_format($product->price, 2) }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>
                         <a href="{{ route('admin.products.show', ['product' => $product->id]) }}"
@@ -66,10 +74,9 @@
                             method="POST" class="d-inline" id="deleteForm{{ $product->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-danger btn-sm"
-                                data-delete-confirm="true"
-                                data-delete-item="{{ $product->name }}"
-                                data-delete-form="deleteForm{{ $product->id }}">
+                            <button type="button" class="btn btn-danger btn-sm delete-btn"
+                                data-product-name="{{ $product->name }}"
+                                data-form-id="deleteForm{{ $product->id }}">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </form>
@@ -92,7 +99,3 @@
     @endif
 </div>
 @endsection
-
-@push('scripts')
-<script src="{{ asset('js/delete-confirmation.js') }}"></script>
-@endpush

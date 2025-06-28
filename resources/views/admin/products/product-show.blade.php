@@ -66,7 +66,7 @@
                                 <tr>
                                     <th>Price:</th>
                                     <td>
-                                        <span class="h5 text-success">Rp {{ number_format($product->price, 2) }}</span>
+                                        <span class="h5 text-success">Rp{{ number_format($product->price, 2) }}</span>
                                     </td>
                                 </tr>
                                 <tr>
