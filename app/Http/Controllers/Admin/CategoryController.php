@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 
 class CategoryController extends Controller
 {
@@ -31,11 +32,16 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'category_name' => 'required|string|max:10',
+            'name' => 'required|string|max:255',
         ]);
-        $category = Category::create($validated);
-        return redirect()->route('admin.categories.show', $category->category_id)
-            ->with('success', 'category created successfully.');
+        
+        // Map the form field to the model attribute
+        $category = Category::create([
+            'name' => $validated['name']
+        ]);
+        
+        return redirect()->route('admin.categories.show', $category->id)
+            ->with('success', 'Category created successfully.');
     }
 
     /**
@@ -44,7 +50,8 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $category = Category::findOrFail($id);
-        return view('admin.categories.category-show', compact('category'));
+        $products = $category->product;
+        return view('admin.categories.category-show', compact('category', 'products'));
     }
 
     /**
@@ -62,12 +69,18 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'category_name' => 'required|string|max:25105',
+            'name' => 'required|string|max:255',
         ]);
+        
         $category = Category::findOrFail($id);
-        $category->update($validated);
-        return redirect()->route('admin.categories.show', $category->category_id)
-            ->with('success', 'category updated successfully.');
+        
+        // Map the form field to the model attribute
+        $category->update([
+            'name' => $validated['name']
+        ]);
+        
+        return redirect()->route('admin.categories.show', $category->id)
+            ->with('success', 'Category updated successfully.');
     }
 
     /**

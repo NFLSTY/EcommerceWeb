@@ -43,12 +43,22 @@ Route::get('/purchase-history', function () {
 // Admin Dashboard
 Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-// Category CRUD (admin)
-Route::resource('admin/categories', CategoryController::class, [
-    'as' => 'admin' // route names like admin.categories.index, etc.
+Route::resource('admin/categories', CategoryController::class)->names([
+    'index' => 'admin.categories.index',
+    'create' => 'admin.categories.create',
+    'store' => 'admin.categories.store',
+    'show' => 'admin.categories.show',
+    'edit' => 'admin.categories.edit',
+    'update' => 'admin.categories.update',
+    'destroy' => 'admin.categories.destroy',
 ]);
 
-// Product CRUD (admin)
-Route::resource('admin/products', ProductController::class, [
-    'as' => 'admin' // route names like admin.products.index, etc.
+Route::resource('admin/products', ProductController::class)->names([
+    'index' => 'admin.products.index',
+    'create' => 'admin.products.create',
+    'store' => 'admin.products.store',
+    'show' => 'admin.products.show',
+    'edit' => 'admin.products.edit',
+    'update' => 'admin.products.update',
+    'destroy' => 'admin.products.destroy',
 ]);

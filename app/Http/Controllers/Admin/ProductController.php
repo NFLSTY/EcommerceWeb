@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Category;
 use App\Models\Product;
 
 class ProductController extends Controller
@@ -33,12 +33,24 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'product_name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            // Add other fields and validation rules as needed
+            'name' => 'required|string|max:255',
+            'category' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'detail' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
-        $product = Product::create($validated);
+        
+        // Map form fields to database columns
+        $product = Product::create([
+            'name' => $validated['name'],
+            'category_id' => $validated['category'],
+            'price' => $validated['price'],
+            'stock' => $validated['stock'],
+            'description' => $validated['detail'] ?? null,
+            'image_url' => $this->handleImageUpload($request) ?? null,
+        ]);
+        
         return redirect()->route('admin.products.show', $product->id)
             ->with('success', 'Product created successfully.');
     }
@@ -68,13 +80,26 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'product_name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'stock' => 'required|integer',
-            // Add other fields and validation rules as needed
+            'name' => 'required|string|max:255',
+            'category' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
+            'detail' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
+    
         $product = Product::findOrFail($id);
-        $product->update($validated);
+    
+        // Map form fields to database columns
+        $product->update([
+            'name' => $validated['name'],
+            'category_id' => $validated['category'],
+            'price' => $validated['price'],
+            'stock' => $validated['stock'],
+            'description' => $validated['detail'] ?? null,
+            'image_url' => $this->handleImageUpload($request) ?? $product->image_url,
+        ]);
+    
         return redirect()->route('admin.products.show', $product->id)
             ->with('success', 'Product updated successfully.');
     }
@@ -95,5 +120,20 @@ class ProductController extends Controller
             return redirect()->route('admin.products.index')
                 ->with('error', 'Failed to delete product.');
         }
+    }
+
+    /**
+     * Handle image upload and return the URL
+     */
+    private function handleImageUpload(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(storage_path('app/public/images/products'), $imageName);
+            return 'app/public/images/products' . $imageName;
+        }
+        
+        return null;
     }
 }
