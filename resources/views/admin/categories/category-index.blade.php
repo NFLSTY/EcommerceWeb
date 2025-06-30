@@ -15,6 +15,7 @@
         </ol>
     </nav>
 
+    {{-- Add Button --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3>Category List</h3>
         <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
@@ -22,6 +23,7 @@
         </a>
     </div>
 
+    {{-- Success Message --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -29,6 +31,7 @@
         </div>
     @endif
 
+    {{-- Error Message --}}
     @if(session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}
@@ -36,8 +39,9 @@
         </div>
     @endif
 
+    {{-- Categories Table --}}
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -76,9 +80,6 @@
                             <div class="text-muted">
                                 <i class="fa-solid fa-folder-open fa-3x mb-3"></i>
                                 <p>No categories found.</p>
-                                <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">
-                                    Add First Category
-                                </a>
                             </div>
                         </td>
                     </tr>

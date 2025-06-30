@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="container mt-5">
-    <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -16,7 +15,7 @@
         </ol>
     </nav>
 
-    <!-- Header with Add Button -->
+    {{-- Add Button --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3>Product List</h3>
         <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
@@ -24,7 +23,7 @@
         </a>
     </div>
 
-    <!-- Success Message -->
+    {{-- Success Message --}}
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{ session('success') }}
@@ -32,7 +31,7 @@
     </div>
     @endif
 
-    <!-- Error Message -->
+    {{-- Error Message --}}
     @if(session('error'))
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ session('error') }}
@@ -40,7 +39,7 @@
     </div>
     @endif
 
-    <!-- Products Table -->
+    {{-- Products Table --}}
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -84,14 +83,19 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6" class="text-center">No products available</td>
+                    <td colspan="6" class="text-center py-4">
+                        <div class="text-muted">
+                            <i class="fa-solid fa-folder-open fa-3x mb-3"></i>
+                            <p>No products available</p>
+                        </div>
+                    </td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 
-    <!-- Pagination if needed -->
+    {{-- Pagination if needed --}}
     @if(method_exists($products, 'links'))
     <div class="d-flex justify-content-center">
         {{ $products->links() }}

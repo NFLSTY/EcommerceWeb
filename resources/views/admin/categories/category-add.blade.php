@@ -27,20 +27,40 @@
                     <h4 class="card-title mb-0">Add New Category</h4>
                 </div>
                 <div class="card-body">
+                    {{-- Error Messages --}}
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    {{-- Success Messages --}}
+                    @if(session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    @endif
+
+                    {{-- Add Product Form --}}
                     <form action="{{ route('admin.categories.store') }}" method="POST">
                         @csrf
                         
                         <div class="mb-3">
-                            <label for="category_name" class="form-label">Name <span class="text-danger">*</span></label>
+                            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" 
-                                   name="category_name" 
-                                   id="category_name" 
-                                   class="form-control @error('category_name') is-invalid @enderror"
-                                   value="{{ old('category_name') }}"
+                                   name="name" 
+                                   id="name" 
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   value="{{ old('name') }}"
                                    placeholder="Enter category name"
                                    autocomplete="off" 
                                    required>
-                            @error('category_name')
+                            @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
