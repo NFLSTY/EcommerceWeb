@@ -87,9 +87,16 @@ class ProductController extends Controller
             'detail' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
-    
+
         $product = Product::findOrFail($id);
-    
+        
+        // Handle image upload and deletion of old image
+        $newImageUrl = $this->handleImageUpload($request);
+        if ($newImageUrl && $product->image_url) {
+            // Delete the old image when uploading a new one
+            deleteImage($product->image_url);
+        }
+
         // Map form fields to database columns
         $product->update([
             'name' => $validated['name'],
@@ -97,9 +104,9 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'stock' => $validated['stock'],
             'description' => $validated['detail'] ?? null,
-            'image_url' => $this->handleImageUpload($request) ?? $product->image_url,
+            'image_url' => $newImageUrl ?? $product->image_url,
         ]);
-    
+
         return redirect()->route('admin.products.show', $product->id)
             ->with('success', 'Product updated successfully.');
     }
@@ -112,6 +119,12 @@ class ProductController extends Controller
         try {
             $product = Product::findOrFail($id);
             $productName = $product->name;
+            
+            // Delete the product image if it exists
+            if ($product->image_url) {
+                deleteImage($product->image_url);
+            }
+            
             $product->delete();
             
             return redirect()->route('admin.products.index')
@@ -129,9 +142,10 @@ class ProductController extends Controller
     {
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $randomString = generateRandomString(10);
+            $imageName = $randomString . '_' . time() . '.' . $image->getClientOriginalExtension();
             $image->move(storage_path('app/public/images/products'), $imageName);
-            return 'app/public/images/products' . $imageName;
+            return 'images/products/' . $imageName;
         }
         
         return null;
