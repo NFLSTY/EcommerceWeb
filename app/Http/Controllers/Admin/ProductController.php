@@ -37,17 +37,17 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'detail' => 'nullable|string',
+            'detail' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
         
-        // Map form fields to database columns
+        // Map form fields to the model attribute
         $product = Product::create([
             'name' => $validated['name'],
             'category_id' => $validated['category'],
             'price' => $validated['price'],
             'stock' => $validated['stock'],
-            'description' => $validated['detail'] ?? null,
+            'description' => $validated['detail'],
             'image_url' => $this->handleImageUpload($request) ?? null,
         ]);
         
@@ -83,7 +83,7 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'detail' => 'nullable|string',
+            'detail' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
 
@@ -96,13 +96,13 @@ class ProductController extends Controller
             deleteImageUsingStorage($product->image_url);
         }
 
-        // Map form fields to database columns
+        // Map form fields to the model attribute
         $product->update([
             'name' => $validated['name'],
             'category_id' => $validated['category'],
             'price' => $validated['price'],
             'stock' => $validated['stock'],
-            'description' => $validated['detail'] ?? null,
+            'description' => $validated['detail'],
             'image_url' => $newImageUrl ?? $product->image_url,
         ]);
 
