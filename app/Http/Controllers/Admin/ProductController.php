@@ -51,8 +51,7 @@ class ProductController extends Controller
             'image_url' => $this->handleImageUpload($request) ?? null,
         ]);
         
-        return redirect()->route('admin.products.show', $product->id)
-            ->with('success', 'Product created successfully.');
+        return redirect()->route('admin.products.show', $product->id);
     }
 
     /**
@@ -94,7 +93,7 @@ class ProductController extends Controller
         $newImageUrl = $this->handleImageUpload($request);
         if ($newImageUrl && $product->image_url) {
             // Delete the old image when uploading a new one
-            deleteImage($product->image_url);
+            deleteImageUsingStorage($product->image_url);
         }
 
         // Map form fields to database columns
@@ -107,8 +106,7 @@ class ProductController extends Controller
             'image_url' => $newImageUrl ?? $product->image_url,
         ]);
 
-        return redirect()->route('admin.products.show', $product->id)
-            ->with('success', 'Product updated successfully.');
+        return redirect()->route('admin.products.show', $product->id);
     }
 
     /**
@@ -116,23 +114,16 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            $product = Product::findOrFail($id);
-            $productName = $product->name;
-            
-            // Delete the product image if it exists
-            if ($product->image_url) {
-                deleteImage($product->image_url);
-            }
-            
-            $product->delete();
-            
-            return redirect()->route('admin.products.index')
-                ->with('success', "Product '{$productName}' deleted successfully.");
-        } catch (\Exception $e) {
-            return redirect()->route('admin.products.index')
-                ->with('error', 'Failed to delete product.');
+        $product = Product::findOrFail($id);
+        
+        // Delete the product image if it exists
+        if ($product->image_url) {
+            deleteImageUsingStorage($product->image_url);
         }
+        
+        $product->delete();
+        
+        return redirect()->route('admin.products.index');
     }
 
     /**
