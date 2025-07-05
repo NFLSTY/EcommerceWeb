@@ -116,7 +116,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="detail" class="form-label">Details</label>
+                            <label for="detail" class="form-label">Details <span class="text-danger">*</span></label>
                             <textarea name="detail" id="detail" rows="5"
                                 class="form-control @error('detail') is-invalid @enderror"
                                 placeholder="Enter product description...">{{ old('detail', $product->detail) }}</textarea>
@@ -140,7 +140,7 @@
                             <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">
                                 <i class="fa-solid fa-arrow-left"></i> Back to Products
                             </a>               
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary update-btn">
                                 <i class="fa-solid fa-save"></i> Update Product
                             </button>
                             {{-- <a href="{{ route('admin.products.show', $product->id) }}" class="btn btn-secondary">

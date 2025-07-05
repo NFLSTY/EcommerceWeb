@@ -46,7 +46,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Category Name</th>
-                    <th>Actions</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>

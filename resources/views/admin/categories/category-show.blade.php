@@ -36,24 +36,38 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <table class="table table-borderless">
-                            <tr>
-                                <td><strong>ID:</strong></td>
-                                <td>{{ $category->id }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Category Name:</strong></td>
-                                <td>{{ $category->name }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Created:</strong></td>
-                                <td>{{ $category->created_at ? $category->created_at->format('M d, Y H:i') : 'N/A' }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Updated:</strong></td>
-                                <td>{{ $category->updated_at ? $category->updated_at->format('M d, Y H:i') : 'N/A' }}</td>
-                            </tr>
-                        </table>
+                        <div class="col-md-4">
+                            @if($category->image_url)
+                            <img src="{{ asset('storage/' . $category->image_url) }}"
+                                alt="{{ $category->name }}"
+                                class="img-fluid rounded shadow">
+                            @else
+                            <div class="bg-light d-flex align-items-center justify-content-center rounded"
+                                style="height: 300px;">
+                                <i class="fa-solid fa-image fa-3x text-muted"></i>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th width="150">Category ID:</th>
+                                    <td>{{ $category->id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>{{ $category->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Created:</th>
+                                    <td>{{ $category->created_at ? $category->created_at->format('M d, Y H:i') : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Updated:</th>
+                                    <td>{{ $category->updated_at ? $category->updated_at->format('M d, Y H:i') : 'N/A' }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

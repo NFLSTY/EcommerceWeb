@@ -56,3 +56,74 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Add notification for products and categories
+document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(e) {
+        const addBtn = e.target.closest('.add-btn');
+        if (!addBtn) return;
+
+        e.preventDefault();
+
+        const form = addBtn.closest('form');
+        const itemType = form ? (form.action.includes('products') ? 'product' : 'category') : 'item';
+        
+        if (form) {
+            Swal.fire({
+                title: "Added!",
+                text: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} has been added successfully.`,
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false,
+                background: '#ffffff',
+                color: '#000000'
+            }).then(() => {
+                form.submit();
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Process Failed. Please try again.",
+                icon: "error"
+            });
+        }
+    });
+});
+
+// Update notification for products and categories
+document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', function(e) {
+        if (condition) {
+            // success
+        } else {
+            // failed
+        }
+        const updateBtn = e.target.closest('.update-btn');
+        if (!updateBtn) return;
+
+        e.preventDefault();
+
+        const form = updateBtn.closest('form');
+        const itemType = form ? (form.action.includes('products') ? 'product' : 'category') : 'item';
+        
+        if (form) {
+            Swal.fire({
+                title: "Updated!",
+                text: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} has been updated successfully.`,
+                icon: "success",
+                timer: 1500,
+                showConfirmButton: false,
+                background: '#ffffff',
+                color: '#000000'
+            }).then(() => {
+                form.submit();
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Process Failed. Please try again.",
+                icon: "error"
+            });
+        }
+    });
+});

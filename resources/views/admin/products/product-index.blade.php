@@ -45,7 +45,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Name</th>
+                    <th>Product Name</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Stock</th>

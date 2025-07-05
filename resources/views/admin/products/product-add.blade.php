@@ -93,7 +93,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="detail" class="form-label">Details</label>
+                            <label for="detail" class="form-label">Details <span class="text-danger">*</span></label>
                             <textarea name="detail" id="detail" rows="5"
                                 class="form-control @error('detail') is-invalid @enderror"
                                 placeholder="Enter product description...">{{ old('detail') }}</textarea>
@@ -112,7 +112,7 @@
                         </div>
 
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary add-btn">
                                 <i class="fa-solid fa-save"></i> Add Product
                             </button>
                             <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">

@@ -66,11 +66,35 @@
                             @enderror
                         </div>
 
+                        {{-- Current Image Display --}}
+                        @if($category->category_image)
+                        <div class="mb-3">
+                            <label class="form-label">Current Image</label>
+                            <div class="border rounded p-2 bg-light">
+                                <img src="{{ asset('storage/' . $category->image_url) }}"
+                                    alt="{{ $category->name }}"
+                                    class="img-thumbnail"
+                                    style="max-width: 300px; max-height: 200px;">
+                            </div>
+                        </div>
+                        @endif
+
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Update Category Image</label>
+                            <input type="file" name="image" id="image"
+                                class="form-control @error('image') is-invalid @enderror"
+                                accept="image/*">
+                            <div class="form-text">Leave empty to keep current image. Supported formats: JPG, PNG, GIF. Maximum size: 5MB</div>
+                            @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="d-flex gap-2 justify-content-between">
                             <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">
                                 <i class="fa-solid fa-arrow-left"></i> Back to Categories
                             </a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary update-btn">
                                 <i class="fa-solid fa-save"></i> Update Category
                             </button>
                             {{-- <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-secondary">

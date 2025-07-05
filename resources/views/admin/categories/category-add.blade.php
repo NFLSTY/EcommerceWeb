@@ -24,7 +24,7 @@
         <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0">Add New Category</h4>
+                    <h3 class="card-title mb-0">Add New Category</h3>
                 </div>
                 <div class="card-body">
                     {{-- Error Messages --}}
@@ -65,8 +65,18 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Category Image <span class="text-danger">*</span></label>
+                            <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror"
+                                accept="image/*">
+                            <div class="form-text">Supported formats: JPG, PNG, GIF. Maximum size: 5MB</div>
+                            @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary add-btn">
                                 <i class="fa-solid fa-save"></i> Add Category
                             </button>
                             <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
