@@ -33,15 +33,16 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
         
         // Map the form field to the model attribute
         $category = Category::create([
-            'name' => $validated['name']
+            'name' => $validated['name'],
+            'image_url' => $this->handleImageUpload($request) ?? null,
         ]);
         
-        return redirect()->route('admin.categories.show', $category->id)
-            ->with('success', 'Category created successfully.');
+        return redirect()->route('admin.categories.show', $category->id);
     }
 
     /**
@@ -70,17 +71,25 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ]);
         
         $category = Category::findOrFail($id);
+
+        // Handle image upload and deletion of old image
+        $newImageUrl = $this->handleImageUpload($request);
+        if ($newImageUrl && $category->image_url) {
+            // Delete the old image when uploading a new one
+            deleteImageUsingStorage($category->image_url);
+        }
         
         // Map the form field to the model attribute
         $category->update([
-            'name' => $validated['name']
+            'name' => $validated['name'],
+            'image_url' => $newImageUrl ?? $category->image_url,
         ]);
         
-        return redirect()->route('admin.categories.show', $category->id)
-            ->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.categories.show', $category->id);
     }
 
     /**
@@ -88,16 +97,32 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        try {
-            $category = Category::findOrFail($id);
-            $categoryName = $category->name;
-            $category->delete();
-            
-            return redirect()->route('admin.categories.index')
-                ->with('success', "Category '{$categoryName}' deleted successfully.");
-        } catch (\Exception $e) {
-            return redirect()->route('admin.categories.index')
-                ->with('error', 'Failed to delete category.');
+ 
+        $category = Category::findOrFail($id);
+
+        // Delete the category image if it exists
+        if ($category->image_url) {
+            deleteImageUsingStorage($category->image_url);
         }
+
+        $category->delete();
+
+        return redirect()->route('admin.categories.index');
+    }
+
+    /**
+     * Handle image upload and return the URL
+     */
+    private function handleImageUpload(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $randomString = generateRandomString(10);
+            $imageName = $randomString . '_' . time() . '.' . $image->getClientOriginalExtension();
+            $image->move(storage_path('app/public/images/categories'), $imageName);
+            return 'images/categories/' . $imageName;
+        }
+        
+        return null;
     }
 }
