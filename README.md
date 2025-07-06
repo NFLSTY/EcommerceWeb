@@ -27,4 +27,6 @@ Problem addressing and solving:
 php artisan storage:link
 # Uncommon bug/too many chaches
 php artisan cache:clear && php artisan config:clear && php artisan route:clear && php artisan view:clear
+# For anyone who wants to try the admin side
+npm install sweetalert2
 ```
