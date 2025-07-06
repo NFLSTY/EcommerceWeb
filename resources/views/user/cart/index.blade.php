@@ -1,4 +1,4 @@
-@extends('user.layouts.layout')
+@extends('user.layouts.app')
 
 @section('title', 'Shopping Cart')
 
@@ -44,9 +44,9 @@
                     @foreach($cart as $item)
                     <tr>
                         <td>
-                            <img src="{{ asset('image/' . $item['foto']) }}" 
-                                alt="{{ $item['nama'] }}" 
-                                style="width: 80px; height: 80px; object-fit: cover;">
+                            <img src="{{ $item['foto'] && file_exists(public_path('image/' . $item['foto'])) ? asset('image/' . $item['foto']) : 'https://via.placeholder.com/80x80/6c757d/ffffff?text=' . substr($item['nama'], 0, 1) }}" 
+                                 alt="{{ $item['nama'] }}" 
+                                 style="width: 80px; height: 80px; object-fit: cover;">
                         </td>
                         <td>{{ $item['nama'] }}</td>
                         <td>Rp {{ number_format($item['harga'], 0, ',', '.') }}</td>
@@ -55,7 +55,7 @@
                                 @csrf
                                 <input type="hidden" name="product_id" value="{{ $item['id'] }}">
                                 <input type="number" name="qty" value="{{ $item['qty'] }}" 
-                                      min="1" class="form-control me-2" style="width: 80px;">
+                                       min="1" class="form-control me-2" style="width: 80px;">
                                 <button type="submit" class="btn btn-sm btn-primary">Update</button>
                             </form>
                         </td>
