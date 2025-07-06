@@ -51,48 +51,24 @@
             <section>
                 <div class="container-fluid px-5 pt-5">
                     <h2 class="mb-4">Categories</h2>
-                    <div class="row row-cols-2 row-cols-md-4 align-items-start justify-content-center">
-                        <div class="col">
-                            <a class="text-decoration-none" href="{{ url('products?category=PC Components') }}">
-                                <div class="highlight card-template d-flex justify-content-center align-items-center"
-                                    style="--bg-image: url('{{ asset('storage/images/categories/pc_components.jpg') }}')">
+                    @if (count($categories) === 0)
+                        <h4 class="text-center my-5">Categories not available!</h4>
+                    @else
+                        <div class="row row-cols-2 row-cols-md-5 align-items-start justify-content-center">
+                            @foreach ($categories as $category)
+                                <div class="col">
+                                    <a class="text-decoration-none" href="{{ route('products', ['category' => $category->name]) }}">
+                                        <div class="highlight card-template d-flex justify-content-center align-items-center"
+                                            style="--bg-image: url('{{ asset('storage/' . $category->image_url) }}')">
+                                        </div>
+                                        <div class="category-text">
+                                            <h5>{{$category->name}}<span class="arrow">→</span></h5>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="category-text">
-                                    <h5>PC Components <span class="arrow">→</span></h5>
-                                </div>
-                            </a>
+                            @endforeach
                         </div>
-                        <div class="col">
-                            <a class="text-decoration-none" href="{{ url('products?category=Peripherals') }}">
-                                <div class="highlight card-template d-flex justify-content-center align-items-center"
-                                    style="--bg-image: url('{{ asset('storage/images/categories/peripherals.jpeg') }}')">
-                                </div>
-                                <div class="category-text">
-                                    <h5>Peripherals <span class="arrow">→</span></h5>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a class="text-decoration-none" href="{{ url('products?category=Laptops and Desktops') }}">
-                                <div class="highlight card-template d-flex justify-content-center align-items-center"
-                                    style="--bg-image: url('{{ asset('storage/images/categories/laptops_and_desktops.jpg') }}')">
-                                </div>
-                                <div class="category-text">
-                                    <h5>Laptops and Desktops <span class="arrow">→</span></h5>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col">
-                            <a class="text-decoration-none" href="{{ url('products?category=Accessories') }}">
-                                <div class="highlight card-template d-flex justify-content-center align-items-center"
-                                    style="--bg-image: url('{{ asset('storage/images/categories/accessories.jpg') }}')">
-                                </div>
-                                <div class="category-text">
-                                    <h5>Accesories <span class="arrow">→</span></h5>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </section>
 
@@ -113,7 +89,8 @@
                                                 style="--bg-image: url('{{ asset('storage/' . $product->image_url) }}')">
                                             </div>
                                             <h6 id="product-name" class="mb-1">{{ $product->name }}</h6>
-                                            <p id="product-price" class="mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                                            <p id="product-price" class="mb-2">Rp{{ number_format($product->price, 0, ',', '.') }}
+                                            </p>
                                         </a>
                                         <div class="mt-auto">
                                             <form action="#" method="POST">
@@ -128,7 +105,6 @@
                             @endforeach
                         </div>
                     @endif
-                </div>
                 </div>
             </section>
         </article>
