@@ -46,8 +46,8 @@
                     </div>
                     @endif
 
-                    {{-- Edit Product Form --}}
-                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
+                    {{-- Edit Category Form --}}
+                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         

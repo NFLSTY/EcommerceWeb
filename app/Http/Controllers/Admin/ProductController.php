@@ -51,7 +51,8 @@ class ProductController extends Controller
             'image_url' => $this->handleImageUpload($request) ?? null,
         ]);
         
-        return redirect()->route('admin.products.show', $product->id);
+        return redirect()->route('admin.products.show', $product->id)
+            ->with('success', "Product '{$product->name}' has been added successfully.");
     }
 
     /**
@@ -106,7 +107,8 @@ class ProductController extends Controller
             'image_url' => $newImageUrl ?? $product->image_url,
         ]);
 
-        return redirect()->route('admin.products.show', $product->id);
+        return redirect()->route('admin.products.show', $product->id)
+            ->with('success', "Product '{$product->name}' has been updated successfully.");
     }
 
     /**
@@ -121,9 +123,11 @@ class ProductController extends Controller
             deleteImageUsingStorage($product->image_url);
         }
         
+        $productName = $product->name;
         $product->delete();
         
-        return redirect()->route('admin.products.index');
+        return redirect()->route('admin.products.index')
+            ->with('success', "Product '{$productName}' has been deleted successfully.");
     }
 
     /**

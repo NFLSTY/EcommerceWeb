@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::with('product')->get();
         return view('admin.categories.category-index', compact('categories'));
     }
 
@@ -42,7 +42,8 @@ class CategoryController extends Controller
             'image_url' => $this->handleImageUpload($request) ?? null,
         ]);
         
-        return redirect()->route('admin.categories.show', $category->id);
+        return redirect()->route('admin.categories.show', $category->id)
+            ->with('success', "Category '{$category->name}' has been added successfully.");
     }
 
     /**
@@ -89,7 +90,8 @@ class CategoryController extends Controller
             'image_url' => $newImageUrl ?? $category->image_url,
         ]);
         
-        return redirect()->route('admin.categories.show', $category->id);
+        return redirect()->route('admin.categories.show', $category->id)
+            ->with('success', "Category '{$category->name}' has been updated successfully.");
     }
 
     /**
@@ -97,17 +99,24 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
- 
         $category = Category::findOrFail($id);
+
+        // Check if category has products
+        $productCount = $category->product()->count();
+        if ($productCount > 0) {
+            return redirect()->route('admin.categories.index');
+        }
 
         // Delete the category image if it exists
         if ($category->image_url) {
             deleteImageUsingStorage($category->image_url);
         }
 
+        $categoryName = $category->name;
         $category->delete();
 
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.index')
+            ->with('success', "Category '{$categoryName}' has been deleted successfully.");
     }
 
     /**

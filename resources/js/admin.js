@@ -1,4 +1,37 @@
-// Optimized delete confirmation for products and categories
+// Display flash messages with SweetAlert2 on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Check for success flash message
+    const successAlert = document.querySelector('.alert-success');
+    if (successAlert) {
+        const message = successAlert.textContent.trim();
+        Swal.fire({
+            title: "Success!",
+            text: message,
+            icon: "success",
+            timer: 3000,
+            showConfirmButton: false,
+            background: '#ffffff',
+            color: '#000000'
+        });
+        successAlert.remove(); // Remove the flash message element
+    }
+
+    // Check for error flash message
+    const errorAlert = document.querySelector('.alert-danger');
+    if (errorAlert) {
+        const message = errorAlert.textContent.trim();
+        Swal.fire({
+            title: "Error!",
+            text: message,
+            icon: "error",
+            background: '#ffffff',
+            color: '#000000'
+        });
+        errorAlert.remove(); // Remove the flash message element
+    }
+});
+
+// Delete confirmation for products and categories
 document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', function(e) {
         const deleteBtn = e.target.closest('.delete-btn');
@@ -25,105 +58,24 @@ document.addEventListener('DOMContentLoaded', function() {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!",
-            // Force light theme to avoid dark mode conflicts
             background: '#ffffff',
             color: '#000000'
         }).then((result) => {
             if (result.isConfirmed) {
                 const form = document.getElementById(formId);
                 if (form) {
-                    // Show success message first, then submit form
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: `"${itemName}" has been deleted successfully.`,
-                        icon: "success",
-                        timer: 1500,
-                        showConfirmButton: false,
-                        // Force light theme to prevent animation bugs
-                        background: '#ffffff',
-                        color: '#000000'
-                    }).then(() => {
-                        form.submit();
-                    });
+                    // Submit form immediately - success notification will be shown after redirect
+                    form.submit();
                 } else {
                     Swal.fire({
                         title: "Error!",
                         text: "Form not found. Please try again.",
-                        icon: "error"
+                        icon: "error",
+                        background: '#ffffff',
+                        color: '#000000'
                     });
                 }
             }
         });
-    });
-});
-
-// Add notification for products and categories
-document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('click', function(e) {
-        const addBtn = e.target.closest('.add-btn');
-        if (!addBtn) return;
-
-        e.preventDefault();
-
-        const form = addBtn.closest('form');
-        const itemType = form ? (form.action.includes('products') ? 'product' : 'category') : 'item';
-        
-        if (form) {
-            Swal.fire({
-                title: "Added!",
-                text: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} has been added successfully.`,
-                icon: "success",
-                timer: 1500,
-                showConfirmButton: false,
-                background: '#ffffff',
-                color: '#000000'
-            }).then(() => {
-                form.submit();
-            });
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Process Failed. Please try again.",
-                icon: "error"
-            });
-        }
-    });
-});
-
-// Update notification for products and categories
-document.addEventListener('DOMContentLoaded', function() {
-    document.addEventListener('click', function(e) {
-        if (condition) {
-            // success
-        } else {
-            // failed
-        }
-        const updateBtn = e.target.closest('.update-btn');
-        if (!updateBtn) return;
-
-        e.preventDefault();
-
-        const form = updateBtn.closest('form');
-        const itemType = form ? (form.action.includes('products') ? 'product' : 'category') : 'item';
-        
-        if (form) {
-            Swal.fire({
-                title: "Updated!",
-                text: `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} has been updated successfully.`,
-                icon: "success",
-                timer: 1500,
-                showConfirmButton: false,
-                background: '#ffffff',
-                color: '#000000'
-            }).then(() => {
-                form.submit();
-            });
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Process Failed. Please try again.",
-                icon: "error"
-            });
-        }
     });
 });

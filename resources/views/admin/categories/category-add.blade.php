@@ -46,8 +46,8 @@
                     </div>
                     @endif
 
-                    {{-- Add Product Form --}}
-                    <form action="{{ route('admin.categories.store') }}" method="POST">
+                    {{-- Add Category Form --}}
+                    <form action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="mb-3">
