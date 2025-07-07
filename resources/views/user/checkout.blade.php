@@ -28,9 +28,9 @@
             </div>
         @endif
 
-        @if(isset($infoMessage))
+        @if(isset($message))
             <div class="alert alert-info alert-dismissible fade show" role="alert">
-                {{ $infoMessage }}
+                {{ $message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
@@ -51,7 +51,7 @@
                                     <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
                                         name="nama" value="{{ old('nama') }}" required>
                                     @error('nama')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $infoMessage }}</div>
                                     @enderror
                                 </div>
 
@@ -60,7 +60,7 @@
                                     <input type="tel" class="form-control @error('phone') is-invalid @enderror" id="phone"
                                         name="phone" value="{{ old('phone') }}" required>
                                     @error('phone')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $infoMessage }}</div>
                                     @enderror
                                 </div>
 
@@ -69,7 +69,7 @@
                                     <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat"
                                         name="alamat" rows="3" required>{{ old('alamat') }}</textarea>
                                     @error('alamat')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $infoMessage }}</div>
                                     @enderror
                                 </div>
 
@@ -89,7 +89,7 @@
                                         </option>
                                     </select>
                                     @error('metode')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <div class="invalid-feedback">{{ $infoMessage }}</div>
                                     @enderror
                                 </div>
                             </div>
