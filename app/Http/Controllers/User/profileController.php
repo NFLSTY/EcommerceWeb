@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user();
-        return view('user.profile-show', compact('user'));
+        return view('user.profile_user', compact('user'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('user.profile-edit', compact('user'));
+        return view('user.profile_edit', compact('user'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone_number' => ['nullable', 'string', 'max:20'],
             'date_of_birth' => ['nullable', 'date'],
             'gender' => ['nullable', 'in:male,female,other'],
             'address' => ['nullable', 'string', 'max:500'],
@@ -104,6 +104,36 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->route('profile.show')->with('success', 'Password updated successfully!');
+    }
+
+    /**
+     * Update profile image via JSON response for AJAX calls.
+     */
+    public function updateImage(Request $request)
+    {
+        return $this->updateProfileImage($request);
+    }
+
+    /**
+     * Display the user's orders.
+     */
+    public function orders()
+    {
+        $user = Auth::user();
+        $orders = $user->order()->with(['orderItem.product'])->orderBy('created_at', 'desc')->get();
+        
+        return view('user.profile_orders', compact('user', 'orders'));
+    }
+
+    /**
+     * Display a specific order.
+     */
+    public function orderShow($id)
+    {
+        $user = Auth::user();
+        $order = $user->order()->with(['orderItem.product', 'payment'])->findOrFail($id);
+        
+        return view('user.profile_order_details', compact('user', 'order'));
     }
 
     /**

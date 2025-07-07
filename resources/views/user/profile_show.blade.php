@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('user.layouts.layout')
 
-@section('title', 'ShopNow - My Profile')
+@section('title', 'Edit Profile')
 
 @push('styles')
 <style>
@@ -345,9 +345,7 @@
             <ul class="sidebar-menu">
                 <li><a href="{{ route('profile.show') }}" class="active"><i class="fas fa-user"></i> Personal Information</a></li>
                 <li><a href="{{ route('profile.orders') }}"><i class="fas fa-shopping-bag"></i> My Orders</a></li>
-                <li><a href="{{ route('profile.wishlist') }}"><i class="fas fa-heart"></i> Wishlist</a></li>
                 <li><a href="#password-section"><i class="fas fa-lock"></i> Change Password</a></li>
-                <li><a href="{{ route('profile.notifications') }}"><i class="fas fa-bell"></i> Notifications</a></li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" style="display: inline;">
                         @csrf
@@ -462,13 +460,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeModal = document.querySelector('.close-modal');
     const form = document.getElementById('profile-image-form');
 
-    editIcon.addEventListener('click', function() {
-        modal.style.display = 'block';
-    });
+    if (editIcon) {
+        editIcon.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+    }
 
-    closeModal.addEventListener('click', function() {
-        modal.style.display = 'none';
-    });
+    if(closeModal) {
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+    }
 
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
@@ -477,53 +479,59 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Handle profile image upload
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(form);
-        
-        fetch('{{ route("profile.image.update") }}', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('profile-image').src = data.image_url;
-                modal.style.display = 'none';
-                
-                // Show success message
-                const successAlert = document.createElement('div');
-                successAlert.className = 'success-alert';
-                successAlert.textContent = data.message;
-                document.querySelector('.container').insertBefore(successAlert, document.querySelector('.profile-header'));
-                
-                // Remove alert after 5 seconds
-                setTimeout(() => successAlert.remove(), 5000);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('An error occurred while uploading the image.');
+    if(form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            fetch('{{ route("profile.image.update") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('profile-image').src = data.image_url;
+                    modal.style.display = 'none';
+                    
+                    // Show success message
+                    const successAlert = document.createElement('div');
+                    successAlert.className = 'success-alert';
+                    successAlert.textContent = data.message;
+                    document.querySelector('.container').insertBefore(successAlert, document.querySelector('.profile-header'));
+                    
+                    // Remove alert after 5 seconds
+                    setTimeout(() => successAlert.remove(), 5000);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while uploading the image.');
+            });
         });
-    });
+    }
 
     // File input styling
     const fileInput = document.querySelector('input[type="file"]');
     const uploadBtn = document.querySelector('.upload-btn');
     
-    uploadBtn.addEventListener('click', function() {
-        fileInput.click();
-    });
+    if(uploadBtn) {
+        uploadBtn.addEventListener('click', function() {
+            fileInput.click();
+        });
+    }
     
-    fileInput.addEventListener('change', function() {
-        if (this.files.length > 0) {
-            uploadBtn.innerHTML = '<i class="fas fa-check"></i> ' + this.files[0].name;
-        }
-    });
+    if(fileInput) {
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                uploadBtn.innerHTML = '<i class="fas fa-check"></i> ' + this.files[0].name;
+            }
+        });
+    }
 });
 </script>
 @endpush

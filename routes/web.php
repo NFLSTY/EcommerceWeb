@@ -86,4 +86,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/image', [ProfileController::class, 'updateProfileImage'])->name('profile.image.update');
     Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
     Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
+    Route::get('/profile/orders/{id}', [ProfileController::class, 'orderShow'])->name('profile.orders.show');
+    Route::get('/profile/wishlist', [ProfileController::class, 'wishlist'])->name('profile.wishlist');
+    Route::get('/profile/notifications', [ProfileController::class, 'notifications'])->name('profile.notifications');
+    Route::patch('/profile/notifications', [ProfileController::class, 'updateNotifications'])->name('profile.notifications.update');
 });
