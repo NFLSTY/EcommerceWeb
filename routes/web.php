@@ -5,15 +5,21 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductsController;
+use App\Http\Controllers\User\ProductDetailController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
 
-Route::get('/product-details', function () {
-    return view('user.product-details');
-})->name('product-details');
+// Product detail page
+Route::get('/product-details/{product_id}', [ProductDetailController::class, 'index'])->name('product-details');
+Route::post('/product-details/{product_id}/review', [ProductDetailController::class, 'submitReview'])->middleware('auth')->name('product.review.submit');
+
+
+// Route::get('/product-details', function () {
+//     return view('user.product-details');
+// })->name('product-details');
 
 Route::get('/cart', function () {
     return view('user.cart');

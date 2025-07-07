@@ -50,6 +50,7 @@ class User extends Authenticatable
         ];
     }
 
+
     public function cart(): HasOne
     {
         return $this->hasOne(cart::class);

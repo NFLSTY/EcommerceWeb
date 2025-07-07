@@ -1,17 +1,17 @@
-@extends('layouts.app')
+@extends('user.layouts.layout')
 
-@section('title', $product->product_name . ' - Product Detail')
+@section('title', $product->name . ' - Product Detail')
 
 @section('content')
-    @include('user.navbar')
+    {{-- @include('user.navbar') --}}
 
     <main class="container my-4">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ asset('image/' . $product->product_image) }}" alt="{{ $product->product_name }}" class="img-fluid" />
+                <img src="{{ asset('image/' . $product->image) }}" alt="{{ $product->name }}" class="img-fluid" />
             </div>
             <div class="col-md-6">
-                <h2>{{ $product->product_name }}</h2>
+                <h2>{{ $product->name }}</h2>
                 <p class="price-text">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
                 <p>{!! nl2br(e($product->detail)) !!}</p>
                 <p><strong>Stock:</strong> {{ $product->stock }}</p>
@@ -24,12 +24,8 @@
         @if(session('error_message'))
             <div class="alert alert-danger">{{ session('error_message') }}</div>
         @endif
-        <form method="POST" action="{{ route('product.review.submit', ['product_id' => $product->product_id]) }}">
+        <form method="POST" action="{{ route('product.review.submit', ['product_id' => $product->id]) }}">
             @csrf
-            <div class="mb-3">
-                <label for="user_name" class="form-label">Name</label>
-                <input type="text" id="user_name" name="user_name" class="form-control" required />
-            </div>
             <div class="mb-3">
                 <label for="rating" class="form-label">Rating</label>
                 <div id="star-rating" class="star-rating">
@@ -40,7 +36,6 @@
                     <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">&#9733;</label>
                 </div>
             </div>
-
             <style>
                 .star-rating {
                     direction: rtl;
@@ -76,7 +71,7 @@
         @else
             @foreach($reviews as $review)
                 <div class="mb-3 border rounded p-3">
-                    <strong>{{ $review->user_name }}</strong>
+                    <strong>{{ $review->user ? $review->user->name : $review->user_name }}</strong>
                     <span class="text-warning">
                         @for ($i = 0; $i < $review->rating; $i++)
                             &#9733;
@@ -92,7 +87,7 @@
         @endif
     </main>
 
-    @include('user.footer')
+    {{-- @include('user.footer') --}}
 
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('fontawesome/js/all.min.js') }}"></script>
