@@ -2,36 +2,33 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $fillable = [
-        'username',
-        'password',
+        'first_name',
+        'last_name',
         'name',
         'email',
-        'phone_number',
-        'profile_image',
+        'phone',
+        'password',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -51,18 +48,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function cart(): HasOne
+    /**
+     * Get the user's full name.
+     */
+    public function getFullNameAttribute(): string
     {
-        return $this->hasOne(Cart::class);
-    }
-
-    public function order(): HasMany
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    public function review(): HasMany
-    {
-        return $this->hasMany(Review::class);
+        return "{$this->first_name} {$this->last_name}";
     }
 }

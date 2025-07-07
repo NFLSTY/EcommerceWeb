@@ -73,6 +73,38 @@
         </div>
     </div>
 
+    <div class="row">
+        <!-- Profile Testing -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5><i class="fas fa-user-circle"></i> Profile Testing</h5>
+                </div>
+                <div class="card-body">
+                    <p>Test tampilan profil user dengan data dummy lengkap termasuk orders, wishlist, dan notifications.</p>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{{ route('profile.testing') }}" class="btn btn-outline-info">
+                            <i class="fas fa-tachometer-alt"></i> Profile Testing Dashboard
+                        </a>
+                        
+                        <a href="{{ route('profile.test') }}" class="btn btn-outline-primary">
+                            <i class="fas fa-user"></i> View Profile
+                        </a>
+                        
+                        <a href="{{ route('profile.orders.test') }}" class="btn btn-outline-success">
+                            <i class="fas fa-shopping-bag"></i> View Orders
+                        </a>
+                        
+                        <a href="{{ route('profile.wishlist.test') }}" class="btn btn-outline-danger">
+                            <i class="fas fa-heart"></i> View Wishlist
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Sample Data Info -->
     <div class="row">
         <div class="col-md-12">
