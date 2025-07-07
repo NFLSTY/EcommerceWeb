@@ -20,18 +20,7 @@
         </ol>
     </nav>
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h3>Category Details</h3>
-        <div>
-            <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-warning me-2">
-                <i class="fa-solid fa-pen-to-square"></i> Edit
-            </a>
-            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
-                <i class="fa-solid fa-arrow-left"></i> Back
-            </a>
-        </div>
-    </div>
-
+    {{-- Success Message --}}
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -39,38 +28,69 @@
         </div>
     @endif
 
+    {{-- Error Message --}}
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
+
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title mb-0">Category Information</h5>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="card-title mb-0">Category Details</h3>
+                    <div>
+                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-warning me-2">
+                            <i class="fa-solid fa-edit"></i> Edit Category
+                        </a>
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Back to Categories
+                        </a>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-borderless">
-                        <tr>
-                            <td><strong>ID:</strong></td>
-                            <td>{{ $category->id }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Category Name:</strong></td>
-                            <td>{{ $category->name }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Created:</strong></td>
-                            <td>{{ $category->created_at ? $category->created_at->format('M d, Y H:i') : 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Updated:</strong></td>
-                            <td>{{ $category->updated_at ? $category->updated_at->format('M d, Y H:i') : 'N/A' }}</td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-4">
+                            @if($category->image_url)
+                            <img src="{{ asset('storage/' . $category->image_url) }}"
+                                alt="{{ $category->name }}"
+                                class="img-fluid rounded shadow">
+                            @else
+                            <div class="bg-light d-flex align-items-center justify-content-center rounded"
+                                style="height: 300px;">
+                                <i class="fa-solid fa-image fa-3x text-muted"></i>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-borderless">
+                                <tr>
+                                    <th width="150">Category ID:</th>
+                                    <td>{{ $category->id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>{{ $category->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Created:</th>
+                                    <td>{{ $category->created_at ? $category->created_at->format('M d, Y H:i') : 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Updated:</th>
+                                    <td>{{ $category->updated_at ? $category->updated_at->format('M d, Y H:i') : 'N/A' }}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Products using this category -->
-    @if(isset($products) && $products->count() > 0)
     <div class="row mt-4">
         <div class="col-12">
             <div class="card">
@@ -91,8 +111,8 @@
                             <tbody>
                                 @foreach($products as $product)
                                 <tr>
-                                    <td>{{ $product->product_name }}</td>
-                                    <td>${{ number_format($product->price, 2) }}</td>
+                                    <td>{{ $product->name }}</td>
+                                    <td>Rp{{ number_format($product->price, 2) }}</td>
                                     <td>{{ $product->stock }}</td>
                                     <td>
                                         <a href="{{ route('admin.products.show', $product->id) }}" 
@@ -109,6 +129,5 @@
             </div>
         </div>
     </div>
-    @endif
 </div>
 @endsection

@@ -9,6 +9,7 @@ class Category extends Model
 {
     protected $fillable = [
         'name',
+        'image_url',
     ];
 
     public function product(): HasMany
