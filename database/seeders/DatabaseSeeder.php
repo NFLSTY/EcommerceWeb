@@ -17,19 +17,21 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'username' => 'user',
-            'password' => 'password',
+            'password' => 'password123',
             'name' => 'User',
             'email' => 'user@example.com',
+            'role' => 'user'
         ]);
 
-        Admin::factory()->create([
+        User::factory()->create([
             'username' => 'admin',
-            'password' => 'password',
+            'password' => 'password123',
+            'name' => 'admin',
+            'email' => 'admin@example.com',
+            'role' => 'admin'
         ]);
 
         User::factory(10)->create();
-
-        Admin::factory(5)->create();
         
         // Copy sample asset to storage
         $this->call(SampleAssetSeeder::class);

@@ -21,14 +21,6 @@ Route::get('/cart', function () {
     return view('user.cart');
 })->name('cart');
 
-Route::get('/login', function () {
-    return view('user.login');
-})->name('login');
-
-Route::get('/register', function () {
-    return view('user.register');
-})->name('register');
-
 Route::get('/checkout', function () {
     return view('user.checkout');
 })->name('checkout');
@@ -38,34 +30,31 @@ Route::get('/purchase-history', function () {
 })->name('purchase-history');
 
 
-// Admin Dashboard
-Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-Route::resource('admin/categories', CategoryController::class)->names([
-    'index' => 'admin.categories.index',
-    'create' => 'admin.categories.create',
-    'store' => 'admin.categories.store',
-    'show' => 'admin.categories.show',
-    'edit' => 'admin.categories.edit',
-    'update' => 'admin.categories.update',
-    'destroy' => 'admin.categories.destroy',
-]);
-
-Route::resource('admin/products', ProductController::class)->names([
-    'index' => 'admin.products.index',
-    'create' => 'admin.products.create',
-    'store' => 'admin.products.store',
-    'show' => 'admin.products.show',
-    'edit' => 'admin.products.edit',
-    'update' => 'admin.products.update',
-    'destroy' => 'admin.products.destroy',
-]);
+// Admin Dashboard (only admin can access it)
+Route::middleware('can:access-admin')->group(function () {
+    Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');
+    // Category CRUD (admin)
+    Route::resource('admin/categories', CategoryController::class, [
+        'as' => 'admin'
+    ]);
+    // Product CRUD (admin)
+    Route::resource('admin/products', ProductController::class, [
+        'as' => 'admin'
+    ]);
+});
 
 
 
 
+// Login & Register
+Route::get('/login', function () {
+    return view('user.login');
+})->name('login');
 
-// Routes to HANDLE the form submissions (handles POST requests)
+Route::get('/register', function () {
+    return view('user.register');
+})->name('register');
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -76,16 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    
-    // Profile image upload
     Route::post('/profile/image', [ProfileController::class, 'updateProfileImage'])->name('profile.image.update');
-    
-    // Password update
     Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
-    
-    // Additional profile sections
     Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
-    Route::get('/profile/wishlist', [ProfileController::class, 'wishlist'])->name('profile.wishlist');
-    Route::get('/profile/notifications', [ProfileController::class, 'notifications'])->name('profile.notifications');
-    Route::patch('/profile/notifications', [ProfileController::class, 'updateNotifications'])->name('profile.notifications.update');
 });

@@ -12,21 +12,15 @@ php artisan migrate:fresh --seed
 ```
 
 ## How to Run
-If the set up is completed, open two terminals and execute:
 ```Bash
-# For running Laravel app
-php artisan serve
-# For running Vite plugin
-npm run dev
+composer run dev
 ```
 
 ## Important Notes
-Problem addressing and solving:
+If there's a problem:
 ```Bash
 # If image not showing
 php artisan storage:link
-# Uncommon bug/too many chaches
+# Uncommon bug/too many caches
 php artisan cache:clear && php artisan config:clear && php artisan route:clear && php artisan view:clear
-# For anyone who wants to try the admin side
-npm install sweetalert2
 ```
