@@ -47,7 +47,7 @@
             <!-- Right icons -->
             <div class="d-flex align-items-center" style="margin-right: 20px;">
                 <!-- Shopping cart icon -->
-                <a class="nav-link me-3" href="{{ route('cart') }}">
+                <a class="nav-link me-3" href="{{ route('cart.index') }}">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
 
