@@ -81,8 +81,6 @@
 </head>
 
 <body>
-    @include('user.layouts.navbar')
-
     <div class="container">
         <div class="logo">
             <h1>Login Page</h1>
@@ -133,6 +131,4 @@
             Don't have an account? <a href="{{ route('register') }}">Register First</a>
         </div>
     </div>
-
-    {{-- @include('user.layouts.footer') --}}
 </body>
