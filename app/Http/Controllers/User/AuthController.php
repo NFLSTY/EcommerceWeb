@@ -1,23 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use App\Http\Controllers\Controller;
+
 
 class AuthController extends Controller
 {
-    /**
-     * Show the login form
-     */
-    public function showLoginForm()
-    {
-        return view('auth.login');
-    }
-
     /**
      * Handle login request
      */
@@ -32,7 +26,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/')->with('success', 'Login successful!');
         }
 
         return back()->withErrors([
@@ -41,23 +35,15 @@ class AuthController extends Controller
     }
 
     /**
-     * Show the registration form
-     */
-    public function showRegistrationForm()
-    {
-        return view('auth.register');
-    }
-
-    /**
      * Handle registration request
      */
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|string|max:20',
+            'username' => 'required|string',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -68,17 +54,16 @@ class AuthController extends Controller
         }
 
         $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'name' => $request->first_name . ' ' . $request->last_name,
+            'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'username' => $request->username,
             'password' => Hash::make($request->password),
         ]);
 
         Auth::login($user);
 
-        return redirect('/dashboard')->with('success', 'Registration successful!');
+        return redirect('/')->with('success', 'Registration successful!');
     }
 
     /**
@@ -90,6 +75,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         
-        return redirect('/login');
+        return redirect('/');
     }
 }

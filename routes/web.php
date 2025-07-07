@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductsController;
 use Illuminate\Support\Facades\Route;
@@ -19,10 +21,6 @@ Route::get('/cart', function () {
     return view('user.cart');
 })->name('cart');
 
-Route::get('/profile', function () {
-    return view('user.profile');
-})->name('profile');
-
 Route::get('/login', function () {
     return view('user.login');
 })->name('login');
@@ -38,11 +36,6 @@ Route::get('/checkout', function () {
 Route::get('/purchase-history', function () {
     return view('user.purchase-history');
 })->name('purchase-history');
-
-// Route::prefix('admin')->middleware('auth')->group(function () {
-//     Route::get('/dashboard', [App\Http\Controllers\adminController\DashboardController::class, 'index'])->name('admin.dashboard');
-//     // Add more admin routes here
-// });
 
 
 
@@ -63,7 +56,10 @@ Route::resource('admin/products', ProductController::class, [
 
 
 
-
+// Routes to HANDLE the form submissions (handles POST requests)
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Profile routes (require authentication)
 Route::middleware(['auth'])->group(function () {

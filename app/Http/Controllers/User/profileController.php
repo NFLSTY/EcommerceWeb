@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
@@ -16,7 +17,7 @@ class ProfileController extends Controller
     public function show()
     {
         $user = Auth::user();
-        return view('profile.show', compact('user'));
+        return view('user.profile-show', compact('user'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ProfileController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        return view('profile.edit', compact('user'));
+        return view('user.profile-edit', compact('user'));
     }
 
     /**
@@ -103,39 +104,6 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->route('profile.show')->with('success', 'Password updated successfully!');
-    }
-
-    /**
-     * Get user orders (placeholder for future implementation).
-     */
-    public function orders()
-    {
-        // This would typically fetch orders from an Order model
-        // For now, returning empty array
-        $orders = [];
-        
-        return view('profile.orders', compact('orders'));
-    }
-
-    /**
-     * Get user wishlist (placeholder for future implementation).
-     */
-    public function wishlist()
-    {
-        // This would typically fetch wishlist items from a Wishlist model
-        // For now, returning empty array
-        $wishlistItems = [];
-        
-        return view('profile.wishlist', compact('wishlistItems'));
-    }
-
-    /**
-     * Show notification settings.
-     */
-    public function notifications()
-    {
-        $user = Auth::user();
-        return view('profile.notifications', compact('user'));
     }
 
     /**
