@@ -43,10 +43,6 @@ Route::get('/product-details', function () {
     return view('user.product-details');
 })->name('product-details');
 
-Route::get('/checkout', function () {
-    return view('user.checkout');
-})->name('checkout');
-
 Route::get('/purchase-history', function () {
     return view('user.purchase-history');
 })->name('purchase-history');

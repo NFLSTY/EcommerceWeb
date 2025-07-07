@@ -27,7 +27,7 @@
         </div>
     @endif
 
-    @if(count($cart) > 0)
+    @if(isset($cart) && count($cart) > 0)
         <div class="row">
             <!-- Checkout Form -->
             <div class="col-md-8">
@@ -98,12 +98,12 @@
                             @foreach($cart as $item)
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('image/' . $item['foto']) }}" 
-                                         alt="{{ $item['nama'] }}" 
+                                    <img src="{{ asset('storage/' . $item['image_url']) }}" 
+                                         alt="{{ $item['name'] }}" 
                                          style="width: 40px; height: 40px; object-fit: cover;" 
                                          class="rounded me-2">
                                     <div>
-                                        <small class="fw-bold">{{ Str::limit($item['nama'], 20) }}</small><br>
+                                        <small class="fw-bold">{{ Str::limit($item['name'], 20) }}</small><br>
                                         <small class="text-muted">{{ $item['qty'] }}x</small>
                                     </div>
                                 </div>

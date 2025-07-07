@@ -36,20 +36,20 @@ class CheckoutController extends Controller
         // Hitung total dan siapkan data
         foreach ($products as $product) {
             $qty = $cart[$product->id];
-            $total = $product->harga * $qty;
+            $total = $product->price * $qty;
             $grandTotal += $total;
 
             $cartWithData[] = [
                 'id' => $product->id,
-                'nama' => $product->nama,
-                'foto' => $product->foto,
-                'harga' => $product->harga,
+                'name' => $product->name,
+                'image_url' => $product->image_url,
+                'price' => $product->price,
                 'qty' => $qty,
                 'total' => $total,
             ];
         }
 
-        return view('user.checkout.index', [
+        return view('user.checkout', [
             'cart' => $cartWithData,
             'grandTotal' => $grandTotal,
         ]);
