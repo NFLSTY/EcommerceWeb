@@ -67,7 +67,7 @@
                         </div>
 
                         {{-- Current Image Display --}}
-                        @if($category->category_image)
+                        @if($category->image_url)
                         <div class="mb-3">
                             <label class="form-label">Current Image</label>
                             <div class="border rounded p-2 bg-light">

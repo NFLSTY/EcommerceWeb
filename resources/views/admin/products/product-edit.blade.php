@@ -92,7 +92,7 @@
                         </div>
 
                         {{-- Current Image Display --}}
-                        @if($product->product_image)
+                        @if($product->image_url)
                         <div class="mb-3">
                             <label class="form-label">Current Image</label>
                             <div class="border rounded p-2 bg-light">
