@@ -44,7 +44,7 @@
                     @foreach($cart as $item)
                     <tr>
                         <td>
-                            <img src="{{ $item['foto'] && file_exists(public_path('image/' . $item['foto'])) ? asset('image/' . $item['foto']) : 'https://via.placeholder.com/80x80/6c757d/ffffff?text=' . substr($item['nama'], 0, 1) }}" 
+                            <img src="{{ $item['foto'] && file_exists(public_path('storage/' . $item['foto'])) ? asset('storage/' . $item['foto']) : 'https://via.placeholder.com/80x80/6c757d/ffffff?text=' . substr($item['nama'], 0, 1) }}" 
                                  alt="{{ $item['nama'] }}" 
                                  style="width: 80px; height: 80px; object-fit: cover;">
                         </td>

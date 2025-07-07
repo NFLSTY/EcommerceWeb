@@ -28,6 +28,7 @@ Route::get('/cart/data', [CartController::class, 'getCartData'])->name('cart.dat
 Route::get('/testing', function () {
     return view('user.testing');
 })->name('testing');
+
 Route::get('/cart/test', [CartController::class, 'testUI'])->name('cart.test');
 Route::get('/cart/add-dummy', [CartController::class, 'addDummyData'])->name('cart.dummy');
 Route::get('/checkout/test', [CheckoutController::class, 'testUI'])->name('checkout.test');
@@ -41,10 +42,6 @@ Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'succe
 Route::get('/product-details', function () {
     return view('user.product-details');
 })->name('product-details');
-
-Route::get('/cart', function () {
-    return view('user.cart');
-})->name('cart');
 
 Route::get('/checkout', function () {
     return view('user.checkout');

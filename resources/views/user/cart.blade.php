@@ -44,7 +44,7 @@
                     @foreach($cart as $item)
                     <tr>
                         <td>
-                            <img src="{{ asset('image/' . $item['foto']) }}" 
+                            <img src="{{ asset('storage/' . $item['foto']) }}" 
                                 alt="{{ $item['nama'] }}" 
                                 style="width: 80px; height: 80px; object-fit: cover;">
                         </td>

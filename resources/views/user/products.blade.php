@@ -40,12 +40,12 @@
                                         </p>
                                     </a>
                                     <div class="mt-auto">
-                                        <form action="#" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->product_id }}">
-                                            <input type="hidden" name="quantity" value="1">
-                                            <button type="submit" class="w-100 button-template">Add to cart</button>
-                                        </form>
+                                        @include('user.components.add-to-cart', [
+                                            'product' => $product,
+                                            'showQty' => false,
+                                            'buttonClass' => 'w-100 button-template',
+                                            'buttonText' => 'Add to cart'
+                                        ])
                                     </div>
                                 </div>
                             </div>

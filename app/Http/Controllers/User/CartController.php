@@ -39,14 +39,14 @@ class CartController extends Controller
         // Gabungin data dari database dengan qty dari session
         foreach ($products as $product) {
             $qty = $cart[$product->id];
-            $total = $product->harga * $qty;
+            $total = $product->price * $qty;
             $grandTotal += $total;
 
             $cartWithData[] = [
                 'id' => $product->id,
-                'nama' => $product->nama,
-                'foto' => $product->foto,
-                'harga' => $product->harga,
+                'nama' => $product->name,
+                'foto' => $product->image_url,
+                'harga' => $product->price,
                 'qty' => $qty,
                 'total' => $total,
             ];
@@ -176,14 +176,14 @@ class CartController extends Controller
 
         foreach ($products as $product) {
             $qty = $cart[$product->id];
-            $total = $product->harga * $qty;
+            $total = $product->price * $qty;
             $grandTotal += $total;
 
             $cartWithData[] = [
                 'id' => $product->id,
-                'nama' => $product->nama,
-                'foto' => $product->foto,
-                'harga' => $product->harga,
+                'nama' => $product->name,
+                'foto' => $product->image_url,
+                'harga' => $product->price,
                 'qty' => $qty,
                 'total' => $total,
             ];
