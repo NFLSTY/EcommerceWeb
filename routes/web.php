@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\AuthController;
+use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductsController;
 use Illuminate\Support\Facades\Route;
@@ -18,10 +20,6 @@ Route::get('/product-details', function () {
 Route::get('/cart', function () {
     return view('user.cart');
 })->name('cart');
-
-Route::get('/profile', function () {
-    return view('user.profile');
-})->name('profile');
 
 Route::get('/login', function () {
     return view('user.login');
@@ -62,3 +60,32 @@ Route::resource('admin/products', ProductController::class)->names([
     'update' => 'admin.products.update',
     'destroy' => 'admin.products.destroy',
 ]);
+
+
+
+
+
+// Routes to HANDLE the form submissions (handles POST requests)
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Profile routes (require authentication)
+Route::middleware(['auth'])->group(function () {
+    // Profile display and editing
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    
+    // Profile image upload
+    Route::post('/profile/image', [ProfileController::class, 'updateProfileImage'])->name('profile.image.update');
+    
+    // Password update
+    Route::patch('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+    
+    // Additional profile sections
+    Route::get('/profile/orders', [ProfileController::class, 'orders'])->name('profile.orders');
+    Route::get('/profile/wishlist', [ProfileController::class, 'wishlist'])->name('profile.wishlist');
+    Route::get('/profile/notifications', [ProfileController::class, 'notifications'])->name('profile.notifications');
+    Route::patch('/profile/notifications', [ProfileController::class, 'updateNotifications'])->name('profile.notifications.update');
+});
