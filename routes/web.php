@@ -8,6 +8,7 @@ use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductsController;
+use App\Http\Controllers\User\ProductDetailController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
 
+// Product detail page
+Route::get('/product-details/{product_id}', [ProductDetailController::class, 'index'])->name('product-details');
+Route::post('/product-details/{product_id}/review', [ProductDetailController::class, 'submitReview'])->middleware('auth')->name('product.review.submit');
+
+
+// Route::get('/product-details', function () {
+//     return view('user.product-details');
+// })->name('product-details');
 // Cart routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
