@@ -14,6 +14,7 @@
                         <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Total Price</th>
+                        <th>Purchase Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,7 @@
                             </td>
                             <td>{{ $purchase->total_quantity }}</td>
                             <td class="price-column">Rp {{ number_format($purchase->total_price, 0, ',', '.') }}</td>
+                            <td>{{ $purchase->status}}</td>
                         </tr>
                     @endforeach
                 </tbody>
