@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\User\ProductDetailController;
 use App\Http\Controllers\User\AuthController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\HomeController;
@@ -39,9 +40,8 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
 
-Route::get('/product-details', function () {
-    return view('user.product-details');
-})->name('product-details');
+Route::get('/product-details/{product_id}', [ProductDetailController::class, 'index'])->name('product-details');
+Route::post('/product-details/{product_id}/review', [ProductDetailController::class, 'submitReview'])->middleware('auth')->name('product.review.submit');
 
 Route::get('/purchase-history', function () {
     return view('user.purchase-history');
