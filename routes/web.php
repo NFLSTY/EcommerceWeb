@@ -8,6 +8,7 @@ use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\User\ProductsController;
 use App\Http\Controllers\User\ProductDetailController;
+use App\Http\Controllers\User\PurchaseHistoryController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\CheckoutController;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
 
+// Product detail page
+Route::get('/product-details/{product_id}', [ProductDetailController::class, 'index'])->name('product-details');
+Route::post('/product-details/{product_id}/review', [ProductDetailController::class, 'submitReview'])->middleware('auth')->name('product.review.submit');
+Route::get('/purchase-history', [PurchaseHistoryController::class, 'index'])->name('purchase-history');
+
+// Cart routes
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
@@ -38,15 +45,6 @@ Route::get('/checkout/test-success', [CheckoutController::class, 'testSuccess'])
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
-
-Route::get('/product-details/{product_id}', [ProductDetailController::class, 'index'])->name('product-details');
-Route::post('/product-details/{product_id}/review', [ProductDetailController::class, 'submitReview'])->middleware('auth')->name('product.review.submit');
-
-Route::get('/purchase-history', function () {
-    return view('user.purchase-history');
-})->name('purchase-history');
-
-
 // Admin Dashboard (only admin can access it)
 Route::middleware('can:access-admin')->group(function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('admin.dashboard');

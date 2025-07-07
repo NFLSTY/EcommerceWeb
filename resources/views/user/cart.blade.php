@@ -11,76 +11,46 @@
 
 <div class="container my-5">
     <h2 class="mb-4">Your Shopping Cart</h2>
-    
-    {{-- Alert Messages --}}
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-    
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    @if(count($cart) > 0)
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Foto</th>
-                        <th>Nama Produk</th>
-                        <th>Harga</th>
-                        <th>Qty</th>
-                        <th>Total</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($cart as $item)
-                    <tr>
-                        <td>
-                            <img src="{{ asset('storage/' . $item['foto']) }}" 
-                                alt="{{ $item['nama'] }}" 
-                                style="width: 80px; height: 80px; object-fit: cover;">
-                        </td>
-                        <td>{{ $item['nama'] }}</td>
-                        <td>Rp {{ number_format($item['harga'], 0, ',', '.') }}</td>
-                        <td>
-                            <form action="{{ route('cart.update') }}" method="POST" class="d-flex align-items-center">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
-                                <input type="number" name="qty" value="{{ $item['qty'] }}" 
-                                      min="1" class="form-control me-2" style="width: 80px;">
-                                <button type="submit" class="btn btn-sm btn-primary">Update</button>
-                            </form>
-                        </td>
-                        <td>Rp {{ number_format($item['total'], 0, ',', '.') }}</td>
-                        <td>
-                            <form action="{{ route('cart.remove') }}" method="POST" class="d-inline">
-                                @csrf
-                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
-                                <button type="submit" class="btn btn-sm btn-danger" 
-                                        onclick="return confirm('Yakin ingin hapus produk ini?')">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr class="table-info">
-                        <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
-                        <td colspan="2"><strong>Rp {{ number_format($grandTotal, 0, ',', '.') }}</strong></td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
+    <?php if (count($cart) > 0): ?>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Nama Produk</th>
+          <th>Harga</th>
+          <th>Qty</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+  $grandTotal = 0;
+  foreach ($cart as $item):
+    $total = $item['harga'] * $item['qty'];
+    $grandTotal += $total;
+            ?>
+        <tr>
+          <td><img src="../image/<?php    echo $item['foto'] ?>" width="80"></td>
+          <td><?php    echo $item['nama'] ?></td>
+          <td>Rp <?php    echo number_format($item['harga'], 0, ',', '.') ?></td>
+          <td><?php    echo $item['qty'] ?></td>
+          <td>Rp <?php    echo number_format($total, 0, ',', '.') ?></td>
+        </tr>
+        <?php  endforeach; ?>
+        <tr>
+          <td colspan="4"><strong>Total Semua</strong></td>
+          <td><strong>Rp <?php  echo number_format($grandTotal, 0, ',', '.') ?></strong></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-end mt-3">
+      <a href="checkout.php" class="btn btn-primary me-2">Checkout</a>
+      <a href="{{ url('/purchase-history') }}" class="btn btn-secondary">View Purchase History</a>
+    </div>
+    <?php else: ?>
+    <p>Your cart is empty</p>
+    <?php endif; ?>
+  </div>
 
         <div class="row mt-4">
             <div class="col-md-6">

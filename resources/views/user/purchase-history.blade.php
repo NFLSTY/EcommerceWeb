@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends('user.layouts.layout')
 
 @section('title', 'Purchase History')
 
 @section('content')
-    @include('user.navbar')
 
     <main class="container my-4">
         <h2>Purchase History</h2>
@@ -20,9 +19,17 @@
                 <tbody>
                     @foreach ($purchases as $purchase)
                         <tr>
-                            <td>{{ \Carbon\Carbon::parse($purchase->purchase_date)->format('F j, Y, g:i a') }}</td>
-                            <td>{{ $purchase->product_name }}</td>
-                            <td>{{ $purchase->quantity }}</td>
+                            <td>{{ \Carbon\Carbon::parse($purchase->purchase_created_at)->format('F j, Y, g:i a') }}</td>
+                            <td>
+                                <ul>
+                                    @foreach($purchase->orderItems as $item)
+                                        <li>
+                                            {{ $item->product->name ?? 'Product deleted' }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>{{ $purchase->total_quantity }}</td>
                             <td class="price-column">Rp {{ number_format($purchase->total_price, 0, ',', '.') }}</td>
                         </tr>
                     @endforeach
@@ -33,7 +40,6 @@
         @endif
     </main>
 
-    @include('user.footer')
 
     <style>
         /* Styling untuk tabel pembelian */
@@ -44,7 +50,8 @@
             border-radius: 8px;
         }
 
-        .purchase-history-table th, .purchase-history-table td {
+        .purchase-history-table th,
+        .purchase-history-table td {
             padding: 1rem;
             text-align: left;
             border-top: 1px solid #dee2e6;
