@@ -1,49 +1,48 @@
-<?php
-session_start();
-require "../connection.php";
+@extends('user.layouts.layout')
 
-// Check if user is logged in
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    header("Location: login.php");
-    exit;
-}
+@section('title', 'Purchase History')
 
-// For dummy login, user_id is not set, so we skip using it
-// $user_id = $_SESSION['user_id'];
+@section('content')
 
-// Dummy purchase history data for interface demonstration
-$dummyPurchases = [
-    [
-        'purchase_date' => '2024-04-01 14:30:00',
-        'product_name' => 'AMD Ryzen 7 5800X',
-        'quantity' => 1,
-        'total_price' => 4650000
-    ],
-    [
-        'purchase_date' => '2024-04-10 10:15:00',
-        'product_name' => 'Logitech G Pro X Gaming Headset',
-        'quantity' => 2,
-        'total_price' => 3198000
-    ],
-    [
-        'purchase_date' => '2024-04-15 16:45:00',
-        'product_name' => 'Dell XPS 15 (2023)',
-        'quantity' => 1,
-        'total_price' => 30499000
-    ]
-];
-?>
+    <main class="container my-4">
+        <h2>Purchase History</h2>
+        @if($purchases->isNotEmpty())
+            <table class="table table-bordered purchase-history-table">
+                <thead>
+                    <tr>
+                        <th>Purchase Date</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Purchase Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($purchases as $purchase)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($purchase->purchase_created_at)->format('F j, Y, g:i a') }}</td>
+                            <td>
+                                <ul>
+                                    @foreach($purchase->orderItems as $item)
+                                        <li>
+                                            {{ $item->product->name ?? 'Product deleted' }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>{{ $purchase->total_quantity }}</td>
+                            <td class="price-column">Rp {{ number_format($purchase->total_price, 0, ',', '.') }}</td>
+                            <td>{{ $purchase->status}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p class="no-purchase-message">No purchase history available.</p>
+        @endif
+    </main>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Purchase History</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="../fontawesome/css/fontawesome.min.css" />
-    <link rel="stylesheet" href="../css/user.css" />
-    
+
     <style>
         /* Styling untuk tabel pembelian */
         .purchase-history-table {
@@ -53,7 +52,8 @@ $dummyPurchases = [
             border-radius: 8px;
         }
 
-        .purchase-history-table th, .purchase-history-table td {
+        .purchase-history-table th,
+        .purchase-history-table td {
             padding: 1rem;
             text-align: left;
             border-top: 1px solid #dee2e6;
@@ -92,41 +92,5 @@ $dummyPurchases = [
             margin-top: 20px;
         }
     </style>
-</head>
-<body>
-    <?php require "navbar.php"; ?>
 
-    <main class="container my-4">
-        <h2>Purchase History</h2>
-        <?php if (count($dummyPurchases) > 0): ?>
-            <table class="table table-bordered purchase-history-table">
-                <thead>
-                    <tr>
-                        <th>Purchase Date</th>
-                        <th>Product Name</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($dummyPurchases as $purchase): ?>
-                        <tr>
-                            <td><?php echo date("F j, Y, g:i a", strtotime($purchase['purchase_date'])); ?></td>
-                            <td><?php echo htmlspecialchars($purchase['product_name']); ?></td>
-                            <td><?php echo $purchase['quantity']; ?></td>
-                            <td class="price-column">Rp <?php echo number_format($purchase['total_price'], 0, ',', '.'); ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p class="no-purchase-message">No purchase history available.</p>
-        <?php endif; ?>
-    </main>
-
-    <?php require "footer.html"; ?>
-
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../fontawesome/js/all.min.js"></script>
-</body>
-</html>
+@endsection

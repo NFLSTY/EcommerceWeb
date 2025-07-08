@@ -30,7 +30,7 @@
                         @foreach ($products as $product)
                             <div class="col px-1 py-2 d-flex">
                                 <div class="d-flex flex-column w-100 p-0 product-text">
-                                    <a href="{{ route('product-details', $product->product_id) }}"
+                                    <a href="{{ route('product-details', $product->id) }}"
                                         class="text-decoration-none product-text">
                                         <div class="card-template mb-2"
                                             style="--bg-image: url('{{ asset('storage/' . $product->image_url) }}')">

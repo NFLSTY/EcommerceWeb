@@ -52,6 +52,7 @@ class CheckoutController extends Controller
         return view('user.checkout.index', [
             'cart' => $cartWithData,
             'grandTotal' => $grandTotal,
+            'infoMessage' => 'Silakan lengkapi informasi berikut untuk menyelesaikan checkout.',
         ]);
     }
 
@@ -63,9 +64,9 @@ class CheckoutController extends Controller
         // Validasi input
         $request->validate([
             'nama' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
             'alamat' => 'required|string|max:500',
             'metode' => 'required|in:transfer,cod,ewallet',
-            'phone' => 'required|string|max:20',
         ]);
 
         // Ambil cart dari session
@@ -81,7 +82,7 @@ class CheckoutController extends Controller
             // Ambil data produk dan hitung total
             $productIds = array_keys($cart);
             $products = Product::whereIn('id', $productIds)->get();
-            
+
             $grandTotal = 0;
             $orderItems = [];
 
