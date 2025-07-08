@@ -37,7 +37,7 @@ Route::get('/checkout/test-success', [CheckoutController::class, 'testSuccess'])
 // Checkout routes
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
 Route::post('/checkout/process', [CheckoutController::class, 'process'])->name('checkout.process');
-Route::get('/checkout/success/{orderNumber}', [CheckoutController::class, 'success'])->name('checkout.success');
+Route::get('/checkout/success/{orderId}', [CheckoutController::class, 'success'])->name('checkout.success');
 
 Route::get('/product-details', function () {
     return view('user.product-details');

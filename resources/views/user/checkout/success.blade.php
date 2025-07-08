@@ -18,14 +18,28 @@
                         <i class="fas fa-check-circle fa-5x text-success"></i>
                     </div>
                     <h2 class="text-success mb-3">Pesanan Berhasil Dibuat!</h2>
-                    <p class="lead">Terima kasih atas pembelian Anda. Pesanan sedang diproses.</p>
+                    @if($order->status == 'shipped')
+                        <p class="lead">Terima kasih atas pembelian Anda. Pesanan telah dikirim!</p>
+                    @elseif($order->status == 'completed')
+                        <p class="lead">Terima kasih atas pembelian Anda. Pembayaran telah dikonfirmasi dan pesanan selesai!</p>
+                    @else
+                        <p class="lead">Terima kasih atas pembelian Anda. Pesanan sedang diproses.</p>
+                    @endif
                     
                     <div class="alert alert-info">
                         <h5><i class="fas fa-info-circle"></i> Detail Pesanan</h5>
-                        <p><strong>Nomor Pesanan:</strong> {{ $order->order_number }}</p>
-                        <p><strong>Tanggal:</strong> {{ $order->tanggal_order->format('d M Y, H:i') }}</p>
+                        <p><strong>Nomor Pesanan:</strong> #{{ $order->id }}</p>
+                        <p><strong>Tanggal:</strong> {{ $order->created_at->format('d M Y, H:i') }}</p>
                         <p><strong>Status:</strong> 
-                            <span class="badge bg-warning">{{ ucfirst($order->status) }}</span>
+                            @if($order->status == 'shipped')
+                                <span class="badge bg-success">Dikirim</span>
+                            @elseif($order->status == 'completed')
+                                <span class="badge bg-success">Selesai</span>
+                            @elseif($order->status == 'pending')
+                                <span class="badge bg-warning">Menunggu</span>
+                            @else
+                                <span class="badge bg-secondary">{{ ucfirst($order->status) }}</span>
+                            @endif
                         </p>
                     </div>
                 </div>
@@ -39,16 +53,35 @@
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <strong>Informasi Pembeli:</strong><br>
-                            {{ $order->nama_pelanggan }}<br>
-                            {{ $order->phone }}<br>
-                            {{ $order->alamat_pengiriman }}
+                            <strong>Informasi Pesanan:</strong><br>
+                            ID Pesanan: #{{ $order->id }}<br>
+                            Tanggal: {{ $order->created_at->format('d M Y, H:i') }}<br>
+                            Status: 
+                            @if($order->status == 'shipped')
+                                <span class="badge bg-success">Dikirim</span>
+                            @elseif($order->status == 'completed')
+                                <span class="badge bg-success">Selesai</span>
+                            @elseif($order->status == 'pending')
+                                <span class="badge bg-warning">Menunggu</span>
+                            @else
+                                <span class="badge bg-secondary">{{ ucfirst($order->status) }}</span>
+                            @endif
                         </div>
                         <div class="col-md-6">
                             <strong>Pembayaran:</strong><br>
-                            Metode: {{ ucfirst($order->payment->metode_pembayaran) }}<br>
-                            Status: <span class="badge bg-warning">{{ ucfirst($order->payment->status) }}</span><br>
-                            Total: <strong class="text-success">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</strong>
+                            @if($order->payment)
+                                Metode: {{ ucfirst($order->payment->payment_method) }}<br>
+                                Status: 
+                                @if($order->payment->status == 'completed')
+                                    <span class="badge bg-success">Selesai</span>
+                                @elseif($order->payment->status == 'pending')
+                                    <span class="badge bg-warning">Menunggu</span>
+                                @else
+                                    <span class="badge bg-secondary">{{ ucfirst($order->payment->status) }}</span>
+                                @endif
+                                <br>
+                            @endif
+                            Total: <strong class="text-success">Rp {{ number_format($order->total, 0, ',', '.') }}</strong>
                         </div>
                     </div>
 
@@ -66,19 +99,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($order->orderItems as $item)
+                                @foreach($order->orderItem as $item)
                                 <tr>
-                                    <td>{{ $item->product->nama }}</td>
-                                    <td>Rp {{ number_format($item->harga, 0, ',', '.') }}</td>
-                                    <td>{{ $item->qty }}</td>
-                                    <td>Rp {{ number_format($item->total, 0, ',', '.') }}</td>
+                                    <td>{{ $item->product->name }}</td>
+                                    <td>Rp {{ number_format($item->product->price, 0, ',', '.') }}</td>
+                                    <td>{{ $item->quantity }}</td>
+                                    <td>Rp {{ number_format($item->product->price * $item->quantity, 0, ',', '.') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>
                             <tfoot>
                                 <tr class="table-success">
                                     <th colspan="3">Grand Total:</th>
-                                    <th>Rp {{ number_format($order->total_amount, 0, ',', '.') }}</th>
+                                    <th>Rp {{ number_format($order->total, 0, ',', '.') }}</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -87,7 +120,7 @@
             </div>
 
             <!-- Instructions based on payment method -->
-            @if($order->payment->metode_pembayaran == 'transfer')
+            @if($order->payment && $order->payment->payment_method == 'transfer')
                 <div class="card mt-4">
                     <div class="card-header bg-info text-white">
                         <h5><i class="fas fa-credit-card"></i> Instruksi Transfer</h5>
@@ -98,12 +131,12 @@
                             <strong>Bank BCA</strong><br>
                             No. Rekening: <strong>1234567890</strong><br>
                             Atas Nama: <strong>FP E-commerce</strong><br>
-                            Jumlah: <strong>Rp {{ number_format($order->total_amount, 0, ',', '.') }}</strong>
+                            Jumlah: <strong>Rp {{ number_format($order->total, 0, ',', '.') }}</strong>
                         </div>
                         <p><small class="text-muted">Setelah transfer, pesanan akan diproses dalam 1x24 jam.</small></p>
                     </div>
                 </div>
-            @elseif($order->payment->metode_pembayaran == 'cod')
+            @elseif($order->payment && $order->payment->payment_method == 'cod')
                 <div class="card mt-4">
                     <div class="card-header bg-warning text-dark">
                         <h5><i class="fas fa-truck"></i> Bayar di Tempat (COD)</h5>
@@ -113,7 +146,7 @@
                         <p><small class="text-muted">Estimasi pengiriman: 1-3 hari kerja.</small></p>
                     </div>
                 </div>
-            @elseif($order->payment->metode_pembayaran == 'ewallet')
+            @elseif($order->payment && $order->payment->payment_method == 'ewallet')
                 <div class="card mt-4">
                     <div class="card-header bg-success text-white">
                         <h5><i class="fas fa-mobile-alt"></i> E-Wallet</h5>

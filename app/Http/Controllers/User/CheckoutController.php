@@ -49,7 +49,7 @@ class CheckoutController extends Controller
             ];
         }
 
-        return view('user.checkout', [
+        return view('user.checkout.index', [
             'cart' => $cartWithData,
             'grandTotal' => $grandTotal,
         ]);
@@ -87,26 +87,26 @@ class CheckoutController extends Controller
 
             foreach ($products as $product) {
                 $qty = $cart[$product->id];
-                $total = $product->harga * $qty;
+                $total = $product->price * $qty;
                 $grandTotal += $total;
 
                 $orderItems[] = [
                     'product_id' => $product->id,
-                    'qty' => $qty,
-                    'harga' => $product->harga,
+                    'quantity' => $qty,
+                    'price' => $product->price,
                     'total' => $total,
                 ];
             }
 
+            // Determine order status based on payment method
+            $orderStatus = ($request->metode == 'cod') ? 'pending' : 'shipped';
+            $paymentStatus = ($request->metode == 'cod') ? 'pending' : 'completed';
+
             // Buat order baru
             $order = Order::create([
-                'order_number' => 'ORD-' . strtoupper(Str::random(8)),
-                'nama_pelanggan' => $request->nama,
-                'alamat_pengiriman' => $request->alamat,
-                'phone' => $request->phone,
-                'total_amount' => $grandTotal,
-                'status' => 'pending',
-                'tanggal_order' => now(),
+                'user_id' => 1, // You can change this to Auth::id() when authentication is implemented
+                'total' => $grandTotal,
+                'status' => $orderStatus,
             ]);
 
             // Simpan order items
@@ -114,19 +114,16 @@ class CheckoutController extends Controller
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $item['product_id'],
-                    'qty' => $item['qty'],
-                    'harga' => $item['harga'],
-                    'total' => $item['total'],
+                    'quantity' => $item['quantity'],
                 ]);
             }
 
             // Simpan payment
             Payment::create([
                 'order_id' => $order->id,
-                'metode_pembayaran' => $request->metode,
-                'amount' => $grandTotal,
-                'status' => 'pending',
-                'tanggal_pembayaran' => now(),
+                'payment_method' => $request->metode,
+                'paid_amount' => $grandTotal,
+                'status' => $paymentStatus,
             ]);
 
             DB::commit();
@@ -134,8 +131,13 @@ class CheckoutController extends Controller
             // Kosongkan cart setelah berhasil checkout
             session()->forget('cart');
 
-            return redirect()->route('checkout.success', $order->order_number)
-                           ->with('success', 'Pesanan berhasil dibuat! 🎉');
+            // Different success messages based on payment method
+            $successMessage = ($request->metode == 'cod') 
+                ? 'Pesanan berhasil dibuat! Pembayaran akan dilakukan saat barang sampai. 🚚' 
+                : 'Pesanan berhasil dibuat dan pembayaran telah dikonfirmasi! 🎉';
+
+            return redirect()->route('checkout.success', $order->id)
+                           ->with('success', $successMessage);
 
         } catch (\Exception $e) {
             DB::rollback();
@@ -146,9 +148,9 @@ class CheckoutController extends Controller
     /**
      * Halaman sukses setelah checkout.
      */
-    public function success($orderNumber)
+    public function success($orderId)
     {
-        $order = Order::where('order_number', $orderNumber)->with(['orderItems.product', 'payment'])->first();
+        $order = Order::where('id', $orderId)->with(['orderItem.product', 'payment'])->first();
 
         if (!$order) {
             return redirect()->route('home')->with('error', 'Order tidak ditemukan!');
