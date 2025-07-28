@@ -39,14 +39,15 @@
             <!-- Search bar (centered) -->
             <form class="d-flex flex-grow-1 my-auto" role="search" action="{{ route('products') }}" method="GET"
                 style="max-width: 40%; height: 38px; margin-right: 20px;">
-                <input class="form-control me-2 w-100" type="search" name="keyword" placeholder="Search..." aria-label="Search" />
+                <input class="form-control me-2 w-100" type="search" name="keyword" placeholder="Search..."
+                    aria-label="Search" />
                 <button class="btn btn-light" type="submit"><i class="fas fa-search"></i></button>
             </form>
 
             <!-- Right icons -->
             <div class="d-flex align-items-center" style="margin-right: 20px;">
                 <!-- Shopping cart icon -->
-                <a class="nav-link me-3" href="{{ route('cart') }}">
+                <a class="nav-link me-3" href="{{ route('cart.index') }}">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
 
@@ -58,8 +59,19 @@
                             <i class="fa-solid fa-user"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ route('profile') }}">My profile</a></li>
-                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                            @can('access-admin')
+                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">Admin Dashboard</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            @endcan
+                            <li><a class="dropdown-item" href="{{ route('profile.show') }}">My profile</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 @else

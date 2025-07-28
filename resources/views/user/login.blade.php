@@ -1,37 +1,13 @@
-<?php
-session_start();
-
-// Data dummy
-$dummyEmail = 'test@example.com';
-$dummyPassword = '123456';
-
-$error = '';
-
-// Handle form submit
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Cek dengan data dummy
-    if ($email === $dummyEmail && $password === $dummyPassword) {
-        $_SESSION['login'] = true;
-        $_SESSION['email'] = $email;
-        header('Location: index.php');
-        exit;
-    } else {
-        $error = 'Email atau password salah';
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <title>@yield('title')</title>
+
+    @vite(['resources/js/app.js', 'resources/sass/app.scss', 'resources/css/user.css', 'resources/js/user.js'])
+
     <style>
         body {
             background-color: #f4f4f4;
@@ -113,33 +89,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2>Login</h2>
         </div>
 
-        <?php if ($error != '') { ?>
-            <div class="alert"><?php echo $error; ?></div>
-        <?php } ?>
+        @if ($errors->any())
+            <div class="alert">
+                @foreach ($errors->all() as $error)
+                    {{ $error }}
+                @endforeach
+            </div>
+        @endif
 
-        <form method="POST" action="">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                    value="test@example.com" required>
+                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email"
+                    placeholder="Email" value="{{ old('email') }}" required>
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-                    value="123456" required>
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                    name="password" placeholder="Password" required>
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="mb-3 text-end">
-                <a href="#">Forgot password?</a>
-            </div>
+            {{-- <div class="mb-3 text-end">
+                <a href="{{ route('password.request') }}">Forgot password?</a>
+            </div> --}}
             <button type="submit" class="btn btn-primary w-100">Login</button>
         </form>
 
         <div class="register-link mt-3">
-            Does not have an account?? <a href="register.php">Register First</a>
+            Don't have an account? <a href="{{ route('register') }}">Register First</a>
         </div>
     </div>
-
-    <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
-</html>

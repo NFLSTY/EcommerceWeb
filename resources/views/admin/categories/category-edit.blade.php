@@ -16,12 +16,7 @@
                     Categories
                 </a>
             </li>
-            <li class="breadcrumb-item">
-                <a href="{{ route('admin.categories.show', $category->id) }}" class="no-decoration1 text-muted">
-                    {{ $category->name }}
-                </a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Edit</li>
+            <li class="breadcrumb-item active" aria-current="page">Edit: {{ $category->name }}</li>
         </ol>
     </nav>
 
@@ -29,68 +24,109 @@
         <div class="col-12 col-md-6">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h4 class="card-title mb-0">Edit Category</h4>
-                    <form method="post" action="{{ route('admin.categories.destroy', $category->id) }}" class="d-inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="button" class="btn btn-sm btn-danger" 
-                            data-delete-confirm
-                            data-delete-item="{{ $category->name }}"
-                            data-delete-message="Are you sure you want to delete category '{{ $category->name }}'? This action cannot be undone.">
-                            <i class="fa-solid fa-trash"></i> Delete
-                        </button>
-                    </form>
+                    <h3 class="card-title mb-0">Edit Category</h3>
                 </div>
                 <div class="card-body">
+                    {{-- Error Messages  --}}
+                    @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="mb-0">
+                            @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    {{-- Success Messages  --}}
                     @if(session('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
                     @endif
 
-                    @if(session('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
-
-                    @if(session('warning'))
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            {{ session('warning') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
-
-                    <form action="{{ route('admin.categories.update', $category->id) }}" method="post">
+                    {{-- Edit Category Form --}}
+                    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         
                         <div class="mb-3">
-                            <label for="category_name" class="form-label">Category Name <span class="text-danger">*</span></label>
+                            <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                             <input type="text" 
-                                   name="category_name" 
-                                   id="category_name" 
-                                   class="form-control @error('category_name') is-invalid @enderror"
-                                   value="{{ old('category_name', $category->name) }}"
+                                   name="name" 
+                                   id="name" 
+                                   class="form-control @error('name') is-invalid @enderror"
+                                   value="{{ old('name', $category->name) }}"
                                    placeholder="Enter category name"
                                    autocomplete="off" 
                                    required>
-                            @error('category_name')
+                            @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-secondary">
-                                <i class="fa-solid fa-arrow-left"></i> Back
+                        {{-- Current Image Display --}}
+                        @if($category->image_url)
+                        <div class="mb-3">
+                            <label class="form-label">Current Image</label>
+                            <div class="border rounded p-2 bg-light">
+                                <img src="{{ asset('storage/' . $category->image_url) }}"
+                                    alt="{{ $category->name }}"
+                                    class="img-thumbnail"
+                                    style="max-width: 300px; max-height: 200px;">
+                            </div>
+                        </div>
+                        @endif
+
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Update Category Image</label>
+                            <input type="file" name="image" id="image"
+                                class="form-control @error('image') is-invalid @enderror"
+                                accept="image/*">
+                            <div class="form-text">Leave empty to keep current image. Supported formats: JPG, PNG, GIF. Maximum size: 5MB</div>
+                            @error('image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex gap-2 justify-content-between">
+                            <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">
+                                <i class="fa-solid fa-arrow-left"></i> Back to Categories
                             </a>
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary update-btn">
                                 <i class="fa-solid fa-save"></i> Update Category
                             </button>
+                            {{-- <a href="{{ route('admin.categories.show', $category->id) }}" class="btn btn-secondary">
+                                <i class="fa-solid fa-eye"></i> View Details
+                            </a> --}}
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Category Info Sidebar --}}
+        <div class="col-12 col-lg-4 mt-4 mt-lg-0">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Category Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <td><strong>ID:</strong></td>
+                            <td>{{ $category->id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Created:</strong></td>
+                            <td>{{ $category->created_at ? $category->created_at->format('d M Y') : 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Last Updated:</strong></td>
+                            <td>{{ $category->updated_at ? $category->updated_at->format('d M Y') : 'N/A' }}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>

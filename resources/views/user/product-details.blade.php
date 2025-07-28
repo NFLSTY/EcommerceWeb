@@ -3,17 +3,15 @@
 @section('title', $product->name . ' - Product Detail')
 
 @section('content')
-    {{-- @include('user.navbar') --}}
-
     <main class="container my-4">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ asset('image/' . $product->image) }}" alt="{{ $product->name }}" class="img-fluid" />
+                <img src="{{ asset('storage/' . $product->image_url) }}" alt="{{ $product->name }}" class="img-fluid" />
             </div>
             <div class="col-md-6">
                 <h2>{{ $product->name }}</h2>
                 <p class="price-text">Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-                <p>{!! nl2br(e($product->detail)) !!}</p>
+                <p>{!! nl2br(e($product->description)) !!}</p>
                 <p><strong>Stock:</strong> {{ $product->stock }}</p>
             </div>
         </div>
@@ -86,9 +84,4 @@
             @endforeach
         @endif
     </main>
-
-    {{-- @include('user.footer') --}}
-
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('fontawesome/js/all.min.js') }}"></script>
 @endsection

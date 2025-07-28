@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShopNow - Register</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    @vite(['resources/js/app.js', 'resources/sass/app.scss', 'resources/css/user.css', 'resources/js/user.js'])
+
     <style>
         body {
             background-color: #f4f4f4;
@@ -17,6 +19,7 @@
 
         .container {
             max-width: 400px;
+            width: 100%;
             padding: 40px;
             background-color: #fff;
             border-radius: 10px;
@@ -43,40 +46,55 @@
             font-size: 16px;
         }
 
-        .btn {
+        .btn-primary {
             background-color: #4a90e2;
+            border-color: #4a90e2;
             color: white;
             font-weight: 600;
+            padding: 12px;
         }
 
-        .btn:hover {
+        .btn-primary:hover {
             background-color: #3b7bd4;
+            border-color: #3b7bd4;
         }
 
-        .alert {
-            padding: 10px;
+        .alert-danger {
+            padding: 15px;
             background-color: #f8d7da;
             color: #721c24;
             border-radius: 5px;
             margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-success {
+             padding: 15px;
+             background-color: #d4edda;
+             color: #155724;
+             border-color: #c3e6cb;
+             border-radius: .25rem;
+             margin-bottom: 20px;
         }
 
-        .register-link {
+        .login-link {
             text-align: center;
             margin-top: 20px;
         }
 
-        .register-link a {
+        .login-link a {
             color: #4a90e2;
             text-decoration: none;
         }
 
-        .register-link a:hover {
+        .login-link a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
+    @include('user.layouts.navbar')
 
     <div class="container">
         <div class="logo">
@@ -86,68 +104,85 @@
             <h2>Create New Account</h2>
         </div>
 
-        <?php
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $firstName = $_POST["first_name"];
-            $lastName = $_POST["last_name"];
-            $email = $_POST["email"];
-            $phone = $_POST["phone"];
-            $password = $_POST["password"];
-            $confirmPassword = $_POST["confirm_password"];
-
-            if (strlen($password) < 8) {
-                echo "<div class='alert'>Password must be at least 8 characters long!</div>";
-            } elseif ($password !== $confirmPassword) {
-                echo "<div class='alert'>Password and confirmation password do not match!</div>";
-            } else {
-                // Simpan data ke file atau database (buat demo kita simpan ke file JSON)
-                $data = [
-                    "first_name" => $firstName,
-                    "last_name" => $lastName,
-                    "email" => $email,
-                    "phone" => $phone,
-                    "password" => password_hash($password, PASSWORD_DEFAULT)
-                ];
-                $json = json_encode($data, JSON_PRETTY_PRINT);
-                file_put_contents("user_data.json", $json);
-
-                echo "<div class='alert alert-success'>Registration successful! <a href='login.php'>Click here to login</a></div>";
-            }
-        }
-        ?>
-
-        <form method="POST" action="">
-            <div class="mb-3">
-                <label for="first_name" class="form-label">First Name</label>
-                <input type="text" name="first_name" id="first_name" class="form-control" required>
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
-            <div class="mb-3">
-                <label for="last_name" class="form-label">Last Name</label>
-                <input type="text" name="last_name" id="last_name" class="form-control" required>
+        @endif
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
+        @endif
+
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" name="name" id="name"
+                    class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}"
+                    required>
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" id="email" class="form-control" required>
+                <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror"
+                    value="{{ old('email') }}" required>
+                @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
             <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" name="phone" id="phone" class="form-control" required>
+                <input type="tel" name="phone" id="phone" class="form-control @error('phone') is-invalid @enderror"
+                    value="{{ old('phone') }}" required>
+                @error('phone')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username"
+                    class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required>
+                @error('username')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control" required>
+                <input type="password" name="password" id="password"
+                    class="form-control @error('password') is-invalid @enderror" required>
+                @error('password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
+
             <div class="mb-3">
-                <label for="confirm_password" class="form-label">Confirm Password</label>
-                <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <input type="password" name="password_confirmation" id="password_confirmation"
+                    class="form-control" required>
             </div>
+
             <button type="submit" class="btn btn-primary w-100">Register</button>
         </form>
 
-        <div class="register-link">
-            Already have an account? <a href="login.php">Login here</a>
+        <div class="login-link">
+            Already have an account? <a href="{{ route('login') }}">Login here</a>
         </div>
     </div>
 
+    {{-- @include('user.layouts.footer') --}}
 </body>
+
 </html>

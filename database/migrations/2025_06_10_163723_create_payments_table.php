@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->nullable()->constrained('orders')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('payment_method', ['bank_transfer', 'e_wallet'])->nullable();
+            $table->enum('payment_method', ['transfer', 'cod', 'ewallet'])->nullable();
             $table->string('payment_reference', 100)->nullable();
             $table->decimal('paid_amount', 10, 2)->nullable();
             $table->enum('status', ['pending', 'completed', 'failed'])->default('pending');

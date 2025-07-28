@@ -25,6 +25,14 @@ class User extends Authenticatable
         'name',
         'email',
         'phone_number',
+        'profile_image',
+        'date_of_birth',
+        'gender',
+        'address',
+        'city',
+        'state',
+        'postal_code',
+        'country',
     ];
 
     /**
@@ -46,6 +54,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'date_of_birth' => 'date',
             'password' => 'hashed',
         ];
     }
@@ -64,5 +73,42 @@ class User extends Authenticatable
     public function review(): HasMany
     {
         return $this->hasMany(Review::class);
+    }
+
+    /**
+     * Get the profile image URL.
+     */
+    public function getProfileImageUrlAttribute()
+    {
+        if ($this->profile_image) {
+            return asset('storage/' . $this->profile_image);
+        }
+        
+        // Return default avatar
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=4a90e2&background=e6f0ff&size=120';
+    }
+
+    /**
+     * Get the phone attribute (for backward compatibility).
+     */
+    public function getPhoneAttribute()
+    {
+        return $this->phone_number;
+    }
+
+    /**
+     * Get the full address.
+     */
+    public function getFullAddressAttribute()
+    {
+        $addressParts = array_filter([
+            $this->address,
+            $this->city,
+            $this->state,
+            $this->postal_code,
+            $this->country
+        ]);
+        
+        return implode(', ', $addressParts);
     }
 }

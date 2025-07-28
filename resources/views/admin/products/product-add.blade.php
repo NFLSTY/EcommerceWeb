@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="container mt-5">
-    <!-- Breadcrumb -->
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -13,7 +12,7 @@
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('admin.products.product-index') }}" class="no-decoration1 text-muted">Products</a>
+                <a href="{{ route('admin.products.index') }}" class="no-decoration1 text-muted">Products</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Add Product</li>
         </ol>
@@ -26,7 +25,7 @@
                     <h3 class="card-title mb-0">Add New Product</h3>
                 </div>
                 <div class="card-body">
-                    <!-- Error Messages -->
+                    {{-- Error Messages --}}
                     @if($errors->any())
                     <div class="alert alert-danger">
                         <ul class="mb-0">
@@ -37,7 +36,7 @@
                     </div>
                     @endif
 
-                    <!-- Success Message -->
+                    {{-- Success Messages --}}
                     @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
@@ -45,8 +44,8 @@
                     </div>
                     @endif
 
-                    <!-- Add Product Form -->
-                    <form action="{{ route('admin.products.product-add') }}" method="POST" enctype="multipart/form-data">
+                    {{-- Add Product Form --}}
+                    <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="mb-3">
@@ -94,7 +93,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="detail" class="form-label">Details</label>
+                            <label for="detail" class="form-label">Details <span class="text-danger">*</span></label>
                             <textarea name="detail" id="detail" rows="5"
                                 class="form-control @error('detail') is-invalid @enderror"
                                 placeholder="Enter product description...">{{ old('detail') }}</textarea>
@@ -113,10 +112,10 @@
                         </div>
 
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary add-btn">
                                 <i class="fa-solid fa-save"></i> Add Product
                             </button>
-                            <a href="{{ route('admin.products.product-index') }}" class="btn btn-secondary">
+                            <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">
                                 <i class="fa-solid fa-arrow-left"></i> Back to Products
                             </a>
                         </div>
